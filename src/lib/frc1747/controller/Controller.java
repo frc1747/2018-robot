@@ -17,8 +17,12 @@ public abstract class Controller {
 	
 	public static final int LB = 5, RB = 6;
 	
-	public static final int UP = 0, RIGHT = 90, DOWN = 180, LEFT = 270;
-	public static final int UP_RIGHT = 45, DOWN_RIGHT = 135, DOWN_LEFT = 225, UP_LEFT = 315;
+//	public static final int UP = 0, RIGHT = 90, DOWN = 180, LEFT = 270;
+//	public static final int UP_RIGHT = 45, DOWN_RIGHT = 135, DOWN_LEFT = 225, UP_LEFT = 315;
+	
+	public enum dpad {
+		UP, UP_RIGHT, RIGHT, DOWN_RIGHT, DOWN, DOWN_LEFT, LEFT, UP_LEFT
+	}
 	
 	public static final int LEFT_HORIZONTAL = 0, /*RIGHT_HORIZONTAL = 2,*/ 
 		LEFT_VERTICAL = 1; /*RIGHT_VERTICAL = 3;*/
@@ -39,7 +43,7 @@ public abstract class Controller {
 	
 	public boolean getDPADButton(int Angle){
 		
-		return Angle == getStick().getPOV();
+		return Angle * 45 == getStick().getPOV();
 	}
 
 	public Joystick getStick() {
