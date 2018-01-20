@@ -17,6 +17,7 @@ public class RobotMap {
 	// For example to map the left and right motors, you could define the
 	// following variables to use with your drivetrain subsystem.
 	
+	//Drive Subsystem
 	public static final int DRIVER = 0;
 	public static final int OPERATOR = 1;
 
@@ -30,6 +31,10 @@ public class RobotMap {
 	public static final int RIGHT_SCALING = 7671;
 	
 	public static final int FUSE_THERMISTOR = 3;
+	
+	//Intake and Claw
+	public static final int LEFT_INTAKE_PORT = 31;
+	public static final int RIGHT_INTAKE_PORT = 32;
 
 	// If you are using multiple modules, make sure to define both the port
 	// number and the module. For example you with a rangefinder:
