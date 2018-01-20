@@ -17,9 +17,8 @@ public class RobotMap {
 	// For example to map the left and right motors, you could define the
 	// following variables to use with your drivetrain subsystem.
 	
-	public static final int DRIVER = 0;
-	public static final int OPERATOR = 1;
-
+	
+	//DriveSubsystem
 	public static final boolean[] LEFT_MOTOR_INVERSION = {false,false,false,false};
 	public static final boolean[]	RIGHT_MOTOR_INVERSION = {true,true,true,true};
 		
@@ -30,6 +29,17 @@ public class RobotMap {
 	public static final int RIGHT_SCALING = 7671;
 	
 	public static final int FUSE_THERMISTOR = 3;
+	
+	//IO
+	public static final int DRIVER = 0;
+	public static final int OPERATOR = 1;
+	
+	//ClimberSubsystem
+	public static final int CLIMB_MOTOR_1 = 41;
+	public static final int CLIMB_MOTOR_2 = 42;
+	
+	public static final boolean CLIMB_1_INVERT = false;
+	public static final boolean CLIMB_2_INVERT = false;
 
 	// If you are using multiple modules, make sure to define both the port
 	// number and the module. For example you with a rangefinder:
