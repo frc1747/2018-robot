@@ -65,7 +65,7 @@ public class Robot extends TimedRobot {
 		 * = new MyAutoCommand(); break; case "Default Auto": default:
 		 * autonomousCommand = new ExampleCommand(); break; }
 		 */
-
+		
 	}
 
 	/**
@@ -102,5 +102,9 @@ public class Robot extends TimedRobot {
 	public void initSubsystems(){
 		DriveSubsystem.getInstance();
 		OI.getInstance();
+	}
+	
+	public enum AutonRobotPosition{
+		LEFT, CENTER, RIGHT;
 	}
 }
