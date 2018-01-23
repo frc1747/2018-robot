@@ -21,6 +21,8 @@ public class RobotMap {
 	public static final int DRIVER = 0;
 	public static final int OPERATOR = 1;
 
+	//DriveSubsystem
+	
 	public static final boolean[] LEFT_MOTOR_INVERSION = {false,false,false,false};
 	public static final boolean[]	RIGHT_MOTOR_INVERSION = {true,true,true,true};
 		
@@ -35,6 +37,9 @@ public class RobotMap {
 	//Intake and Claw
 	public static final int LEFT_INTAKE_PORT = 31;
 	public static final int RIGHT_INTAKE_PORT = 32;
+	
+	//ElevatorSubsystem
+	public static final int[] ELEVATOR__MOTOR_PORTS = {21,22};
 
 	// If you are using multiple modules, make sure to define both the port
 	// number and the module. For example you with a rangefinder:
