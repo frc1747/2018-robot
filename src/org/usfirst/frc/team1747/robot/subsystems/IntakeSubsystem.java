@@ -8,18 +8,26 @@ import com.ctre.phoenix.motorcontrol.ControlMode;
 import lib.frc1747.speed_controller.HBRTalon;
 import lib.frc1747.subsytems.HBRSubsystem;
 
-public class IntakeSubsystem extends HBRSubsystem {
+public class IntakeSubsystem extends HBRSubsystem<IntakeSubsystem.Follower> {
 	
 	private HBRTalon leftIntakeMotor;
 	private HBRTalon rightIntakeMotor;
 	private static IntakeSubsystem intake;
 	
+	public enum Follower{
+		POSITION;
+	}
 	
 	public IntakeSubsystem() {
 		leftIntakeMotor = new HBRTalon(RobotMap.LEFT_INTAKE_PORT);
 		rightIntakeMotor = new HBRTalon(RobotMap.RIGHT_INTAKE_PORT);
 	}
 	
+	
+	public void setPower(double power){
+		setLeftPower(power);
+		setRightPower(power);
+	}
 	
 	//left motor
 	public void setLeftPower(double power) {
@@ -49,22 +57,22 @@ public class IntakeSubsystem extends HBRSubsystem {
 		return rightIntakeMotor.getPosition(0);
 	}
 	
-	
+	//TODO: just uses left side, but the move together? possibly? It is writing to both sides.
 	@Override
 	public double[][] pidRead() {
-		// TODO Auto-generated method stub
-		return null;
+		double[][] inputs = new double[2][1];
+		inputs[0][0] = getLeftPosition();
+		inputs[1][0] = getLeftSpeed();
+		return inputs;
 	}
 
 	@Override
 	public void pidWrite(double[] output) {
-		// TODO Auto-generated method stub
-		
+		setPower(output[0]);
 	}
 
 	@Override
 	protected void initDefaultCommand() {
-		// TODO Auto-generated method stub
 		
 	}
 
@@ -74,6 +82,13 @@ public static IntakeSubsystem getInstance() {
 		intake = new IntakeSubsystem();
 	}
 	return intake;
+}
+
+
+@Override
+public void internalVariablesWrite(double[] output) {
+	// TODO Auto-generated method stub
+	
 }
 }
 

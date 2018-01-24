@@ -1,5 +1,7 @@
 package org.usfirst.frc.team1747.robot.subsystems;
 
+import lib.frc1747.instrumentation.Instrumentation;
+import lib.frc1747.instrumentation.Logger;
 import lib.frc1747.speed_controller.HBRTalon;
 import lib.frc1747.subsytems.HBRSubsystem;
 
@@ -22,6 +24,8 @@ public class DriveSubsystem extends HBRSubsystem<DriveSubsystem.Follower> {
 	
 	private AHRS gyro;
 	
+	private Logger logger;
+	
 	public enum Follower {
 		DISTANCE, ANGLE
 	}
@@ -33,6 +37,12 @@ public class DriveSubsystem extends HBRSubsystem<DriveSubsystem.Follower> {
 		right = new DriveSide(RobotMap.RIGHT_MOTOR_PORTS,RobotMap.RIGHT_MOTOR_INVERSION);
 		left.setScaling(RobotMap.LEFT_SCALING);
 		right.setScaling(RobotMap.RIGHT_SCALING);
+		
+		logger = Instrumentation.getLogger("Drive");
+		logger.registerDouble("ProfileDistance", true, true);
+		logger.registerDouble("ActualDistance", true, true);
+		logger.registerDouble("ProfileAngle", true, true);
+		logger.registerDouble("ActualAngle", true, true);
 	}
 	
 	public static DriveSubsystem getInstance() {
@@ -96,22 +106,6 @@ public class DriveSubsystem extends HBRSubsystem<DriveSubsystem.Follower> {
 	public void resetRightEncoder(){
 		left.resetEncoder();
 	}
-	
-	@Override
-	public double[][] pidRead() {
-		double[][] output = new double[2][2];
-		output[1][0] = getAverageSpeed();
-		output[0][0] = getAveragePosition();
-		output[0][1] = (2 * Math.PI) * ((-getGryo().getAngle()) / 360);
-		output[1][1] = (2 * Math.PI) * (-getGryo().getRate() / 360);
-		return output;
-	}
-
-	@Override
-	public void pidWrite(double[] output) {
-		// TODO Auto-generated method stub
-		driveArcadeMode(output[0], -output[1]);
-	}
 
 	private void driveArcadeMode(double leftvert, double righthoriz) {
 		right.setPower(leftvert - righthoriz);
@@ -158,5 +152,28 @@ public class DriveSubsystem extends HBRSubsystem<DriveSubsystem.Follower> {
 			motors[0].setScaling(scaling);
 		}
 		
+	}
+	
+	@Override
+	public double[][] pidRead() {
+		double[][] output = new double[2][2];
+		output[1][0] = getAverageSpeed();
+		output[0][0] = getAveragePosition();
+		output[0][1] = (2 * Math.PI) * ((-getGryo().getAngle()) / 360);
+		output[1][1] = (2 * Math.PI) * (-getGryo().getRate() / 360);
+		return output;
+	}
+
+	@Override
+	public void pidWrite(double[] output) {
+		driveArcadeMode(output[0], -output[1]);
+	}
+
+	@Override
+	public void internalVariablesWrite(double[] output) {
+		logger.putDouble("ProfileDistance", output[0]);
+		logger.putDouble("ActualDistance", output[1]);
+		logger.putDouble("ProfileAngle", output[2]);
+		logger.putDouble("ActualAngle", output[3]);
 	}
 }

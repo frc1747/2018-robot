@@ -3,8 +3,6 @@ package lib.frc1747.subsytems;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -14,8 +12,6 @@ import java.util.Arrays;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import lib.frc1747.instrumentation.Instrumentation;
-import lib.frc1747.instrumentation.Logger;
 import lib.frc1747.motion_profile.Parameters;
 import lib.frc1747.motion_profile.generator._1d.ProfileGenerator;
 import lib.frc1747.motion_profile.generator._2d.SplineGenerator;
@@ -32,9 +28,6 @@ import lib.frc1747.motion_profile.gui._1d.BoxcarFilter;
  * @param <E> An enum that lists the different PID/followers (e.g. distance & angle).
  */
 public abstract class HBRSubsystem<E extends Enum<E>> extends Subsystem {
-	Logger logger;
-	PrintWriter print;
-	
 	// Followers to use
 	private E[] followers;
 	private int n_followers;
@@ -109,26 +102,8 @@ public abstract class HBRSubsystem<E extends Enum<E>> extends Subsystem {
 	 * @param dt - the timestep to use for PID and motion profiling (rounded to the nearest millisecond)
 	 */
 	protected HBRSubsystem(String name, double dt) {
-		
-		
 		// Initialize subsystem
 		super();
-		
-		try{
-			print = new PrintWriter(
-					new FileOutputStream(
-					File.createTempFile("log_", ".csv",
-							new File("/home/lvuser")), true));
-		}
-		catch(IOException ex) {
-			ex.printStackTrace();
-		}
-		
-		logger = Instrumentation.getLogger("Drive Subsystem");
-		logger.registerDouble("ProfileDistance", true, true);
-		logger.registerDouble("ActualDistance", true, true);
-		logger.registerDouble("ProfileAngle", true, true);
-		logger.registerDouble("ActualAngle", true, true);
 		
 		// Maintaining compatibility with previous versions
 		subsystems.add(this);
@@ -477,11 +452,19 @@ public abstract class HBRSubsystem<E extends Enum<E>> extends Subsystem {
 	}
 	
 	/**
-	 * An abstract method that needs to be implemented in order to recieve data from the PID/followers.
+	 * An abstract method that needs to be implemented in order to receive data from the PID/followers.
 	 * @param output - the outputs of the PID/followers<br>
 	 * The index of each profile can be determined with getFollowerIndex
 	 */
 	public abstract void pidWrite(double[] output);
+
+	/**
+	 * An abstract method that needs to be implemented in order to receive internal variables from the PID/followers.
+	 * @param output - the internal variables of the PID/followers<br>
+	 * The index of each profile can be determined with getFollowerIndex
+	 * The outputs are interleaved as [setpoint0, actual0, setpoint1, actual1, ...]
+	 */
+	public abstract void internalVariablesWrite(double[] output);
 	
 	/**
 	 * Attempts to read a motion profile from a file.
@@ -635,6 +618,7 @@ public abstract class HBRSubsystem<E extends Enum<E>> extends Subsystem {
 			double[][] pv_raw = internalPidRead();
 			double[] pv = new double[n_followers];
 			double[] setPoints = new double[n_followers];
+			double[] internalVariables = new double[2*n_followers];
 			
 			// Calculate delta time
 			long time = System.nanoTime();
@@ -663,8 +647,6 @@ public abstract class HBRSubsystem<E extends Enum<E>> extends Subsystem {
 					break;
 				}
 				setPoints[i] = sp;
-				
-//				System.out.println(pv[i] + "," + sp);
 				
 				// Calculate errors
 				ep[i] = sp - pv[i];
@@ -699,21 +681,19 @@ public abstract class HBRSubsystem<E extends Enum<E>> extends Subsystem {
 					running[i] = false;
 				}
 			}
-			if(print != null) {
-				print.format("%.4f, %.4f, %.4f, %.4f\n", setPoints[0], pv[0], setPoints[1], pv[1]);
-				//				//System.out.println("LOG")
-				print.flush();
-			}
 			
-			logger.putDouble("ActualDistance", pv[0]);
-			logger.putDouble("ActualAngle", pv[1]);
-			logger.putDouble("ProfileDistance", setPoints[0]);
-			logger.putDouble("ProfileAngle", setPoints[1]);
 			// Update sensor values
 			sensor = pv;
 			
 			// Write out the results
 			pidWrite(output);
+			
+			// Write out internal variables
+			for(int i = 0; i < n_followers; i++){
+				internalVariables[2*i] = setPoints[i];
+				internalVariables[2*i+1] = pv[i];
+			}
+			internalVariablesWrite(internalVariables);
 		}
 	}
 

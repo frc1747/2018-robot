@@ -7,12 +7,16 @@ import com.ctre.phoenix.motorcontrol.ControlMode;
 import lib.frc1747.speed_controller.HBRTalon;
 import lib.frc1747.subsytems.HBRSubsystem;
 
-public class ElevatorSubsystem extends HBRSubsystem {
+public class ElevatorSubsystem extends HBRSubsystem<ElevatorSubsystem.Follower> {
 
 	HBRTalon leftMotor;
 	HBRTalon rightMotor;
 	
 	private static ElevatorSubsystem elevator;
+	
+	public enum Follower{
+		POSITION;
+	}
 	
 	public ElevatorSubsystem() {
 		leftMotor = new HBRTalon(RobotMap.ELEVATOR__MOTOR_PORTS[0]);
@@ -59,20 +63,28 @@ public class ElevatorSubsystem extends HBRSubsystem {
 		return rightMotor.getPosition(0);
 	}
 	
+	//TODO: just uses left side, but the move together? possibly? It is writing to both sides.
 	@Override
 	public double[][] pidRead() {
-		// TODO Auto-generated method stub
-		return null;
+		double[][] inputs = new double[2][1];
+		inputs[0][0] = getLeftPosition();
+		inputs[1][0] = getLeftSpeed();
+		return inputs;
 	}
 
 	@Override
 	public void pidWrite(double[] output) {
+		setPower(output[0]);
+	}
+
+	@Override
+	protected void initDefaultCommand() {
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	protected void initDefaultCommand() {
+	public void internalVariablesWrite(double[] output) {
 		// TODO Auto-generated method stub
 		
 	}
