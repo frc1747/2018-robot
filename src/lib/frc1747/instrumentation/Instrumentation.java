@@ -172,7 +172,7 @@ public class Instrumentation implements Thread.UncaughtExceptionHandler {
 			logger.log(Level.INFO, "Logging started at %s", date);
 
 			// Get home directory
-			String homeDir = System.getProperty("user.home");
+			String homeDir = "/media/sda1";
 			
 			// Attempt to initialize message log file
 			String messageFileName = homeDir + "/" + logDir + "/" + dateString + ".log";

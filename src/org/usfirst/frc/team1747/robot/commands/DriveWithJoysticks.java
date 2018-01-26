@@ -15,8 +15,8 @@ import lib.frc1747.subsytems.HBRSubsystem;
 public class DriveWithJoysticks extends Command {
 	private DriveSubsystem drivetrain;
 	
-	private double s_v_max;
-	private double a_v_max;
+	private final double s_v_max = 16.4;
+	private final double a_v_max = 15.6;
 	
 	double speedSetpoint;
 	double angleSetpoint;
@@ -34,7 +34,7 @@ public class DriveWithJoysticks extends Command {
     	drivetrain.setMode(DriveSubsystem.Follower.DISTANCE, HBRSubsystem.Mode.PID);
     	drivetrain.setPIDMode(DriveSubsystem.Follower.DISTANCE, HBRSubsystem.PIDMode.VELOCITY);
     	drivetrain.setILimit(DriveSubsystem.Follower.DISTANCE, 0);
-    	drivetrain.setFeedforward(DriveSubsystem.Follower.DISTANCE, 0, 0 / s_v_max, 0);
+    	drivetrain.setFeedforward(DriveSubsystem.Follower.DISTANCE, 0, 1 / s_v_max, 0);
     	drivetrain.setFeedback(DriveSubsystem.Follower.DISTANCE, 0, 0, 0);
     	drivetrain.resetIntegrator(DriveSubsystem.Follower.DISTANCE);
     	

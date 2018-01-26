@@ -5,23 +5,32 @@ import org.usfirst.frc.team1747.robot.subsystems.DriveSubsystem;
 
 import edu.wpi.first.wpilibj.command.Command;
 import lib.frc1747.controller.Logitech;
+import lib.frc1747.instrumentation.Instrumentation;
+import lib.frc1747.instrumentation.Logger;
 
 public class ArcadeDrive extends Command {
 	
 	DriveSubsystem drivetrain;
 	Logitech driver;
+	Logger logger;
 	
 	public ArcadeDrive() {
+		logger = Instrumentation.getLogger("Robot");
+		//logger.enableLogging();
 		// Use requires() here to declare subsystem dependencies
 		drivetrain = DriveSubsystem.getInstance();
 		requires(drivetrain);
 		setInterruptible(true);
 		driver = OI.getInstance().getDriver();
+		logger.registerDouble("Temp", true, true);
+		logger.registerDouble("Left Speed", true, true);
+		logger.registerDouble("Right Speed", true, true);
 	}
 
 	// Called just before this Command runs the first time
 	@Override
 	protected void initialize() {
+		
 	}
 
 	// Called repeatedly when this Command is scheduled to run
@@ -30,7 +39,9 @@ public class ArcadeDrive extends Command {
 		drivetrain.setLeftPower(driver.getAxis(Logitech.LEFT_VERTICAL) + driver.getAxis(Logitech.RIGHT_HORIZONTAL));
 		drivetrain.setRightPower(driver.getAxis(Logitech.LEFT_VERTICAL) - driver.getAxis(Logitech.RIGHT_HORIZONTAL));
 //		System.out.println(drivetrain.getLeftPosition(0, 0));
-		System.out.println(drivetrain.getTempF());
+		logger.putDouble("Temp", drivetrain.getTempF());
+		logger.putDouble("Left Speed", drivetrain.getLeftSpeed());
+		logger.putDouble("Right Speed", drivetrain.getRightSpeed());
 		
 		
 	}

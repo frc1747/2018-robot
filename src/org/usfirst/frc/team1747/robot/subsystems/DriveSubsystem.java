@@ -6,6 +6,7 @@ import lib.frc1747.speed_controller.HBRTalon;
 import lib.frc1747.subsytems.HBRSubsystem;
 
 import org.usfirst.frc.team1747.robot.RobotMap;
+import org.usfirst.frc.team1747.robot.commands.ArcadeDrive;
 import org.usfirst.frc.team1747.robot.commands.DriveWithJoysticks;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
@@ -60,7 +61,7 @@ public class DriveSubsystem extends HBRSubsystem<DriveSubsystem.Follower> {
 		//averages position of sides
 		return (left.getPosition() + right.getPosition()) / 2;
 	}
-	public AHRS getGryo(){
+	public AHRS getGyro(){
 		return gyro;
 	}
 	//in degrees C
@@ -115,7 +116,7 @@ public class DriveSubsystem extends HBRSubsystem<DriveSubsystem.Follower> {
 	@Override
 	protected void initDefaultCommand() {
 		// TODO Auto-generated method stub
-		setDefaultCommand(new DriveWithJoysticks());
+		setDefaultCommand(new ArcadeDrive());
 	}
 	
 	public class DriveSide {
@@ -159,8 +160,8 @@ public class DriveSubsystem extends HBRSubsystem<DriveSubsystem.Follower> {
 		double[][] output = new double[2][2];
 		output[1][0] = getAverageSpeed();
 		output[0][0] = getAveragePosition();
-		output[0][1] = (2 * Math.PI) * ((-getGryo().getAngle()) / 360);
-		output[1][1] = (2 * Math.PI) * (-getGryo().getRate() / 360);
+		output[0][1] = (2 * Math.PI) * ((-getGyro().getAngle()) / 360);
+		output[1][1] = (2 * Math.PI) * (-getGyro().getRate() / 360);
 		return output;
 	}
 
