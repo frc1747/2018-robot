@@ -25,8 +25,8 @@ public class RobotMap {
 	public static final boolean[] LEFT_MOTOR_INVERSION = {false,false,false,false};
 	public static final boolean[]	RIGHT_MOTOR_INVERSION = {true,true,true,true};
 		
-	public static final int[] LEFT_MOTOR_PORTS = {11,12,13,14};
-	public static final int[] RIGHT_MOTOR_PORTS = {21,22,23,24};
+	public static final int[] LEFT_MOTOR_PORTS = {01, 02, 03, 04};
+	public static final int[] RIGHT_MOTOR_PORTS = {11, 12, 13, 14};
 	
 	public static final int LEFT_SCALING = 7782;
 	public static final int RIGHT_SCALING = 7671;
