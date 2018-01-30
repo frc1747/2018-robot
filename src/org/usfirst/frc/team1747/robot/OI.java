@@ -8,7 +8,8 @@
 package org.usfirst.frc.team1747.robot;
 
 import org.usfirst.frc.team1747.robot.commands.ArcadeDrive;
-import org.usfirst.frc.team1747.robot.commands.ResetEncoders;
+import org.usfirst.frc.team1747.robot.commands.DriveCurve;
+import org.usfirst.frc.team1747.robot.commands.ZeroedSensorDriveCurve;
 import org.usfirst.frc.team1747.robot.subsystems.DriveSubsystem;
 
 import lib.frc1747.controller.Logitech;
@@ -19,8 +20,7 @@ import lib.frc1747.controller.Logitech;
  */
 public class OI {
 	
-	private static OI instance;
-	private Logitech driver;
+	private static OI instance; Logitech driver;
 	
 	private OI() {
 		driver = new Logitech(RobotMap.DRIVER);
@@ -38,7 +38,8 @@ public class OI {
 	}
 	
 	public void createDriver() {
-		driver.getButton(Logitech.Y).whenPressed(new ResetEncoders());
+		driver.getButton(Logitech.B).whenPressed(new ZeroedSensorDriveCurve(4,-60));
+//		driver.getButton(Logitech.Y).whenPressed(new ResetEncoders());
 		System.out.println("Method Ran");
 	}
 	

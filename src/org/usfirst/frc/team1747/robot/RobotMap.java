@@ -25,6 +25,15 @@ public class RobotMap {
 	public static final boolean[] LEFT_MOTOR_INVERSION = {false,false,false,false};
 	public static final boolean[]	RIGHT_MOTOR_INVERSION = {true,true,true,true};
 		
+	public static final boolean LEFT_ENCODER_INVERSION = true;
+	public static final boolean RIGHT_ENCODER_INVERSION = true;
+	
+	public static final int LEFT_ENCODER_A = 0;
+	public static final int LEFT_ENCODER_B = 0;
+	public static final int RIGHT_ENCODER_A = 0;
+	public static final int RIGHT_ENCODER_B = 0;
+
+	
 	public static final int[] LEFT_MOTOR_PORTS = {11,12,13,14};
 	public static final int[] RIGHT_MOTOR_PORTS = {21,22,23,24};
 	
@@ -46,7 +55,6 @@ public class RobotMap {
 	
 	public static final boolean CLIMB_1_INVERT = false;
 	public static final boolean CLIMB_2_INVERT = false;
-
 	// If you are using multiple modules, make sure to define both the port
 	// number and the module. For example you with a rangefinder:
 	// public static int rangefinderPort = 1;

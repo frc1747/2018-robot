@@ -13,6 +13,7 @@ import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.kauailabs.navx.frc.AHRS;
 
 import edu.wpi.first.wpilibj.AnalogInput;
+import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.SPI;
 
 public class DriveSubsystem extends HBRSubsystem<DriveSubsystem.Follower> {
@@ -34,8 +35,8 @@ public class DriveSubsystem extends HBRSubsystem<DriveSubsystem.Follower> {
 	private DriveSubsystem() {
 		thermistor = new AnalogInput(RobotMap.FUSE_THERMISTOR);
 		gyro = new AHRS(SPI.Port.kMXP);
-		left = new DriveSide(RobotMap.LEFT_MOTOR_PORTS,RobotMap.LEFT_MOTOR_INVERSION);
-		right = new DriveSide(RobotMap.RIGHT_MOTOR_PORTS,RobotMap.RIGHT_MOTOR_INVERSION);
+		left = new DriveSide(RobotMap.LEFT_MOTOR_PORTS,RobotMap.LEFT_MOTOR_INVERSION, RobotMap.LEFT_ENCODER_INVERSION, RobotMap.LEFT_ENCODER_A, RobotMap.LEFT_ENCODER_B);
+		right = new DriveSide(RobotMap.RIGHT_MOTOR_PORTS,RobotMap.RIGHT_MOTOR_INVERSION, RobotMap.RIGHT_ENCODER_INVERSION, RobotMap.RIGHT_ENCODER_A, RobotMap.RIGHT_ENCODER_B);
 		left.setScaling(RobotMap.LEFT_SCALING);
 		right.setScaling(RobotMap.RIGHT_SCALING);
 		
@@ -122,13 +123,17 @@ public class DriveSubsystem extends HBRSubsystem<DriveSubsystem.Follower> {
 	public class DriveSide {
 		
 		HBRTalon[] motors;
+		Encoder encoder;
+		private double scaling;
 		
-		public DriveSide(int[] ports, boolean[] inverted) {
+		public DriveSide(int[] ports, boolean[] inverted, boolean sensInverted, int encA, int encB) {
 			motors = new HBRTalon[4];
+			encoder = new Encoder(encA, encB, sensInverted);
 			for(int i = 0; i < 4; i++) {
 				motors[i] = new HBRTalon(ports[i]);
 				motors[i].setInverted(inverted[i]);
 			}
+//			motors[0].setSensorPhase(sensInverted);
 		}
 		
 		public void setPower(double power) {
@@ -137,20 +142,24 @@ public class DriveSubsystem extends HBRSubsystem<DriveSubsystem.Follower> {
 			}
 		}
 		
-		public void resetEncoder(){
-			motors[0].setSelectedSensorPosition(0, 0, 0);
+		public void resetEncoder() {
+//			motors[0].setSelectedSensorPosition(0, 0, 0);
+			encoder.reset();
 		}
 		
 		public double getSpeed() {
-			return motors[0].getSpeed(0);
+//			return motors[0].getSpeed(0);
+			return encoder.getRate() / scaling;
 		}
 		
 		public double getPosition() {
-			return motors[0].getPosition(0);
+//			return motors[0].getPosition(0);
+			return encoder.get() / scaling;
 		}
 		
-		public void setScaling(double scaling){
-			motors[0].setScaling(scaling);
+		public void setScaling(double scaling) {
+//			motors[0].setScaling(scaling);
+			this.scaling = scaling;
 		}
 		
 	}

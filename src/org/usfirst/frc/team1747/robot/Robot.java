@@ -7,6 +7,9 @@
 
 package org.usfirst.frc.team1747.robot;
 
+import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.PowerDistributionPanel;
+import edu.wpi.first.wpilibj.RobotController;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
@@ -100,9 +103,11 @@ public class Robot extends TimedRobot {
 	/**
 	 * This function is called periodically during operator control.
 	 */
+
 	@Override
 	public void teleopPeriodic() {
 		Scheduler.getInstance().run();
+		logger.putDouble("Battery voltage", RobotController.getBatteryVoltage());
 	}
 
 	/**
@@ -110,6 +115,7 @@ public class Robot extends TimedRobot {
 	 */
 	@Override
 	public void testPeriodic() {
+		
 	}
 	
 	public void initSubsystems(){

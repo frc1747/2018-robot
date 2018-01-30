@@ -24,13 +24,14 @@ public class DriveCurve extends Command {
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	double[][][] profiles = HBRSubsystem.generateSkidSteerPseudoProfile(distance, angle, Parameters.I_SAMPLE_LENGTH, 16.4, 15.6, 9000.1, Parameters.W_WIDTH, Parameters.DT, true, true);
+    	double[][][] profiles = HBRSubsystem.generateSkidSteerPseudoProfile(distance, angle, Parameters.I_SAMPLE_LENGTH, 10.4, 40, 9000.1, Parameters.W_WIDTH, Parameters.DT, true, true);
 
     	drive.setMode(DriveSubsystem.Follower.DISTANCE, HBRSubsystem.Mode.FOLLOWER);
     	drive.setPIDMode(DriveSubsystem.Follower.DISTANCE, HBRSubsystem.PIDMode.POSITION);
     	drive.setILimit(DriveSubsystem.Follower.DISTANCE, 0);
-    	drive.setFeedforward(DriveSubsystem.Follower.DISTANCE, 0, 0, 0);
-    	drive.setFeedback(DriveSubsystem.Follower.DISTANCE, 0, 0, 0);
+    	//0.415
+    	drive.setFeedforward(DriveSubsystem.Follower.DISTANCE, 0, 1.5/16.4, 0.55/72.0);
+    	drive.setFeedback(DriveSubsystem.Follower.DISTANCE, 2, 0, 0);
     	drive.resetIntegrator(DriveSubsystem.Follower.DISTANCE);
     	drive.setProfile(DriveSubsystem.Follower.DISTANCE, profiles[0]);
     	
@@ -38,8 +39,8 @@ public class DriveCurve extends Command {
     	drive.setMode(DriveSubsystem.Follower.ANGLE, HBRSubsystem.Mode.FOLLOWER);
     	drive.setPIDMode(DriveSubsystem.Follower.ANGLE, HBRSubsystem.PIDMode.POSITION);
     	drive.setILimit(DriveSubsystem.Follower.ANGLE, 0);
-    	drive.setFeedforward(DriveSubsystem.Follower.ANGLE, 0, 0, 0);
-    	drive.setFeedback(DriveSubsystem.Follower.ANGLE, 0, 0, 0);
+    	drive.setFeedforward(DriveSubsystem.Follower.ANGLE, 0, 1/11.4, 1.5/40.0);
+    	drive.setFeedback(DriveSubsystem.Follower.ANGLE, 0.7, 0.0001, 0);
     	drive.resetIntegrator(DriveSubsystem.Follower.ANGLE);
     	drive.setProfile(DriveSubsystem.Follower.ANGLE, profiles[1]);
     	    	

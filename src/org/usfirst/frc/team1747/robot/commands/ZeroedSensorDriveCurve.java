@@ -8,8 +8,8 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 public class ZeroedSensorDriveCurve extends CommandGroup {
 
     public ZeroedSensorDriveCurve(double distance, double angle) {
-    	addSequential(new ResetEncoders());
+    	addSequential(new ZeroSensors());
     	addSequential(new DriveCurve(distance, angle));
-    	addSequential(new ResetEncoders());
+//    	addSequential(new ZeroSensors());
     }
 }
