@@ -28,7 +28,7 @@ public class Intake extends Command {
 	@Override
 	protected boolean isFinished() {
 		// TODO Auto-generated method stub
-		return false;
+		return intake.getSwitch();
 	}
 	// Called once after isFinished returns true
 		@Override

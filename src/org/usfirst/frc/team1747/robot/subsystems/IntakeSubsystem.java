@@ -5,6 +5,7 @@ import org.usfirst.frc.team1747.robot.subsystems.DriveSubsystem.DriveSide;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 
+import edu.wpi.first.wpilibj.DigitalInput;
 import lib.frc1747.speed_controller.HBRTalon;
 import lib.frc1747.subsytems.HBRSubsystem;
 
@@ -13,6 +14,7 @@ public class IntakeSubsystem extends HBRSubsystem<IntakeSubsystem.Follower> {
 	private HBRTalon leftIntakeMotor;
 	private HBRTalon rightIntakeMotor;
 	private static IntakeSubsystem intake;
+	private DigitalInput limitSwitch;
 	
 	public enum Follower{
 		POSITION;
@@ -21,12 +23,17 @@ public class IntakeSubsystem extends HBRSubsystem<IntakeSubsystem.Follower> {
 	public IntakeSubsystem() {
 		leftIntakeMotor = new HBRTalon(RobotMap.LEFT_INTAKE_PORT);
 		rightIntakeMotor = new HBRTalon(RobotMap.RIGHT_INTAKE_PORT);
+		limitSwitch = new DigitalInput(RobotMap.INTAKE_SWITCH);
 	}
 	
 	
 	public void setPower(double power){
 		setLeftPower(power);
 		setRightPower(power);
+	}
+	
+	public boolean getSwitch() {
+		return limitSwitch.get();
 	}
 	
 	//left motor
