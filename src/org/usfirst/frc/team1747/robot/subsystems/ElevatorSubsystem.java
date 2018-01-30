@@ -4,6 +4,7 @@ import org.usfirst.frc.team1747.robot.RobotMap;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 
+import edu.wpi.first.wpilibj.DigitalInput;
 import lib.frc1747.speed_controller.HBRTalon;
 import lib.frc1747.subsytems.HBRSubsystem;
 
@@ -11,6 +12,8 @@ public class ElevatorSubsystem extends HBRSubsystem<ElevatorSubsystem.Follower> 
 
 	HBRTalon leftMotor;
 	HBRTalon rightMotor;
+	DigitalInput upperLimitSwitch;
+	DigitalInput lowerLimitSwitch;
 	
 	private static ElevatorSubsystem elevator;
 	
@@ -21,6 +24,8 @@ public class ElevatorSubsystem extends HBRSubsystem<ElevatorSubsystem.Follower> 
 	public ElevatorSubsystem() {
 		leftMotor = new HBRTalon(RobotMap.ELEVATOR__MOTOR_PORTS[0]);
 		rightMotor = new HBRTalon(RobotMap.ELEVATOR__MOTOR_PORTS[1]);
+		upperLimitSwitch = new DigitalInput(RobotMap.UPPER_LIMIT_SWITCH_ELEVATOR_PORT);
+		lowerLimitSwitch = new DigitalInput(RobotMap.LOWER_LIMIT_SWITCH_ELEVATOR_PORT);
 	}
 	
 	public static ElevatorSubsystem getInstance() {
@@ -33,6 +38,14 @@ public class ElevatorSubsystem extends HBRSubsystem<ElevatorSubsystem.Follower> 
 	public void setPower(double power) {
 		setLeftPower(power);
 		setRightPower(power);
+	}
+	
+	public boolean getUpperSwitch() {
+		return upperLimitSwitch.get();
+	}
+	
+	public boolean getLowerSwitch() {
+		return lowerLimitSwitch.get();
 	}
 	
 	//Left motor

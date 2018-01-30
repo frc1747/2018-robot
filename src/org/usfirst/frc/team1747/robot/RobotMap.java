@@ -36,10 +36,13 @@ public class RobotMap {
 	//Intake and Claw
 	public static final int LEFT_INTAKE_PORT = 31;
 	public static final int RIGHT_INTAKE_PORT = 32;
+	public static final int INTAKE_SWITCH = 33;
 	
 	//ElevatorSubsystem
 	public static final int[] ELEVATOR__MOTOR_PORTS = {21,22};
 	
+	public static final int UPPER_LIMIT_SWITCH_ELEVATOR_PORT = 23;
+	public static final int LOWER_LIMIT_SWITCH_ELEVATOR_PORT = 24;
 	//ClimberSubsystem
 	public static final int CLIMB_MOTOR_1 = 41;
 	public static final int CLIMB_MOTOR_2 = 42;
