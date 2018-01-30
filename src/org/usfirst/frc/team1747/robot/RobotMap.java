@@ -23,19 +23,19 @@ public class RobotMap {
 
 	//DriveSubsystem
 	public static final boolean[] LEFT_MOTOR_INVERSION = {false,false,false,false};
-	public static final boolean[]	RIGHT_MOTOR_INVERSION = {true,true,true,true};
+	public static final boolean[] RIGHT_MOTOR_INVERSION = {true,true,true,true};
 		
 	public static final boolean LEFT_ENCODER_INVERSION = true;
 	public static final boolean RIGHT_ENCODER_INVERSION = true;
 	
 	public static final int LEFT_ENCODER_A = 0;
-	public static final int LEFT_ENCODER_B = 0;
-	public static final int RIGHT_ENCODER_A = 0;
-	public static final int RIGHT_ENCODER_B = 0;
+	public static final int LEFT_ENCODER_B = 1;
+	public static final int RIGHT_ENCODER_A = 2;
+	public static final int RIGHT_ENCODER_B = 3;
 
 	
-	public static final int[] LEFT_MOTOR_PORTS = {11,12,13,14};
-	public static final int[] RIGHT_MOTOR_PORTS = {21,22,23,24};
+	public static final int[] LEFT_MOTOR_PORTS = {01, 02, 03, 04};
+	public static final int[] RIGHT_MOTOR_PORTS = {11, 12, 13, 14};
 	
 	public static final int LEFT_SCALING = 7782;
 	public static final int RIGHT_SCALING = 7671;
@@ -45,10 +45,13 @@ public class RobotMap {
 	//Intake and Claw
 	public static final int LEFT_INTAKE_PORT = 31;
 	public static final int RIGHT_INTAKE_PORT = 32;
+	public static final int INTAKE_SWITCH = 33;
 	
 	//ElevatorSubsystem
-	public static final int[] ELEVATOR__MOTOR_PORTS = {21,22};
+	public static final int[] ELEVATOR_MOTOR_PORTS = {21,22};
 	
+	public static final int UPPER_LIMIT_SWITCH_ELEVATOR_PORT = 23;
+	public static final int LOWER_LIMIT_SWITCH_ELEVATOR_PORT = 24;
 	//ClimberSubsystem
 	public static final int CLIMB_MOTOR_1 = 41;
 	public static final int CLIMB_MOTOR_2 = 42;
