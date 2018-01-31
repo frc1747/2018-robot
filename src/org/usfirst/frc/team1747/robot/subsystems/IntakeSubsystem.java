@@ -6,6 +6,7 @@ import org.usfirst.frc.team1747.robot.subsystems.DriveSubsystem.DriveSide;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 
 import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj.Solenoid;
 import lib.frc1747.speed_controller.HBRTalon;
 import lib.frc1747.subsytems.HBRSubsystem;
 
@@ -15,6 +16,7 @@ public class IntakeSubsystem extends HBRSubsystem<IntakeSubsystem.Follower> {
 	private HBRTalon rightIntakeMotor;
 	private static IntakeSubsystem intake;
 	private DigitalInput limitSwitch;
+	private Solenoid solenoid;
 	
 	public enum Follower{
 		POSITION;
@@ -24,6 +26,7 @@ public class IntakeSubsystem extends HBRSubsystem<IntakeSubsystem.Follower> {
 		leftIntakeMotor = new HBRTalon(RobotMap.LEFT_INTAKE_PORT);
 		rightIntakeMotor = new HBRTalon(RobotMap.RIGHT_INTAKE_PORT);
 		limitSwitch = new DigitalInput(RobotMap.INTAKE_SWITCH);
+		solenoid = new Solenoid(0);
 	}
 	
 	

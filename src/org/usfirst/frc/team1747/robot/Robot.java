@@ -36,6 +36,7 @@ public class Robot extends TimedRobot {
 	 */
 	
 	Logger logger;
+	DriveSubsystem drive;
 	@Override
 	public void robotInit() {
 		initSubsystems();
@@ -119,7 +120,7 @@ public class Robot extends TimedRobot {
 	}
 	
 	public void initSubsystems(){
-		DriveSubsystem.getInstance();
+		drive = DriveSubsystem.getInstance();
 		OI.getInstance();
 	}
 	

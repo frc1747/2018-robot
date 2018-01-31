@@ -7,6 +7,8 @@ import org.usfirst.frc.team1747.robot.subsystems.DriveSubsystem;
 
 import edu.wpi.first.wpilibj.command.Command;
 import lib.frc1747.controller.Logitech;
+import lib.frc1747.instrumentation.Instrumentation;
+import lib.frc1747.instrumentation.Logger;
 import lib.frc1747.subsytems.HBRSubsystem;
 
 /**
@@ -15,8 +17,10 @@ import lib.frc1747.subsytems.HBRSubsystem;
 public class DriveWithJoysticks extends Command {
 	private DriveSubsystem drivetrain;
 	
-	private final double s_v_max = 16.4;
-	private final double a_v_max = 15.6;
+	private final double s_v_max = 18;
+	private final double a_v_max = 17.28;
+	
+	Logger logger;
 	
 	double speedSetpoint;
 	double angleSetpoint;
@@ -24,8 +28,9 @@ public class DriveWithJoysticks extends Command {
     public DriveWithJoysticks() {
     	requires(drivetrain = DriveSubsystem.getInstance());
     	setInterruptible(true);
-        // Use requires() here to declare subsystem dependencies
-        // eg. requires(chassis);
+    	logger = Instrumentation.getLogger("Robot");
+    	logger.registerDouble("Left Speed", true, true);
+		logger.registerDouble("Right Speed", true, true);
     }
 
     // Called just before this Command runs the first time
@@ -42,7 +47,7 @@ public class DriveWithJoysticks extends Command {
     	drivetrain.setMode(DriveSubsystem.Follower.ANGLE, HBRSubsystem.Mode.PID);
     	drivetrain.setPIDMode(DriveSubsystem.Follower.ANGLE, HBRSubsystem.PIDMode.VELOCITY);
     	drivetrain.setILimit(DriveSubsystem.Follower.ANGLE, 0);
-    	drivetrain.setFeedforward(DriveSubsystem.Follower.ANGLE, 0, 0, 0);
+    	drivetrain.setFeedforward(DriveSubsystem.Follower.ANGLE, 0, 0.6 / a_v_max, 0);
     	drivetrain.setFeedback(DriveSubsystem.Follower.ANGLE, 0, 0, 0);
 		drivetrain.resetIntegrator(DriveSubsystem.Follower.ANGLE);
 		
@@ -55,8 +60,11 @@ public class DriveWithJoysticks extends Command {
     	drivetrain.setSetpoint(DriveSubsystem.Follower.DISTANCE, speedSetpoint);
     	
     	
-    	angleSetpoint = a_v_max * OI.getInstance().getDriver().getAxis(Logitech.RIGHT_HORIZONTAL);
+    	angleSetpoint = -a_v_max * OI.getInstance().getDriver().getAxis(Logitech.RIGHT_HORIZONTAL);
     	drivetrain.setSetpoint(DriveSubsystem.Follower.ANGLE, angleSetpoint);
+    	
+    	logger.putDouble("Left Speed", drivetrain.getLeftSpeed());
+		logger.putDouble("Right Speed", drivetrain.getRightSpeed());
     }
 
     // Make this return true when this Command no longer needs to run execute()

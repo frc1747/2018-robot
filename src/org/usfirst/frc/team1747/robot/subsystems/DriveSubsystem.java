@@ -10,6 +10,7 @@ import org.usfirst.frc.team1747.robot.commands.ArcadeDrive;
 import org.usfirst.frc.team1747.robot.commands.DriveWithJoysticks;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 import com.kauailabs.navx.frc.AHRS;
 
 import edu.wpi.first.wpilibj.AnalogInput;
@@ -117,27 +118,31 @@ public class DriveSubsystem extends HBRSubsystem<DriveSubsystem.Follower> {
 	@Override
 	protected void initDefaultCommand() {
 		// TODO Auto-generated method stub
-		setDefaultCommand(new ArcadeDrive());
+		setDefaultCommand(new DriveWithJoysticks());
 	}
 	
 	public class DriveSide {
 		
-		HBRTalon[] motors;
+		HBRTalon talon;
+		VictorSPX[] motors;
 		Encoder encoder;
 		private double scaling;
 		
 		public DriveSide(int[] ports, boolean[] inverted, boolean sensInverted, int encA, int encB) {
-			motors = new HBRTalon[4];
+			motors = new VictorSPX[3];
+			talon = new HBRTalon(ports[0]);
+			talon.setInverted(inverted[0]);
 			encoder = new Encoder(encA, encB, sensInverted);
-			for(int i = 0; i < 4; i++) {
-				motors[i] = new HBRTalon(ports[i]);
-				motors[i].setInverted(inverted[i]);
+			for(int i = 0; i < 3; i++) {
+				motors[i] = new VictorSPX(ports[i + 1]);
+				motors[i].setInverted(inverted[i + 1]);
 			}
 //			motors[0].setSensorPhase(sensInverted);
 		}
 		
 		public void setPower(double power) {
-			for(int i = 0; i < 4; i++) {
+			talon.set(ControlMode.PercentOutput, power);
+			for(int i = 0; i < 3; i++) {
 				motors[i].set(ControlMode.PercentOutput, power);
 			}
 		}
