@@ -25,39 +25,56 @@ public class RobotMap {
 	public static final boolean[] LEFT_MOTOR_INVERSION = {false,false,false,false};
 	public static final boolean[] RIGHT_MOTOR_INVERSION = {true,true,true,true};
 		
-	public static final boolean LEFT_ENCODER_INVERSION = false;
-	public static final boolean RIGHT_ENCODER_INVERSION = false;
-	
-	public static final int LEFT_ENCODER_A = 0;
-	public static final int LEFT_ENCODER_B = 1;
-	public static final int RIGHT_ENCODER_A = 2;
-	public static final int RIGHT_ENCODER_B = 3;
-
-	
 	public static final int[] LEFT_MOTOR_PORTS = {01, 02, 03, 04};
 	public static final int[] RIGHT_MOTOR_PORTS = {11, 12, 13, 14};
 	
 	public static final double LEFT_SCALING = 1266.5;
 	public static final double RIGHT_SCALING = 1264.8;
 	
-	public static final int FUSE_THERMISTOR = 3;
+	public static final int FUSE_THERMISTOR = 0;
 
 	//Intake and Claw
 	public static final int LEFT_INTAKE_PORT = 31;
 	public static final int RIGHT_INTAKE_PORT = 32;
-	public static final int INTAKE_SWITCH = 33;
 	
 	//ElevatorSubsystem
 	public static final int[] ELEVATOR_MOTOR_PORTS = {21,22};
-	
-	public static final int UPPER_LIMIT_SWITCH_ELEVATOR_PORT = 23;
-	public static final int LOWER_LIMIT_SWITCH_ELEVATOR_PORT = 24;
+
 	//ClimberSubsystem
 	public static final int CLIMB_MOTOR_1 = 41;
 	public static final int CLIMB_MOTOR_2 = 42;
 	
 	public static final boolean CLIMB_1_INVERT = false;
 	public static final boolean CLIMB_2_INVERT = false;
+	
+	//Limit switches
+	public static final int INTAKE_LIMIT_SWITCH = 7;
+	public static final int ELEVATOR_LIMIT_SWITCH = 6;
+	
+	//Pneumatics
+	public static final int GRIPPER_SOLENOIDS[] = {1, 2};
+	public static final int WRIST_SOLENOIDS[] = {3, 4};
+	
+	//Encoders
+		//Drive Subsystem
+		public static final int LEFT_ENCODER_A = 0;
+		public static final int LEFT_ENCODER_B = 1;
+		public static final int RIGHT_ENCODER_A = 2;
+		public static final int RIGHT_ENCODER_B = 3;
+	
+		public static final boolean LEFT_ENCODER_INVERSION = false;
+		public static final boolean RIGHT_ENCODER_INVERSION = false;
+	
+		//Elevator subsystem
+		public static final int ELEVATOR_ENCODER_A = 4;
+		public static final int ELEVATOR_ENCODER_B = 5;
+		
+		public static final boolean ELEVATOR_A_INVERSION = false;
+		public static final boolean ELEVATOR_B_INVERSION = false;
+		
+		//
+	
+		
 	// If you are using multiple modules, make sure to define both the port
 	// number and the module. For example you with a rangefinder:
 	// public static int rangefinderPort = 1;

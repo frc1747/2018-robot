@@ -25,7 +25,7 @@ public class IntakeSubsystem extends HBRSubsystem<IntakeSubsystem.Follower> {
 	public IntakeSubsystem() {
 		leftIntakeMotor = new HBRTalon(RobotMap.LEFT_INTAKE_PORT);
 		rightIntakeMotor = new HBRTalon(RobotMap.RIGHT_INTAKE_PORT);
-		limitSwitch = new DigitalInput(RobotMap.INTAKE_SWITCH);
+		limitSwitch = new DigitalInput(RobotMap.INTAKE_LIMIT_SWITCH);
 		solenoid = new Solenoid(0);
 	}
 	

@@ -12,8 +12,7 @@ public class ElevatorSubsystem extends HBRSubsystem<ElevatorSubsystem.Follower> 
 
 	HBRTalon leftMotor;
 	HBRTalon rightMotor;
-	DigitalInput upperLimitSwitch;
-	DigitalInput lowerLimitSwitch;
+	DigitalInput limitSwitch;
 	
 	private static ElevatorSubsystem elevator;
 	
@@ -24,8 +23,9 @@ public class ElevatorSubsystem extends HBRSubsystem<ElevatorSubsystem.Follower> 
 	public ElevatorSubsystem() {
 		leftMotor = new HBRTalon(RobotMap.ELEVATOR_MOTOR_PORTS[0]);
 		rightMotor = new HBRTalon(RobotMap.ELEVATOR_MOTOR_PORTS[1]);
-		upperLimitSwitch = new DigitalInput(RobotMap.UPPER_LIMIT_SWITCH_ELEVATOR_PORT);
-		lowerLimitSwitch = new DigitalInput(RobotMap.LOWER_LIMIT_SWITCH_ELEVATOR_PORT);
+//		upperLimitSwitch = new DigitalInput(RobotMap.UPPER_LIMIT_SWITCH_ELEVATOR_PORT);
+		
+		limitSwitch = new DigitalInput(RobotMap.ELEVATOR_LIMIT_SWITCH);
 	}
 	
 	public static ElevatorSubsystem getInstance() {
@@ -40,12 +40,10 @@ public class ElevatorSubsystem extends HBRSubsystem<ElevatorSubsystem.Follower> 
 		setRightPower(power);
 	}
 	
-	public boolean getUpperSwitch() {
-		return upperLimitSwitch.get();
-	}
+	
 	
 	public boolean getLowerSwitch() {
-		return lowerLimitSwitch.get();
+		return limitSwitch.get();
 	}
 	
 	//Left motor
