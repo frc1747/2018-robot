@@ -17,7 +17,7 @@ public class ElevatorSubsystem extends HBRSubsystem<ElevatorSubsystem.Follower> 
 	private static ElevatorSubsystem elevator;
 	
 	public enum Follower{
-		POSITION;
+		ELEVATOR, WRIST;
 	}
 	
 	public ElevatorSubsystem() {
@@ -53,10 +53,10 @@ public class ElevatorSubsystem extends HBRSubsystem<ElevatorSubsystem.Follower> 
 	public void setLeftScaling(double scaling) {
 		leftMotor.setScaling(scaling);
 	}
-	public double getLeftSpeed() {
+	public double getElevatorSpeed() {
 		return leftMotor.getSpeed(0);
 	}
-	public double getLeftPosition() {
+	public double getElevatorPosition() {
 		return leftMotor.getPosition(0);
 	}
 	
@@ -70,16 +70,14 @@ public class ElevatorSubsystem extends HBRSubsystem<ElevatorSubsystem.Follower> 
 	public double getRightPower() {
 		return rightMotor.getSpeed(0);
 	}
-	public double getRightPosition() {
-		return rightMotor.getPosition(0);
-	}
 	
 	//TODO: just uses left side, but the move together? possibly? It is writing to both sides.
 	@Override
 	public double[][] pidRead() {
-		double[][] inputs = new double[2][1];
-		inputs[0][0] = getLeftPosition();
-		inputs[1][0] = getLeftSpeed();
+		double[][] inputs = new double[2][2];
+		inputs[0][0] = getElevatorPosition();
+		inputs[1][0] = getElevatorSpeed();
+
 		return inputs;
 	}
 

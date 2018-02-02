@@ -21,6 +21,7 @@ import lib.frc1747.instrumentation.Logger;
 import java.util.logging.Level;
 
 import org.usfirst.frc.team1747.robot.subsystems.DriveSubsystem;
+import org.usfirst.frc.team1747.robot.subsystems.IntakeSubsystem;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -37,6 +38,7 @@ public class Robot extends TimedRobot {
 	
 	Logger logger;
 	DriveSubsystem drive;
+	IntakeSubsystem intake;
 	@Override
 	public void robotInit() {
 		initSubsystems();
@@ -121,6 +123,7 @@ public class Robot extends TimedRobot {
 	
 	public void initSubsystems(){
 		drive = DriveSubsystem.getInstance();
+		intake = IntakeSubsystem.getInstance();
 		OI.getInstance();
 	}
 	

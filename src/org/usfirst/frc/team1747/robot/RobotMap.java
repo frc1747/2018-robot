@@ -56,23 +56,23 @@ public class RobotMap {
 	public static final int WRIST_SOLENOIDS[] = {3, 4};
 	
 	//Encoders
-		//Drive Subsystem
-		public static final int LEFT_ENCODER_A = 0;
-		public static final int LEFT_ENCODER_B = 1;
-		public static final int RIGHT_ENCODER_A = 2;
-		public static final int RIGHT_ENCODER_B = 3;
+	//Drive Subsystem
+	public static final int LEFT_ENCODER_A = 0;
+	public static final int LEFT_ENCODER_B = 1;
+	public static final int RIGHT_ENCODER_A = 2;
+	public static final int RIGHT_ENCODER_B = 3;
+
+	public static final boolean LEFT_ENCODER_INVERSION = false;
+	public static final boolean RIGHT_ENCODER_INVERSION = false;
+
+	//Elevator subsystem
+	public static final int ELEVATOR_ENCODER_A = 4;
+	public static final int ELEVATOR_ENCODER_B = 5;
 	
-		public static final boolean LEFT_ENCODER_INVERSION = false;
-		public static final boolean RIGHT_ENCODER_INVERSION = false;
+	public static final boolean ELEVATOR_A_INVERSION = false;
+	public static final boolean ELEVATOR_B_INVERSION = false;
 	
-		//Elevator subsystem
-		public static final int ELEVATOR_ENCODER_A = 4;
-		public static final int ELEVATOR_ENCODER_B = 5;
-		
-		public static final boolean ELEVATOR_A_INVERSION = false;
-		public static final boolean ELEVATOR_B_INVERSION = false;
-		
-		//
+	//
 	
 		
 	// If you are using multiple modules, make sure to define both the port
