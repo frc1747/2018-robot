@@ -4,6 +4,7 @@ import org.usfirst.frc.team1747.robot.RobotMap;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 
+import edu.wpi.first.wpilibj.Solenoid;
 import lib.frc1747.speed_controller.HBRTalon;
 import lib.frc1747.subsytems.HBRSubsystem;
 
@@ -13,6 +14,7 @@ public class ClimberSubsystem extends HBRSubsystem {
 	
 	HBRTalon motor1;
 	HBRTalon motor2;
+	private Solenoid solenoid;
 	
 	public ClimberSubsystem() {
 		motor1 = new HBRTalon(RobotMap.CLIMB_MOTOR_1);
@@ -20,6 +22,8 @@ public class ClimberSubsystem extends HBRSubsystem {
 		
 		motor1.setInverted(RobotMap.CLIMB_1_INVERT);
 		motor2.setInverted(RobotMap.CLIMB_2_INVERT);
+		
+		solenoid = new Solenoid(RobotMap.CLIMBER_SOLENOID);
 	}
 	
 	@Override

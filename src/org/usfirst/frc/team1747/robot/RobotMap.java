@@ -33,13 +33,16 @@ public class RobotMap {
 	
 	public static final int FUSE_THERMISTOR = 0;
 
-	//Intake and Claw
+	//Intake
 	public static final int LEFT_INTAKE_PORT = 31;
 	public static final int RIGHT_INTAKE_PORT = 32;
 	
 	//ElevatorSubsystem
 	public static final int[] ELEVATOR_MOTOR_PORTS = {21,22};
-
+	public static final double ELEVATOR_SCALING = 5021.0;			//not tested
+	public static final int WRIST_MOTOR_PORT = 51;
+	
+	
 	//ClimberSubsystem
 	public static final int CLIMB_MOTOR_1 = 41;
 	public static final int CLIMB_MOTOR_2 = 42;
@@ -47,13 +50,14 @@ public class RobotMap {
 	public static final boolean CLIMB_1_INVERT = false;
 	public static final boolean CLIMB_2_INVERT = false;
 	
-	//Limit switches
+	//Limit Switches
 	public static final int INTAKE_LIMIT_SWITCH = 7;
 	public static final int ELEVATOR_LIMIT_SWITCH = 6;
 	
 	//Pneumatics
-	public static final int GRIPPER_SOLENOIDS[] = {1, 2};
-	public static final int WRIST_SOLENOIDS[] = {3, 4};
+	public static final int INTAKE_SOLENOID = 0;
+	public static final int CLIMBER_SOLENOID = 1;
+	public static final int WHEELIE_BAR_SOLENOID = 2;
 	
 	//Encoders
 	//Drive Subsystem
@@ -69,11 +73,7 @@ public class RobotMap {
 	public static final int ELEVATOR_ENCODER_A = 4;
 	public static final int ELEVATOR_ENCODER_B = 5;
 	
-	public static final boolean ELEVATOR_A_INVERSION = false;
-	public static final boolean ELEVATOR_B_INVERSION = false;
-	
-	//
-	
+	public static final boolean ELEVATOR_ENCODER_INVERSION = false;
 		
 	// If you are using multiple modules, make sure to define both the port
 	// number and the module. For example you with a rangefinder:

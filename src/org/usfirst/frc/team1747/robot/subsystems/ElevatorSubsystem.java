@@ -5,6 +5,7 @@ import org.usfirst.frc.team1747.robot.RobotMap;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 
 import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj.Encoder;
 import lib.frc1747.speed_controller.HBRTalon;
 import lib.frc1747.subsytems.HBRSubsystem;
 
@@ -12,7 +13,10 @@ public class ElevatorSubsystem extends HBRSubsystem<ElevatorSubsystem.Follower> 
 
 	HBRTalon leftMotor;
 	HBRTalon rightMotor;
+	HBRTalon wristMotor;
 	DigitalInput limitSwitch;
+	Encoder encoder;
+	double scaling;
 	
 	private static ElevatorSubsystem elevator;
 	
@@ -23,10 +27,18 @@ public class ElevatorSubsystem extends HBRSubsystem<ElevatorSubsystem.Follower> 
 	public ElevatorSubsystem() {
 		leftMotor = new HBRTalon(RobotMap.ELEVATOR_MOTOR_PORTS[0]);
 		rightMotor = new HBRTalon(RobotMap.ELEVATOR_MOTOR_PORTS[1]);
+		wristMotor = new HBRTalon(RobotMap.WRIST_MOTOR_PORT);
+		
 //		upperLimitSwitch = new DigitalInput(RobotMap.UPPER_LIMIT_SWITCH_ELEVATOR_PORT);
 		
 		limitSwitch = new DigitalInput(RobotMap.ELEVATOR_LIMIT_SWITCH);
+		
+		setLeftScaling(RobotMap.ELEVATOR_SCALING);
+		setRightScaling(RobotMap.ELEVATOR_SCALING);
+		
+		encoder = new Encoder(RobotMap.ELEVATOR_ENCODER_A, RobotMap.ELEVATOR_ENCODER_B, RobotMap.ELEVATOR_ENCODER_INVERSION);
 	}
+	
 	
 	public static ElevatorSubsystem getInstance() {
 		if(elevator == null) {
@@ -38,6 +50,15 @@ public class ElevatorSubsystem extends HBRSubsystem<ElevatorSubsystem.Follower> 
 	public void setPower(double power) {
 		setLeftPower(power);
 		setRightPower(power);
+	}
+	public void setWristPower(double power) {
+		wristMotor.set(ControlMode.PercentOutput, power);
+	}
+	public double getWristPosition() {
+		return wristMotor.getPosition(0);
+	}
+	public double getWristSpeed() {
+		return wristMotor.getSpeed(0);
 	}
 	
 	
@@ -85,7 +106,21 @@ public class ElevatorSubsystem extends HBRSubsystem<ElevatorSubsystem.Follower> 
 	public void pidWrite(double[] output) {
 		setPower(output[0]);
 	}
-
+	
+	public void resetEncoder() {
+//		motors[0].setSelectedSensorPosition(0, 0, 0);
+		encoder.reset();
+	}
+	
+	public double getSpeed() {
+//		return motors[0].getSpeed(0);
+		return encoder.getRate() / scaling;
+	}
+	
+	public double getPosition() {
+//		return motors[0].getPosition(0);
+		return encoder.get() / scaling;
+	}
 	@Override
 	protected void initDefaultCommand() {
 		// TODO Auto-generated method stub
