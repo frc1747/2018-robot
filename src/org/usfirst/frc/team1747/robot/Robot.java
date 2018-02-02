@@ -20,7 +20,9 @@ import lib.frc1747.instrumentation.Logger;
 
 import java.util.logging.Level;
 
+import org.usfirst.frc.team1747.robot.subsystems.ClimberSubsystem;
 import org.usfirst.frc.team1747.robot.subsystems.DriveSubsystem;
+import org.usfirst.frc.team1747.robot.subsystems.ElevatorSubsystem;
 import org.usfirst.frc.team1747.robot.subsystems.IntakeSubsystem;
 
 /**
@@ -39,6 +41,8 @@ public class Robot extends TimedRobot {
 	Logger logger;
 	DriveSubsystem drive;
 	IntakeSubsystem intake;
+	ElevatorSubsystem elevator;
+	ClimberSubsystem climber;
 	@Override
 	public void robotInit() {
 		initSubsystems();
@@ -102,28 +106,30 @@ public class Robot extends TimedRobot {
 		// continue until interrupted by another command, remove
 		// this line or comment it out.
 	}
-
+	
 	/**
 	 * This function is called periodically during operator control.
 	 */
-
+	
 	@Override
 	public void teleopPeriodic() {
 		Scheduler.getInstance().run();
 		logger.putDouble("Battery voltage", RobotController.getBatteryVoltage());
 	}
-
+	
 	/**
 	 * This function is called periodically during test mode.
 	 */
 	@Override
 	public void testPeriodic() {
-		
+	
 	}
 	
 	public void initSubsystems(){
 		drive = DriveSubsystem.getInstance();
 		intake = IntakeSubsystem.getInstance();
+		elevator = ElevatorSubsystem.getInstance();
+		climber = ClimberSubsystem.getInstance();
 		OI.getInstance();
 	}
 	

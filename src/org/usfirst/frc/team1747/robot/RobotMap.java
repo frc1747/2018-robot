@@ -41,6 +41,8 @@ public class RobotMap {
 	public static final int[] ELEVATOR_MOTOR_PORTS = {21,22};
 	public static final double ELEVATOR_SCALING = 5021.0;			//not tested
 	public static final int WRIST_MOTOR_PORT = 51;
+	public static final int WRIST_ENCODER = 1;
+	public static final double WRIST_OFFSET  = 1;
 	
 	
 	//ClimberSubsystem
