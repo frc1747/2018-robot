@@ -5,11 +5,11 @@ import org.usfirst.frc.team1747.robot.subsystems.IntakeSubsystem;
 
 import edu.wpi.first.wpilibj.command.Command;
 
-public class Intake extends Command {
+public class IntakeIn extends Command {
 	
 	public IntakeSubsystem intake;
 	
-	public Intake() {
+	public IntakeIn() {
 		intake = IntakeSubsystem.getInstance();
 		requires (intake);
 	}

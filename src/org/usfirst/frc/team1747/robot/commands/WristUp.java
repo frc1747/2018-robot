@@ -57,7 +57,7 @@ public class WristUp extends Command {
 		if(elevator.getElevatorStage() != 2){	
 			if((elevator.getWristStage() + 1) == 2){
 				
-			}else{
+			}else if (elevator.getElevatorPosition() > 48){
 				elevator.setSetpoint(ElevatorSubsystem.Follower.WRIST, (wristPositions[elevator.getWristStage()] + 1) * wristScaling);
 				elevator.setElevatorStage(elevator.getElevatorStage() + 1);
 			}

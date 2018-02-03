@@ -15,24 +15,72 @@ public class Autonomous extends CommandGroup {
     	String gameMessage = ds.getGameSpecificMessage();
     	char[] scoringPositions = gameMessage.toCharArray();
     	
+    	addSequential(new ZeroSensors());
     	switch (robotPosition) {
     		case LEFT:
     			if(scoringPositions[1] == 'L'){
+    				
     				addSequential(new DriveProfile(""));
+    				addSequential(new ElevatorUp());
+    				addSequential(new ElevatorUp());
+    				addSequential(new Delay(500));
+    				addSequential(new WristUp());
+    				addSequential(new WristUp());
+    				addSequential(new Delay(500));
+    				addSequential(new AutonOutake());
+    				addSequential(new WristDown());
+    				addSequential(new WristDown());
+    				addSequential(new ElevatorDown());
+    				addSequential(new ElevatorDown());
+    				addSequential(new ZeroSensors());
     				
         			if(scoringPositions[0] == 'L'){
-        				
+        				addSequential(new DriveProfile(""));
+        				addParallel(new IntakeIn());  				
+        				addSequential(new ElevatorUp());
+        				addSequential(new Delay(500));
+        				addSequential(new AutonOutake());
         			}
         			else if(scoringPositions[0] == 'R'){
-        				
+        				addSequential(new DriveProfile(""));
+        				addParallel(new IntakeIn());
+        				addSequential(new Delay(500));
+        				addSequential(new ElevatorUp());
+        				addSequential(new Delay(500));
+        				addSequential(new AutonOutake());
         			}
     			}
     			else if(scoringPositions[1] == 'R'){
+    				
+    				addSequential(new DriveProfile(""));
+    				addSequential(new ElevatorUp());
+    				addSequential(new ElevatorUp());
+    				addSequential(new Delay(500));
+    				addSequential(new WristUp());
+    				addSequential(new WristUp());
+    				addSequential(new Delay(500));
+    				addSequential(new AutonOutake());
+    				addSequential(new WristDown());
+    				addSequential(new WristDown());
+    				addSequential(new ElevatorDown());
+    				addSequential(new ElevatorDown());
+    				addSequential(new ZeroSensors());
+    				
         			if(scoringPositions[0] == 'L'){
-        				
+        				addSequential(new DriveProfile(""));
+        				addParallel(new IntakeIn());
+        				addSequential(new Delay(500));
+        				addSequential(new ElevatorUp());
+        				addSequential(new Delay(500));
+        				addSequential(new AutonOutake());
         			}
         			else if(scoringPositions[0] == 'R'){
-        				
+        				addSequential(new DriveProfile(""));
+        				addParallel(new IntakeIn());
+        				addSequential(new Delay(500));
+        				addSequential(new ElevatorUp());
+        				addSequential(new Delay(500));
+        				addSequential(new AutonOutake());
         			}
     			}
     			
@@ -45,19 +93,69 @@ public class Autonomous extends CommandGroup {
     			}
     		case RIGHT:
     			if(scoringPositions[1] == 'L'){
+    				
+    				addSequential(new DriveProfile(""));
+    				addSequential(new ElevatorUp());
+    				addSequential(new ElevatorUp());
+    				addSequential(new Delay(500));
+    				addSequential(new WristUp());
+    				addSequential(new WristUp());
+    				addSequential(new Delay(500));
+    				addSequential(new AutonOutake());
+    				addSequential(new WristDown());
+    				addSequential(new WristDown());
+    				addSequential(new ElevatorDown());
+    				addSequential(new ElevatorDown());
+    				addSequential(new ZeroSensors());
+    				
         			if(scoringPositions[0] == 'L'){
-        				
+        				addSequential(new DriveProfile(""));
+        				addParallel(new IntakeIn());
+        				addSequential(new Delay(500));
+        				addSequential(new ElevatorUp());
+        				addSequential(new Delay(500));
+        				addSequential(new AutonOutake());
         			}
         			else if(scoringPositions[0] == 'R'){
-        				
+        				addSequential(new DriveProfile(""));
+        				addParallel(new IntakeIn());
+        				addSequential(new Delay(500));
+        				addSequential(new ElevatorUp());
+        				addSequential(new Delay(500));
+        				addSequential(new AutonOutake());
         			}
     			}
     			else if(scoringPositions[1] == 'R'){
+    				
+    				addSequential(new DriveProfile(""));
+    				addSequential(new ElevatorUp());
+    				addSequential(new ElevatorUp());
+    				addSequential(new Delay(500));
+    				addSequential(new WristUp());
+    				addSequential(new WristUp());
+    				addSequential(new Delay(500));
+    				addSequential(new AutonOutake());
+    				addSequential(new WristDown());
+    				addSequential(new WristDown());
+    				addSequential(new ElevatorDown());
+    				addSequential(new ElevatorDown());
+    				addSequential(new ZeroSensors());
+    				
         			if(scoringPositions[0] == 'L'){
-        				
+        				addSequential(new DriveProfile(""));
+        				addParallel(new IntakeIn());
+        				addSequential(new Delay(500));
+        				addSequential(new ElevatorUp());
+        				addSequential(new Delay(500));
+        				addSequential(new AutonOutake());
         			}
         			else if(scoringPositions[0] == 'R'){
-        				
+        				addSequential(new DriveProfile(""));
+        				addParallel(new IntakeIn());
+        				addSequential(new Delay(500));
+        				addSequential(new ElevatorUp());
+        				addSequential(new Delay(500));
+        				addSequential(new AutonOutake());
         			}
     			}
     	}
