@@ -41,6 +41,8 @@ public class RobotMap {
 	public static final int[] ELEVATOR_MOTOR_PORTS = {21,22};
 	public static final double ELEVATOR_SCALING = 5021.0;			//not tested
 	public static final int WRIST_MOTOR_PORT = 51;
+	public static final int WRIST_ENCODER = 1;
+	public static final double WRIST_OFFSET  = 1;
 	
 	
 	//ClimberSubsystem
@@ -60,23 +62,20 @@ public class RobotMap {
 	public static final int WHEELIE_BAR_SOLENOID = 2;
 	
 	//Encoders
-		//Drive Subsystem
-		public static final int LEFT_ENCODER_A = 0;
-		public static final int LEFT_ENCODER_B = 1;
-		public static final int RIGHT_ENCODER_A = 2;
-		public static final int RIGHT_ENCODER_B = 3;
+	//Drive Subsystem
+	public static final int LEFT_ENCODER_A = 0;
+	public static final int LEFT_ENCODER_B = 1;
+	public static final int RIGHT_ENCODER_A = 2;
+	public static final int RIGHT_ENCODER_B = 3;
+
+	public static final boolean LEFT_ENCODER_INVERSION = false;
+	public static final boolean RIGHT_ENCODER_INVERSION = false;
+
+	//Elevator subsystem
+	public static final int ELEVATOR_ENCODER_A = 4;
+	public static final int ELEVATOR_ENCODER_B = 5;
 	
-		public static final boolean LEFT_ENCODER_INVERSION = false;
-		public static final boolean RIGHT_ENCODER_INVERSION = false;
-	
-		//Elevator subsystem
-		public static final int ELEVATOR_ENCODER_A = 4;
-		public static final int ELEVATOR_ENCODER_B = 5;
-		
-		public static final boolean ELEVATOR_ENCODER_INVERSION = false;
-		
-		//
-	
+	public static final boolean ELEVATOR_ENCODER_INVERSION = false;
 		
 	// If you are using multiple modules, make sure to define both the port
 	// number and the module. For example you with a rangefinder:

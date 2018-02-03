@@ -15,19 +15,18 @@ import lib.frc1747.subsytems.HBRSubsystem;
 /**
  *
  */
-public class ElevatorUp extends Command {
+public class ElevatorControl extends Command {
 	private ElevatorSubsystem elevator;
 	
 	private final double s_v_max = 18;
 	private final double a_v_max = 17.28;
-	private final double[] elevatorPositions = {0, 24, 48};
 	
 
 	
 	double elevatorSetpoint;
 	double wristSetpoint;
 
-    public ElevatorUp() {
+    public ElevatorControl() {
     	requires(elevator = ElevatorSubsystem.getInstance());
     	setInterruptible(true);
     	
@@ -50,20 +49,25 @@ public class ElevatorUp extends Command {
     	elevator.setFeedforward(ElevatorSubsystem.Follower.WRIST, 0, 0, 0);
     	elevator.setFeedback(ElevatorSubsystem.Follower.WRIST, 0, 0, 0);
 		elevator.resetIntegrator(ElevatorSubsystem.Follower.WRIST);
-
+		
 		elevator.setEnabled(true);
-			
-		if(elevator.getElevatorStage() != 2){	
-			elevator.setSetpoint(ElevatorSubsystem.Follower.ELEVATOR, elevatorPositions[elevator.getElevatorStage()] + 1);	
-		}
     }
 
     // Called repeatedly when this Command is scheduled to run
-    protected void execute() {}
+    protected void execute() {
+    	
+    	elevator.setSetpoint(ElevatorSubsystem.Follower.ELEVATOR, elevatorSetpoint);
+    	
+    	
+    	
+    	elevator.setSetpoint(ElevatorSubsystem.Follower.WRIST, wristSetpoint);
+    	
+    	
+    }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return true;
+        return false;
     }
 
     // Called once after isFinished returns true

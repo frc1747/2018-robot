@@ -46,6 +46,7 @@ public class DriveSubsystem extends HBRSubsystem<DriveSubsystem.Follower> {
 		logger.registerDouble("ActualDistance", true, true);
 		logger.registerDouble("ProfileAngle", true, true);
 		logger.registerDouble("ActualAngle", true, true);
+		
 	}
 	
 	public static DriveSubsystem getInstance() {
@@ -74,10 +75,14 @@ public class DriveSubsystem extends HBRSubsystem<DriveSubsystem.Follower> {
 	public double getTempF(){
 		return 32+(((thermistor.getVoltage()-0.1555)/0.0442)*9/5);
 	}
-//	//degrees K
-//	public double getTempK(){
-//		return 273+(thermistor.getVoltage()-0.1555)/0.0442;
-//	}
+	//degrees K
+	public double getTempK(){
+		return 273+(thermistor.getVoltage()-0.1555)/0.0442;
+	}
+	//degrees R
+	public double getTempR(){
+		return getTempF() + 459.67;
+	}
 	public void resetEncoders(){
 		left.resetEncoder();
 		right.resetEncoder();
@@ -117,7 +122,6 @@ public class DriveSubsystem extends HBRSubsystem<DriveSubsystem.Follower> {
 
 	@Override
 	protected void initDefaultCommand() {
-		// TODO Auto-generated method stub
 		setDefaultCommand(new DriveWithJoysticks());
 	}
 	
@@ -137,7 +141,6 @@ public class DriveSubsystem extends HBRSubsystem<DriveSubsystem.Follower> {
 				motors[i] = new VictorSPX(ports[i + 1]);
 				motors[i].setInverted(inverted[i + 1]);
 			}
-//			motors[0].setSensorPhase(sensInverted);
 		}
 		
 		public void setPower(double power) {
@@ -148,22 +151,18 @@ public class DriveSubsystem extends HBRSubsystem<DriveSubsystem.Follower> {
 		}
 		
 		public void resetEncoder() {
-//			motors[0].setSelectedSensorPosition(0, 0, 0);
 			encoder.reset();
 		}
 		
 		public double getSpeed() {
-//			return motors[0].getSpeed(0);
 			return encoder.getRate() / scaling;
 		}
 		
 		public double getPosition() {
-//			return motors[0].getPosition(0);
 			return encoder.get() / scaling;
 		}
 		
 		public void setScaling(double scaling) {
-//			motors[0].setScaling(scaling);
 			this.scaling = scaling;
 		}
 		
@@ -172,8 +171,8 @@ public class DriveSubsystem extends HBRSubsystem<DriveSubsystem.Follower> {
 	@Override
 	public double[][] pidRead() {
 		double[][] output = new double[2][2];
-		output[1][0] = getAverageSpeed();
 		output[0][0] = getAveragePosition();
+		output[1][0] = getAverageSpeed();
 		output[0][1] = (2 * Math.PI) * ((-getGyro().getAngle()) / 360);
 		output[1][1] = (2 * Math.PI) * (-getGyro().getRate() / 360);
 		return output;

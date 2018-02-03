@@ -4,8 +4,11 @@ import org.usfirst.frc.team1747.robot.RobotMap;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 
+import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Encoder;
+import lib.frc1747.instrumentation.Instrumentation;
+import lib.frc1747.instrumentation.Logger;
 import lib.frc1747.speed_controller.HBRTalon;
 import lib.frc1747.subsytems.HBRSubsystem;
 
@@ -15,28 +18,37 @@ public class ElevatorSubsystem extends HBRSubsystem<ElevatorSubsystem.Follower> 
 	HBRTalon rightMotor;
 	HBRTalon wristMotor;
 	DigitalInput limitSwitch;
-	Encoder encoder;
+	Encoder elevatorEncoder;
+	AnalogInput wristEncoder;
 	double scaling;
+	private Logger eLogger;
+	private Logger wLogger;
+	int index;
 	
 	private static ElevatorSubsystem elevator;
 	
 	public enum Follower{
-		POSITION;
+		ELEVATOR, WRIST;
 	}
 	
 	public ElevatorSubsystem() {
 		leftMotor = new HBRTalon(RobotMap.ELEVATOR_MOTOR_PORTS[0]);
 		rightMotor = new HBRTalon(RobotMap.ELEVATOR_MOTOR_PORTS[1]);
 		wristMotor = new HBRTalon(RobotMap.WRIST_MOTOR_PORT);
-		
-//		upperLimitSwitch = new DigitalInput(RobotMap.UPPER_LIMIT_SWITCH_ELEVATOR_PORT);
+		wristEncoder = new AnalogInput(RobotMap.WRIST_ENCODER);
+		index = 0;
 		
 		limitSwitch = new DigitalInput(RobotMap.ELEVATOR_LIMIT_SWITCH);
 		
-		setLeftScaling(RobotMap.ELEVATOR_SCALING);
-		setRightScaling(RobotMap.ELEVATOR_SCALING);
+		setElevatorScaling(RobotMap.ELEVATOR_SCALING);
 		
-		encoder = new Encoder(RobotMap.ELEVATOR_ENCODER_A, RobotMap.ELEVATOR_ENCODER_B, RobotMap.ELEVATOR_ENCODER_INVERSION);
+		elevatorEncoder = new Encoder(RobotMap.ELEVATOR_ENCODER_A, RobotMap.ELEVATOR_ENCODER_B, RobotMap.ELEVATOR_ENCODER_INVERSION);
+		eLogger = Instrumentation.getLogger("Elevator");
+		wLogger = Instrumentation.getLogger("Wrist");
+		eLogger.registerDouble("Position Setpoint", true, true);
+		eLogger.registerDouble("Actual Position", true, true);
+		wLogger.registerDouble("Position Setpoint", true, true);
+		wLogger.registerDouble("Actual Position", true, true);
 	}
 	
 	
@@ -47,7 +59,7 @@ public class ElevatorSubsystem extends HBRSubsystem<ElevatorSubsystem.Follower> 
 		return elevator;
 	}
 	
-	public void setPower(double power) {
+	public void setElevatorPower(double power) {
 		setLeftPower(power);
 		setRightPower(power);
 	}
@@ -55,10 +67,13 @@ public class ElevatorSubsystem extends HBRSubsystem<ElevatorSubsystem.Follower> 
 		wristMotor.set(ControlMode.PercentOutput, power);
 	}
 	public double getWristPosition() {
-		return wristMotor.getPosition(0);
+		return wristEncoder.getVoltage() - RobotMap.WRIST_OFFSET;
 	}
-	public double getWristSpeed() {
-		return wristMotor.getSpeed(0);
+	public void setElevatorStage(int index){
+		this.index = index;
+	}
+	public int getElevatorStage(){
+		return index;
 	}
 	
 	
@@ -71,67 +86,60 @@ public class ElevatorSubsystem extends HBRSubsystem<ElevatorSubsystem.Follower> 
 	public void setLeftPower(double power) {
 		leftMotor.set(ControlMode.PercentOutput, power);
 	}
-	public void setLeftScaling(double scaling) {
+	public void setElevatorScaling(double scaling) {
 		leftMotor.setScaling(scaling);
 	}
-	public double getLeftSpeed() {
-		return leftMotor.getSpeed(0);
+	public double getElevatorSpeed() {
+		return elevatorEncoder.getRate() / scaling;
 	}
-	public double getLeftPosition() {
-		return leftMotor.getPosition(0);
+	public double getElevatorPosition() {
+		return elevatorEncoder.get() / scaling;
 	}
 	
 	//Right motor
 	public void setRightPower(double power) {
 		rightMotor.set(ControlMode.PercentOutput, power);
 	}
-	public void setRightScaling(double scaling) {
-		rightMotor.setScaling(scaling);
-	}
+
 	public double getRightPower() {
 		return rightMotor.getSpeed(0);
-	}
-	public double getRightPosition() {
-		return rightMotor.getPosition(0);
 	}
 	
 	//TODO: just uses left side, but the move together? possibly? It is writing to both sides.
 	@Override
 	public double[][] pidRead() {
-		double[][] inputs = new double[2][1];
-		inputs[0][0] = getLeftPosition();
-		inputs[1][0] = getLeftSpeed();
+		double[][] inputs = new double[2][2];
+		inputs[0][0] = getElevatorPosition();
+		inputs[1][0] = getElevatorSpeed();
+		inputs[0][1] = getWristPosition();
+		inputs[1][1] = 0;
+
 		return inputs;
 	}
 
 	@Override
 	public void pidWrite(double[] output) {
-		setPower(output[0]);
+		setElevatorPower(output[0]);
+		setWristPower(output[1]);
 	}
 	
 	public void resetEncoder() {
-//		motors[0].setSelectedSensorPosition(0, 0, 0);
-		encoder.reset();
+		elevatorEncoder.reset();
 	}
 	
-	public double getSpeed() {
-//		return motors[0].getSpeed(0);
-		return encoder.getRate() / scaling;
-	}
 	
-	public double getPosition() {
-//		return motors[0].getPosition(0);
-		return encoder.get() / scaling;
-	}
 	@Override
 	protected void initDefaultCommand() {
 		// TODO Auto-generated method stub
-		
 	}
 
 	@Override
 	public void internalVariablesWrite(double[] output) {
 		// TODO Auto-generated method stub
+		eLogger.putDouble("Position Setpoint", output[0]);
+		eLogger.putDouble("Actual Position", output[1]);
+		wLogger.putDouble("Position Setpoint", output[2]);
+		wLogger.putDouble("Actual Position", output[3]);
 		
 	}
 }

@@ -19,7 +19,7 @@ public class ElevatorDown extends Command {
 	}
 
 	protected void initialize() {
-		elevator.setPower(-.35);
+		elevator.setElevatorPower(-.35);
 	}
 
 	// Called repeatedly when this Command is scheduled to run
@@ -36,7 +36,7 @@ public class ElevatorDown extends Command {
 	// Called once after isFinished returns true
 	@Override
 	protected void end() {
-		elevator.setPower(0.0);
+		elevator.setElevatorPower(0.0);
 	}
 
 	// Called when another command which requires one or more of the same
