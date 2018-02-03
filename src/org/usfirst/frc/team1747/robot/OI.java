@@ -8,7 +8,11 @@
 package org.usfirst.frc.team1747.robot;
 
 import org.usfirst.frc.team1747.robot.commands.ArcadeDrive;
+import org.usfirst.frc.team1747.robot.commands.ClimbDown;
+import org.usfirst.frc.team1747.robot.commands.ClimbUp;
 import org.usfirst.frc.team1747.robot.commands.DriveCurve;
+import org.usfirst.frc.team1747.robot.commands.ElevatorDown;
+import org.usfirst.frc.team1747.robot.commands.ElevatorUp;
 import org.usfirst.frc.team1747.robot.commands.ZeroedSensorDriveCurve;
 import org.usfirst.frc.team1747.robot.subsystems.DriveSubsystem;
 
@@ -38,9 +42,12 @@ public class OI {
 	}
 	
 	public void createDriver() {
-		driver.getButton(Logitech.B).whenPressed(new ZeroedSensorDriveCurve(4,-60));
-//		driver.getButton(Logitech.Y).whenPressed(new ResetEncoders());
-		System.out.println("Method Ran");
+		driver.getButton(Logitech.A).whenPressed(new ZeroedSensorDriveCurve(4,-60));
+//		driver.getButton(Logitech.X).whenPressed(new ResetEncoders());
+		driver.getButton(Logitech.RB).whileHeld(new ElevatorUp());
+		driver.getButton(Logitech.RT).whileHeld(new ElevatorDown());
+		driver.getButton(Logitech.B).whileHeld(new ClimbDown());
+		driver.getButton(Logitech.Y).whileHeld(new ClimbUp());
 	}
 	
 	public Logitech getDriver() {
