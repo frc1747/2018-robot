@@ -15,18 +15,21 @@ import lib.frc1747.subsytems.HBRSubsystem;
 /**
  *
  */
-public class ElevatorControl extends Command {
+public class WristDown extends Command {
 	private ElevatorSubsystem elevator;
 	
 	private final double s_v_max = 18;
 	private final double a_v_max = 17.28;
+	private final double[] elevatorPositions = {0, 24, 48};
+	private final double[] wristPositions = {0, 90, 135};
+	private final double wristScaling = 5/360;
 	
 
 	
 	double elevatorSetpoint;
 	double wristSetpoint;
 
-    public ElevatorControl() {
+    public WristDown() {
     	requires(elevator = ElevatorSubsystem.getInstance());
     	setInterruptible(true);
     	
@@ -49,25 +52,21 @@ public class ElevatorControl extends Command {
     	elevator.setFeedforward(ElevatorSubsystem.Follower.WRIST, 0, 0, 0);
     	elevator.setFeedback(ElevatorSubsystem.Follower.WRIST, 0, 0, 0);
 		elevator.resetIntegrator(ElevatorSubsystem.Follower.WRIST);
-		
+
 		elevator.setEnabled(true);
+
+		if(elevator.getWristStage() != 0){	
+			elevator.setSetpoint(ElevatorSubsystem.Follower.WRIST, (wristPositions[elevator.getWristStage()] - 1) * wristScaling);
+			elevator.setElevatorStage(elevator.getElevatorStage() - 1);
+		}
     }
 
     // Called repeatedly when this Command is scheduled to run
-    protected void execute() {
-    	
-    	elevator.setSetpoint(ElevatorSubsystem.Follower.ELEVATOR, elevatorSetpoint);
-    	
-    	
-    	
-    	elevator.setSetpoint(ElevatorSubsystem.Follower.WRIST, wristSetpoint);
-    	
-    	
-    }
+    protected void execute() {}
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return false;
+        return true;
     }
 
     // Called once after isFinished returns true

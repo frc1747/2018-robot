@@ -15,19 +15,20 @@ import lib.frc1747.subsytems.HBRSubsystem;
 /**
  *
  */
-public class ElevatorUp extends Command {
+public class WristUp extends Command {
 	private ElevatorSubsystem elevator;
 	
-	private final double s_v_max = 18;
-	private final double a_v_max = 17.28;
+	
 	private final double[] elevatorPositions = {0, 24, 48};
-	private final double scaling = 1;
+	private final double[] wristPositions = {0, 90, 135};
+	private final double wristScaling = 5/360;
+	
 
 	
 	double elevatorSetpoint;
 	double wristSetpoint;
 
-    public ElevatorUp() {
+    public WristUp() {
     	requires(elevator = ElevatorSubsystem.getInstance());
     	setInterruptible(true);
     	
@@ -52,10 +53,17 @@ public class ElevatorUp extends Command {
 		elevator.resetIntegrator(ElevatorSubsystem.Follower.WRIST);
 
 		elevator.setEnabled(true);
-			
+
 		if(elevator.getElevatorStage() != 2){	
-			elevator.setSetpoint(ElevatorSubsystem.Follower.ELEVATOR, (elevatorPositions[elevator.getElevatorStage()] + 1) * scaling);
-			elevator.setElevatorStage(elevator.getElevatorStage() + 1);
+			if((elevator.getWristStage() + 1) == 2){
+				
+			}else{
+				elevator.setSetpoint(ElevatorSubsystem.Follower.WRIST, (wristPositions[elevator.getWristStage()] + 1) * wristScaling);
+				elevator.setElevatorStage(elevator.getElevatorStage() + 1);
+			}
+		}else{
+			elevator.setSetpoint(ElevatorSubsystem.Follower.WRIST, (wristPositions[elevator.getElevatorStage()] + 1) * wristScaling);
+			elevator.setWristStage(elevator.getWristStage() + 1);
 		}
     }
 

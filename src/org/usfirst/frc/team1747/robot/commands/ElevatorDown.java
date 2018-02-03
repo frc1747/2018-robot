@@ -4,45 +4,79 @@ import org.usfirst.frc.team1747.robot.OI;
 import org.usfirst.frc.team1747.robot.subsystems.DriveSubsystem;
 import org.usfirst.frc.team1747.robot.subsystems.ElevatorSubsystem;
 
+//import com.frc1747.subsystems.DriveSubsystem;
+
 import edu.wpi.first.wpilibj.command.Command;
 import lib.frc1747.controller.Logitech;
+import lib.frc1747.instrumentation.Instrumentation;
+import lib.frc1747.instrumentation.Logger;
+import lib.frc1747.subsytems.HBRSubsystem;
 
+/**
+ *
+ */
 public class ElevatorDown extends Command {
-
-	public ElevatorSubsystem elevator;
+	private ElevatorSubsystem elevator;
 	
-	public ElevatorDown() {
-		// TODO Auto-generated constructor stub
-		elevator = ElevatorSubsystem.getInstance();
-		requires(elevator);
-		setInterruptible(true);
-	}
+	private final double s_v_max = 18;
+	private final double a_v_max = 17.28;
+	private final double[] elevatorPositions = {0, 24, 48};
+	private final double scaling = 1;
+	
 
-	protected void initialize() {
-		elevator.setElevatorPower(-.35);
-	}
+	
+	double elevatorSetpoint;
+	double wristSetpoint;
 
-	// Called repeatedly when this Command is scheduled to run
-	@Override
-	protected void execute() {
-	}
+    public ElevatorDown() {
+    	requires(elevator = ElevatorSubsystem.getInstance());
+    	setInterruptible(true);
+    	
+    }
 
-	// Make this return true when this Command no longer needs to run execute()
-	@Override
-	protected boolean isFinished() {
-		return elevator.getLowerSwitch();
-	}
+    // Called just before this Command runs the first time
+    protected void initialize() {
+    	//setup velocity PID
+    	elevator.setMode(ElevatorSubsystem.Follower.ELEVATOR, HBRSubsystem.Mode.PID);
+    	elevator.setPIDMode(ElevatorSubsystem.Follower.ELEVATOR, HBRSubsystem.PIDMode.VELOCITY);
+    	elevator.setILimit(ElevatorSubsystem.Follower.ELEVATOR, 0);
+    	elevator.setFeedforward(ElevatorSubsystem.Follower.ELEVATOR, 0, 0, 0);
+    	elevator.setFeedback(ElevatorSubsystem.Follower.ELEVATOR, 0, 0, 0);
+    	elevator.resetIntegrator(ElevatorSubsystem.Follower.ELEVATOR);
+    	
+    	//setup angle PID
+    	elevator.setMode(ElevatorSubsystem.Follower.WRIST, HBRSubsystem.Mode.PID);
+    	elevator.setPIDMode(ElevatorSubsystem.Follower.WRIST, HBRSubsystem.PIDMode.VELOCITY);
+    	elevator.setILimit(ElevatorSubsystem.Follower.WRIST, 0);
+    	elevator.setFeedforward(ElevatorSubsystem.Follower.WRIST, 0, 0, 0);
+    	elevator.setFeedback(ElevatorSubsystem.Follower.WRIST, 0, 0, 0);
+		elevator.resetIntegrator(ElevatorSubsystem.Follower.WRIST);
 
-	// Called once after isFinished returns true
-	@Override
-	protected void end() {
-		elevator.setElevatorPower(0.0);
-	}
+		elevator.setEnabled(true);
+			
+		if(elevator.getElevatorStage() != 0){	
+			elevator.setSetpoint(ElevatorSubsystem.Follower.ELEVATOR, (elevatorPositions[elevator.getElevatorStage()] - 1) * scaling);
+			elevator.setElevatorStage(elevator.getElevatorStage() - 1);
+		}
+    }
 
-	// Called when another command which requires one or more of the same
-	// subsystems is scheduled to run
-	@Override
-	protected void interrupted() {
-	}
+    // Called repeatedly when this Command is scheduled to run
+    protected void execute() {}
 
+    // Make this return true when this Command no longer needs to run execute()
+    protected boolean isFinished() {
+        return true;
+    }
+
+    // Called once after isFinished returns true
+    protected void end() {
+    	elevator.setEnabled(false);
+    	elevator.setLeftPower(0);
+    	elevator.setRightPower(0);
+    }
+
+    // Called when another command which requires one or more of the same
+    // subsystems is scheduled to run
+    protected void interrupted() {
+    }
 }

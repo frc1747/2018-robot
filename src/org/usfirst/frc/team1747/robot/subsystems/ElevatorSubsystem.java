@@ -23,7 +23,8 @@ public class ElevatorSubsystem extends HBRSubsystem<ElevatorSubsystem.Follower> 
 	double scaling;
 	private Logger eLogger;
 	private Logger wLogger;
-	int index;
+	int elevatorIndex = 0;
+	int wristIndex =  0;
 	
 	private static ElevatorSubsystem elevator;
 	
@@ -36,7 +37,7 @@ public class ElevatorSubsystem extends HBRSubsystem<ElevatorSubsystem.Follower> 
 		rightMotor = new HBRTalon(RobotMap.ELEVATOR_MOTOR_PORTS[1]);
 		wristMotor = new HBRTalon(RobotMap.WRIST_MOTOR_PORT);
 		wristEncoder = new AnalogInput(RobotMap.WRIST_ENCODER);
-		index = 0;
+		elevatorIndex = 0;
 		
 		limitSwitch = new DigitalInput(RobotMap.ELEVATOR_LIMIT_SWITCH);
 		
@@ -70,10 +71,17 @@ public class ElevatorSubsystem extends HBRSubsystem<ElevatorSubsystem.Follower> 
 		return wristEncoder.getVoltage() - RobotMap.WRIST_OFFSET;
 	}
 	public void setElevatorStage(int index){
-		this.index = index;
+		this.elevatorIndex = index;
 	}
 	public int getElevatorStage(){
-		return index;
+		return elevatorIndex;
+	}
+	
+	public void setWristStage(int index){
+		this.wristIndex = index;
+	}
+	public int getWristStage(){
+		return wristIndex;
 	}
 	
 	
