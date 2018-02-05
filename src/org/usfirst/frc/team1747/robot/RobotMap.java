@@ -32,18 +32,17 @@ public class RobotMap {
 	public static final double RIGHT_SCALING = 1264.8;
 	
 	public static final int FUSE_THERMISTOR = 0;
-
-	//Intake
-	public static final int LEFT_INTAKE_PORT = 31;
-	public static final int RIGHT_INTAKE_PORT = 32;
 	
 	//ElevatorSubsystem
 	public static final int[] ELEVATOR_MOTOR_PORTS = {21,22};
 	public static final double ELEVATOR_SCALING = 5021.0;			//not tested
 	public static final int WRIST_MOTOR_PORT = 51;
 	public static final int WRIST_ENCODER = 1;
-	public static final double WRIST_OFFSET  = 1;
+	public static final double WRIST_OFFSET  = 0;					//used to set wrist to "0"
 	
+	//Intake
+	public static final int LEFT_INTAKE_PORT = 31;
+	public static final int RIGHT_INTAKE_PORT = 32;
 	
 	//ClimberSubsystem
 	public static final int CLIMB_MOTOR_1 = 41;
@@ -52,14 +51,11 @@ public class RobotMap {
 	public static final boolean CLIMB_1_INVERT = false;
 	public static final boolean CLIMB_2_INVERT = false;
 	
-	//Limit Switches
-	public static final int INTAKE_LIMIT_SWITCH = 7;
-	public static final int ELEVATOR_LIMIT_SWITCH = 6;
-	
 	//Pneumatics
 	public static final int INTAKE_SOLENOID = 0;
 	public static final int CLIMBER_SOLENOID = 1;
 	public static final int WHEELIE_BAR_SOLENOID = 2;
+	
 	
 	//Encoders
 	//Drive Subsystem
@@ -76,9 +72,9 @@ public class RobotMap {
 	public static final int ELEVATOR_ENCODER_B = 5;
 	
 	public static final boolean ELEVATOR_ENCODER_INVERSION = false;
-		
-	// If you are using multiple modules, make sure to define both the port
-	// number and the module. For example you with a rangefinder:
-	// public static int rangefinderPort = 1;
-	// public static int rangefinderModule = 1;
+	
+	
+	//Limit Switches
+	public static final int ELEVATOR_LIMIT_SWITCH = 6;
+	public static final int INTAKE_LIMIT_SWITCH = 7;
 }
