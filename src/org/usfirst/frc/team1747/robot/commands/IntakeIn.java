@@ -18,6 +18,8 @@ public class IntakeIn extends Command {
 	// Called just before this Command runs the first time
 		@Override
 		protected void initialize() {
+			intake.setLeftPower(0.2);
+			intake.setRightPower(0.2);
 		}
 
 		// Called repeatedly when this Command is scheduled to run
@@ -28,7 +30,7 @@ public class IntakeIn extends Command {
 	@Override
 	protected boolean isFinished() {
 		// TODO Auto-generated method stub
-		return intake.getSwitch();
+		return false;
 	}
 	// Called once after isFinished returns true
 		@Override
@@ -41,6 +43,7 @@ public class IntakeIn extends Command {
 		// subsystems is scheduled to run
 		@Override
 		protected void interrupted() {
+			end();
 		}
 
 	

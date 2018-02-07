@@ -7,19 +7,18 @@ import edu.wpi.first.wpilibj.command.Command;
 /**
  *
  */
-public class ElevateUp extends Command {
-	
-	private ElevatorSubsystem elevator;
-
-    public ElevateUp() {
+public class TestUp extends Command {
+	ElevatorSubsystem elevator;
+    public TestUp() {
     	requires(elevator = ElevatorSubsystem.getInstance());
     	setInterruptible(true);
+        // Use requires() here to declare subsystem dependencies
+        // eg. requires(chassis);
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	elevator.setLeftPower(0.1);
-    	elevator.setRightPower(0.1);
+    	elevator.setWristPower(0.5);
     }
 
     // Called repeatedly when this Command is scheduled to run
@@ -31,10 +30,9 @@ public class ElevateUp extends Command {
         return false;
     }
 
-    // Called once after isFinished returns true
+    // Called once after is Finished returns true
     protected void end() {
-    	elevator.setLeftPower(0);
-    	elevator.setRightPower(0);
+    	elevator.setWristPower(0.0);
     }
 
     // Called when another command which requires one or more of the same

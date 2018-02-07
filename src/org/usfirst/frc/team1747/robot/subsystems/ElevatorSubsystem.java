@@ -35,6 +35,9 @@ public class ElevatorSubsystem extends HBRSubsystem<ElevatorSubsystem.Follower> 
 	public ElevatorSubsystem() {
 		leftMotor = new HBRTalon(RobotMap.ELEVATOR_MOTOR_PORTS[0]);
 		rightMotor = new HBRTalon(RobotMap.ELEVATOR_MOTOR_PORTS[1]);
+		leftMotor.setInverted(RobotMap.ELEVATOR_MOTOR_INVERSIONS[0]);
+		rightMotor.setInverted(RobotMap.ELEVATOR_MOTOR_INVERSIONS[1]);
+
 		wristMotor = new HBRTalon(RobotMap.WRIST_MOTOR_PORT);
 		wristEncoder = new AnalogInput(RobotMap.WRIST_ENCODER);
 		elevatorIndex = 0;

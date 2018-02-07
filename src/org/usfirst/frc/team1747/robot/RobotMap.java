@@ -36,6 +36,7 @@ public class RobotMap {
 	//ElevatorSubsystem
 	public static final int[] ELEVATOR_MOTOR_PORTS = {21,22};
 	public static final double ELEVATOR_SCALING = 5021.0;			//not tested
+	public static final boolean[] ELEVATOR_MOTOR_INVERSIONS = {true, false};
 	public static final int WRIST_MOTOR_PORT = 51;
 	public static final int WRIST_ENCODER = 1;
 	public static final double WRIST_OFFSET  = 0;					//used to set wrist to "0"
@@ -43,6 +44,7 @@ public class RobotMap {
 	//Intake
 	public static final int LEFT_INTAKE_PORT = 31;
 	public static final int RIGHT_INTAKE_PORT = 32;
+	public static final boolean[] INTAKE_MOTOR_INVERSIONS = {true, false};
 	
 	//ClimberSubsystem
 	public static final int CLIMB_MOTOR_1 = 41;

@@ -8,6 +8,7 @@
 package org.usfirst.frc.team1747.robot;
 
 import org.usfirst.frc.team1747.robot.commands.ArcadeDrive;
+import org.usfirst.frc.team1747.robot.commands.AutonOutake;
 import org.usfirst.frc.team1747.robot.commands.ClimbDown;
 import org.usfirst.frc.team1747.robot.commands.ClimbUp;
 import org.usfirst.frc.team1747.robot.commands.DriveCurve;
@@ -15,6 +16,9 @@ import org.usfirst.frc.team1747.robot.commands.ElevateDown;
 import org.usfirst.frc.team1747.robot.commands.ElevateUp;
 import org.usfirst.frc.team1747.robot.commands.ElevatorDown;
 import org.usfirst.frc.team1747.robot.commands.ElevatorUp;
+import org.usfirst.frc.team1747.robot.commands.IntakeIn;
+import org.usfirst.frc.team1747.robot.commands.TestDown;
+import org.usfirst.frc.team1747.robot.commands.TestUp;
 import org.usfirst.frc.team1747.robot.commands.ZeroedSensorDriveCurve;
 import org.usfirst.frc.team1747.robot.subsystems.DriveSubsystem;
 
@@ -46,8 +50,8 @@ public class OI {
 	public void createDriver() {
 		driver.getButton(Logitech.X).whenPressed(new ZeroedSensorDriveCurve(4,-60));
 //		driver.getButton(Logitech.X).whenPressed(new ResetEncoders());
-		driver.getButton(Logitech.Y).whileHeld(new ElevateUp());
-		driver.getButton(Logitech.A).whileHeld(new ElevateDown());
+		driver.getButton(Logitech.Y).whileHeld(new AutonOutake());
+		driver.getButton(Logitech.A).whileHeld(new IntakeIn());
 		//driver.getButton(Logitech.B).whileHeld(new ClimbDown());
 		//driver.getButton(Logitech.Y).whileHeld(new ClimbUp());
 		driver.getDPADButton(0);

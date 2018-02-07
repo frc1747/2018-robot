@@ -20,8 +20,8 @@ public class AutonOutake extends Command {
     // Called just before this Command runs the first time
     protected void initialize() {
     	startTime = System.currentTimeMillis();
-    	intake.setLeftPower(0.8);
-    	intake.setRightPower(0.8);
+    	intake.setLeftPower(-0.8);
+    	intake.setRightPower(-0.8);
     }
 
     // Called repeatedly when this Command is scheduled to run
@@ -31,6 +31,7 @@ public class AutonOutake extends Command {
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
         return (System.currentTimeMillis() - startTime) >= 1000;
+    	//return false;
     }
 
     // Called once after isFinished returns true
@@ -42,5 +43,6 @@ public class AutonOutake extends Command {
     // Called when another command which requires one or more of the same
     // subsystems is scheduled to run
     protected void interrupted() {
+    	end();
     }
 }
