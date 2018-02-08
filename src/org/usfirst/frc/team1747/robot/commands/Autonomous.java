@@ -36,14 +36,14 @@ public class Autonomous extends CommandGroup {
     				
         			if(scoringPositions[0] == 'L'){
         				addSequential(new DriveProfile(""));
-        				addParallel(new IntakeIn());  				
+        				addParallel(new Intake());  				
         				addSequential(new ElevatorUp());
         				addSequential(new Delay(500));
         				addSequential(new AutonOutake());
         			}
         			else if(scoringPositions[0] == 'R'){
         				addSequential(new DriveProfile(""));
-        				addParallel(new IntakeIn());
+        				addParallel(new Intake());
         				addSequential(new ElevatorUp());
         				addSequential(new Delay(500));
         				addSequential(new AutonOutake());
@@ -67,14 +67,14 @@ public class Autonomous extends CommandGroup {
     				
         			if(scoringPositions[0] == 'L'){
         				addSequential(new DriveProfile(""));
-        				addParallel(new IntakeIn());
+        				addParallel(new Intake());
         				addSequential(new ElevatorUp());
         				addSequential(new Delay(500));
         				addSequential(new AutonOutake());
         			}
         			else if(scoringPositions[0] == 'R'){
         				addSequential(new DriveProfile(""));
-        				addParallel(new IntakeIn());
+        				addParallel(new Intake());
         				addSequential(new ElevatorUp());
         				addSequential(new Delay(500));
         				addSequential(new AutonOutake());
@@ -107,14 +107,14 @@ public class Autonomous extends CommandGroup {
     				
         			if(scoringPositions[0] == 'L'){
         				addSequential(new DriveProfile(""));
-        				addParallel(new IntakeIn());
+        				addParallel(new Intake());
         				addSequential(new ElevatorUp());
         				addSequential(new Delay(500));
         				addSequential(new AutonOutake());
         			}
         			else if(scoringPositions[0] == 'R'){
         				addSequential(new DriveProfile(""));
-        				addParallel(new IntakeIn());
+        				addParallel(new Intake());
         				addSequential(new ElevatorUp());
         				addSequential(new Delay(500));
         				addSequential(new AutonOutake());
@@ -138,14 +138,14 @@ public class Autonomous extends CommandGroup {
     				
         			if(scoringPositions[0] == 'L'){
         				addSequential(new DriveProfile(""));
-        				addParallel(new IntakeIn());
+        				addParallel(new Intake());
         				addSequential(new ElevatorUp());
         				addSequential(new Delay(500));
         				addSequential(new AutonOutake());
         			}
         			else if(scoringPositions[0] == 'R'){
         				addSequential(new DriveProfile(""));
-        				addParallel(new IntakeIn());
+        				addParallel(new Intake());
         				addSequential(new ElevatorUp());
         				addSequential(new Delay(500));
         				addSequential(new AutonOutake());

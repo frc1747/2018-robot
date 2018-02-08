@@ -42,10 +42,10 @@ public class DriveSubsystem extends HBRSubsystem<DriveSubsystem.Follower> {
 		right.setScaling(RobotMap.RIGHT_SCALING);
 		
 		logger = Instrumentation.getLogger("Drive");
-		logger.registerDouble("ProfileDistance", true, true);
-		logger.registerDouble("ActualDistance", true, true);
-		logger.registerDouble("ProfileAngle", true, true);
-		logger.registerDouble("ActualAngle", true, true);
+		logger.registerDouble("Distance/Profile", true, true);
+		logger.registerDouble("Distance/Actual", true, true);
+		logger.registerDouble("Angle/Profile", true, true);
+		logger.registerDouble("Angle/Actual", true, true);
 		
 	}
 	
@@ -185,9 +185,9 @@ public class DriveSubsystem extends HBRSubsystem<DriveSubsystem.Follower> {
 
 	@Override
 	public void internalVariablesWrite(double[] output) {
-		logger.putDouble("ProfileDistance", output[0]);
-		logger.putDouble("ActualDistance", output[1]);
-		logger.putDouble("ProfileAngle", output[2]);
-		logger.putDouble("ActualAngle", output[3]);
+		logger.putDouble("Distance/Profile", output[0]);
+		logger.putDouble("Distance/Actual", output[1]);
+		logger.putDouble("Angle/Profile", output[2]);
+		logger.putDouble("Angle/Actual", output[3]);
 	}
 }

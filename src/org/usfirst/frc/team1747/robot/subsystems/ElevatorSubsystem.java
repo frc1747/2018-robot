@@ -3,6 +3,7 @@ package org.usfirst.frc.team1747.robot.subsystems;
 import org.usfirst.frc.team1747.robot.RobotMap;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.tigerhuang.gambezi.dashboard.GambeziDashboard;
 
 import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.DigitalInput;
@@ -53,6 +54,9 @@ public class ElevatorSubsystem extends HBRSubsystem<ElevatorSubsystem.Follower> 
 		eLogger.registerDouble("Actual Position", true, true);
 		wLogger.registerDouble("Position Setpoint", true, true);
 		wLogger.registerDouble("Actual Position", true, true);
+		
+		GambeziDashboard.set_double("Wrist/kF", 1);
+		GambeziDashboard.set_double("Elevator/kF", 1);
 	}
 	
 	
@@ -71,7 +75,12 @@ public class ElevatorSubsystem extends HBRSubsystem<ElevatorSubsystem.Follower> 
 		wristMotor.set(ControlMode.PercentOutput, power);
 	}
 	public double getWristPosition() {
-		return wristEncoder.getVoltage() - RobotMap.WRIST_OFFSET;
+		if(wristEncoder.getVoltage() - RobotMap.WRIST_OFFSET >= 0){
+			return wristEncoder.getVoltage() - RobotMap.WRIST_OFFSET;
+		}else{
+			return (5 + wristEncoder.getVoltage() - RobotMap.WRIST_OFFSET) * 2 * Math.PI/5;
+		}
+		
 	}
 	public void setElevatorStage(int index){
 		this.elevatorIndex = index;
@@ -130,8 +139,8 @@ public class ElevatorSubsystem extends HBRSubsystem<ElevatorSubsystem.Follower> 
 
 	@Override
 	public void pidWrite(double[] output) {
-		setElevatorPower(output[0]);
-		setWristPower(output[1]);
+		setElevatorPower(output[0] + GambeziDashboard.get_double("Elevator/kF"));
+		setWristPower(output[1] + Math.sin(getWristPosition()) * GambeziDashboard.get_double("Wrist/kF"));
 	}
 	
 	public void resetEncoder() {

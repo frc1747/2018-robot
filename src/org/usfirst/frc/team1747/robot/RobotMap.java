@@ -39,6 +39,8 @@ public class RobotMap {
 	public static final boolean[] ELEVATOR_MOTOR_INVERSIONS = {true, false};
 	public static final int WRIST_MOTOR_PORT = 51;
 	public static final int WRIST_ENCODER = 1;
+	
+	//wrist offset should be between 0 and 5
 	public static final double WRIST_OFFSET  = 0;					//used to set wrist to "0"
 	
 	//Intake
@@ -54,8 +56,8 @@ public class RobotMap {
 	public static final boolean CLIMB_2_INVERT = false;
 	
 	//Pneumatics
-	public static final int INTAKE_SOLENOID = 0;
-	public static final int CLIMBER_SOLENOID = 1;
+	public static final int INTAKE_SOLENOID = 1;
+	public static final int CLIMBER_SOLENOID = 3;
 	public static final int WHEELIE_BAR_SOLENOID = 2;
 	
 	

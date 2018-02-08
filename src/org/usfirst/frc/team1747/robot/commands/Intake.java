@@ -3,23 +3,25 @@ package org.usfirst.frc.team1747.robot.commands;
 import org.usfirst.frc.team1747.robot.subsystems.DriveSubsystem;
 import org.usfirst.frc.team1747.robot.subsystems.IntakeSubsystem;
 
+import com.tigerhuang.gambezi.dashboard.GambeziDashboard;
+
 import edu.wpi.first.wpilibj.command.Command;
 
-public class IntakeIn extends Command {
+public class Intake extends Command {
 	
 	public IntakeSubsystem intake;
 	
-	public IntakeIn() {
+	public Intake() {
 		intake = IntakeSubsystem.getInstance();
 		requires (intake);
+    	GambeziDashboard.set_double("Intake/InPower", 0.2);
 	}
 	
 	
 	// Called just before this Command runs the first time
 		@Override
 		protected void initialize() {
-			intake.setLeftPower(0.2);
-			intake.setRightPower(0.2);
+			intake.setPower(GambeziDashboard.get_double("Intake/InPower"));
 		}
 
 		// Called repeatedly when this Command is scheduled to run
@@ -35,8 +37,7 @@ public class IntakeIn extends Command {
 	// Called once after isFinished returns true
 		@Override
 		protected void end() {
-			intake.setLeftPower(0.0);
-			intake.setRightPower(0.0);
+			intake.setPower(0.0);
 		}
 
 		// Called when another command which requires one or more of the same

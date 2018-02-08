@@ -2,7 +2,7 @@ package org.usfirst.frc.team1747.robot.commands;
 
 import org.usfirst.frc.team1747.robot.subsystems.DriveSubsystem;
 import lib.frc1747.subsytems.HBRSubsystem;
-
+import com.tigerhuang.gambezi.dashboard.*;
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
@@ -11,12 +11,21 @@ import edu.wpi.first.wpilibj.command.Command;
 public class DriveProfile extends Command {
 	private DriveSubsystem drive;
 	String filename;
-
+	
     public DriveProfile(String filename) {
     	// Command initialization
     	requires(drive = DriveSubsystem.getInstance());
     	setInterruptible(true);
-    	
+    	GambeziDashboard.set_double("Drive/Distance/kA", 0);
+    	GambeziDashboard.set_double("Drive/Distance/kV", 0);
+    	GambeziDashboard.set_double("Drive/Distance/kP", 0);
+    	GambeziDashboard.set_double("Drive/Distance/kI", 0);
+    	GambeziDashboard.set_double("Drive/Distance/kD", 0);
+    	GambeziDashboard.set_double("Drive/Angle/kA", 0);
+    	GambeziDashboard.set_double("Drive/Angle/kV", 0);
+    	GambeziDashboard.set_double("Drive/Angle/kP", 0);
+    	GambeziDashboard.set_double("Drive/Angle/kI", 0);
+    	GambeziDashboard.set_double("Drive/Angle/kD", 0);
     	this.filename = filename;
     }
     
@@ -31,8 +40,8 @@ public class DriveProfile extends Command {
     	drive.setMode(DriveSubsystem.Follower.DISTANCE, HBRSubsystem.Mode.FOLLOWER);
     	drive.setPIDMode(DriveSubsystem.Follower.DISTANCE, HBRSubsystem.PIDMode.POSITION);
     	drive.setILimit(DriveSubsystem.Follower.DISTANCE, 0);
-    	drive.setFeedforward(DriveSubsystem.Follower.DISTANCE, 0, 0, 0);
-    	drive.setFeedback(DriveSubsystem.Follower.DISTANCE,0, 0, 0);
+    	drive.setFeedforward(DriveSubsystem.Follower.DISTANCE, 0, GambeziDashboard.get_double("Drive/Distance/kV"), GambeziDashboard.get_double("Drive/Distance/kA"));
+    	drive.setFeedback(DriveSubsystem.Follower.DISTANCE, GambeziDashboard.get_double("Drive/Distance/kP"), GambeziDashboard.get_double("Drive/Distance/kI"), GambeziDashboard.get_double("Drive/Distance/kD"));
     	drive.resetIntegrator(DriveSubsystem.Follower.DISTANCE);
     	drive.setProfile(DriveSubsystem.Follower.DISTANCE, profiles[0]);
     	
@@ -40,8 +49,8 @@ public class DriveProfile extends Command {
     	drive.setMode(DriveSubsystem.Follower.ANGLE, HBRSubsystem.Mode.FOLLOWER);
     	drive.setPIDMode(DriveSubsystem.Follower.ANGLE, HBRSubsystem.PIDMode.POSITION);
     	drive.setILimit(DriveSubsystem.Follower.ANGLE, 0);
-    	drive.setFeedforward(DriveSubsystem.Follower.ANGLE, 0, 0, 0);
-    	drive.setFeedback(DriveSubsystem.Follower.ANGLE, 0, 0, 0);
+    	drive.setFeedforward(DriveSubsystem.Follower.ANGLE, 0, GambeziDashboard.get_double("Drive/Angle/kV"), GambeziDashboard.get_double("Drive/Angle/kA"));
+    	drive.setFeedback(DriveSubsystem.Follower.ANGLE, GambeziDashboard.get_double("Drive/Angle/kP"), GambeziDashboard.get_double("Drive/Angle/kI"), GambeziDashboard.get_double("Drive/Angle/kD"));
     	drive.resetIntegrator(DriveSubsystem.Follower.ANGLE);
     	drive.setProfile(DriveSubsystem.Follower.ANGLE, profiles[1]);
     	    	

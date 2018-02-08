@@ -2,6 +2,8 @@ package org.usfirst.frc.team1747.robot.commands;
 
 import org.usfirst.frc.team1747.robot.subsystems.ElevatorSubsystem;
 
+import com.tigerhuang.gambezi.dashboard.GambeziDashboard;
+
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
@@ -14,12 +16,12 @@ public class ElevateUp extends Command {
     public ElevateUp() {
     	requires(elevator = ElevatorSubsystem.getInstance());
     	setInterruptible(true);
+    	GambeziDashboard.set_double("Elevator/UpPower", 0.1);
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	elevator.setLeftPower(0.1);
-    	elevator.setRightPower(0.1);
+    	elevator.setElevatorPower(GambeziDashboard.get_double("Elevator/UpPower"));
     }
 
     // Called repeatedly when this Command is scheduled to run
@@ -33,8 +35,7 @@ public class ElevateUp extends Command {
 
     // Called once after isFinished returns true
     protected void end() {
-    	elevator.setLeftPower(0);
-    	elevator.setRightPower(0);
+    	elevator.setElevatorPower(0);
     }
 
     // Called when another command which requires one or more of the same

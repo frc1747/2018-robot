@@ -54,6 +54,9 @@ public class IntakeSubsystem extends HBRSubsystem<IntakeSubsystem.Follower> {
 	public double getLeftPosition() {
 		return leftIntakeMotor.getPosition(0);
 	}
+	public void setSolenoid(boolean state){
+		solenoid.set(state);
+	}
 	
 	//Right motor
 	public void setRightPower(double power) {

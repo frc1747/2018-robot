@@ -14,6 +14,8 @@ import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.logging.Level;
 import java.util.logging.LogRecord;
 
+import com.tigerhuang.gambezi.dashboard.GambeziDashboard;
+
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
@@ -277,7 +279,7 @@ public class Instrumentation implements Thread.UncaughtExceptionHandler {
 						level, message, thrown);
 				
 				// Output the message
-				System.out.print(output);
+				GambeziDashboard.log_string(output);
 				if(messageWriter != null) {
 					messageWriter.print(output);
 					//messageWriter.flush();
@@ -296,13 +298,13 @@ public class Instrumentation implements Thread.UncaughtExceptionHandler {
 			for(LoggedValue value:values) {
 				if(value.willLogToSD()) {
 					if(value instanceof LoggedDouble)
-						SmartDashboard.putNumber(value.getLogger() + ": " + value.getName(), ((LoggedDouble)value).value);
+						GambeziDashboard.set_double(value.getLogger() + "/" + value.getName(), ((LoggedDouble)value).value);
 					if(value instanceof LoggedString) {
 						String stringValue = ((LoggedString)value).value;
-						SmartDashboard.putString(value.getLogger() + ": " + value.getName(), stringValue != null ? stringValue : "");
+						GambeziDashboard.set_string(value.getLogger() + "/" + value.getName(), stringValue != null ? stringValue : "");
 					}
 					if(value instanceof LoggedBoolean)
-						SmartDashboard.putBoolean(value.getLogger() + ": " + value.getName(), ((LoggedBoolean)value).value);
+						GambeziDashboard.set_boolean(value.getLogger() + "/" + value.getName(), ((LoggedBoolean)value).value);
 					if(value instanceof LoggedSendable)
 						SmartDashboard.putData(value.getLogger() + ": " + value.getName(), ((LoggedSendable)value).value);
 				}
