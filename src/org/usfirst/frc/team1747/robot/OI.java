@@ -52,22 +52,15 @@ public class OI {
 	}
 	
 	public void createDriver() {
-		driver.getButton(Logitech.RT).whenPressed(new ElevateUp());
-		driver.getButton(Logitech.RB).whenPressed(new ElevateDown());
-		driver.getButton(Logitech.Y).whenPressed(new TestUp());
-		driver.getButton(Logitech.A).whenPressed(new TestDown());
-		driver.getButton(Logitech.X).whenPressed(new Intake());
-		driver.getButton(Logitech.B).whenPressed(new Outtake());
-		driver.getButton(Logitech.UP).whileHeld(new ClimbUp());
-		driver.getButton(Logitech.DOWN).whileHeld(new ClimbDown());
+		driver.getButton(Logitech.RT).whileHeld(new ElevateDown());
+		driver.getButton(Logitech.RB).whileHeld(new ElevateUp());
+		driver.getButton(Logitech.Y).whileHeld(new WristUp());
+		driver.getButton(Logitech.A).whileHeld(new WristDown());
+		driver.getButton(Logitech.X).whileHeld(new Intake());
+		driver.getButton(Logitech.B).whileHeld(new Outtake());
+		//driver.getButton(Logitech.UP).whileHeld(new ClimbUp());
+		//driver.getButton(Logitech.DOWN).whileHeld(new ClimbDown());
 		driver.getButton(Logitech.LB).whileHeld(new OpenIntake());
-		//driver.getButton(Logitech.X).whenPressed(new ZeroedSensorDriveCurve(4,-60));
-		//driver.getButton(Logitech.X).whenPressed(new ResetEncoders());
-		//driver.getButton(Logitech.Y).whileHeld(new AutonOutake());
-		//driver.getButton(Logitech.A).whileHeld(new IntakeIn());
-		//driver.getButton(Logitech.B).whileHeld(new ClimbDown());
-		//driver.getButton(Logitech.Y).whileHeld(new ClimbUp());
-		//driver.getDPADButton(0);
 	}
 	
 	public Logitech getDriver() {

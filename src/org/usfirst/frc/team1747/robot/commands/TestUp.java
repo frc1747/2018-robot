@@ -14,7 +14,7 @@ public class TestUp extends Command {
     public TestUp() {
     	requires(elevator = ElevatorSubsystem.getInstance());
     	setInterruptible(true);
-    	GambeziDashboard.set_double("Wrist/UpPower", 0.5);
+    	GambeziDashboard.set_double("Wrist/UpPower", 0.0);
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
     }
@@ -26,6 +26,7 @@ public class TestUp extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
+    	GambeziDashboard.set_double("Wrist/Angle", elevator.getWristPosition());
     }
 
     // Make this return true when this Command no longer needs to run execute()

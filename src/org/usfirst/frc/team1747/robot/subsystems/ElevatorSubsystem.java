@@ -25,7 +25,9 @@ public class ElevatorSubsystem extends HBRSubsystem<ElevatorSubsystem.Follower> 
 	private Logger eLogger;
 	private Logger wLogger;
 	int elevatorIndex = 0;
-	int wristIndex =  0;
+	int wristIndex =  3;
+	double[] elevatorPositions = {0, 24, 60};
+	double[] wristPositions = {Math.PI / 2, 3 * Math.PI / 4, Math.PI, 4.6};
 	
 	private static ElevatorSubsystem elevator;
 	
@@ -54,9 +56,37 @@ public class ElevatorSubsystem extends HBRSubsystem<ElevatorSubsystem.Follower> 
 		eLogger.registerDouble("Actual Position", true, true);
 		wLogger.registerDouble("Position Setpoint", true, true);
 		wLogger.registerDouble("Actual Position", true, true);
-		
-		GambeziDashboard.set_double("Wrist/kF", 1);
-		GambeziDashboard.set_double("Elevator/kF", 1);
+
+		GambeziDashboard.set_double("Elevator/kF", 0);				//TODO: Check WRIST_OFFSET
+		GambeziDashboard.set_double("Elevator/kV", 0);
+    	GambeziDashboard.set_double("Elevator/kA", 0);
+    	GambeziDashboard.set_double("Elevator/kP", 0);
+    	GambeziDashboard.set_double("Elevator/kI", 0);
+    	GambeziDashboard.set_double("Elevator/kD", 0);
+		GambeziDashboard.set_double("Wrist/kF", 0.2);
+    	GambeziDashboard.set_double("Wrist/kA", 0);
+    	GambeziDashboard.set_double("Wrist/kV", 0);
+    	GambeziDashboard.set_double("Wrist/kP", 0);
+    	GambeziDashboard.set_double("Wrist/kI", 0);
+    	GambeziDashboard.set_double("Wrist/kD", 0);
+		/*
+		//setup velocity PID
+    	elevator.setMode(ElevatorSubsystem.Follower.ELEVATOR, HBRSubsystem.Mode.PID);
+    	elevator.setPIDMode(ElevatorSubsystem.Follower.ELEVATOR, HBRSubsystem.PIDMode.VELOCITY);
+    	elevator.setILimit(ElevatorSubsystem.Follower.ELEVATOR, 0);
+    	elevator.setFeedforward(ElevatorSubsystem.Follower.ELEVATOR, 0, GambeziDashboard.get_double("Elevator/kV"), GambeziDashboard.get_double("Elevator/kA"));
+    	elevator.setFeedback(ElevatorSubsystem.Follower.ELEVATOR, GambeziDashboard.get_double("Elevator/kP"), GambeziDashboard.get_double("Elevator/kI"), GambeziDashboard.get_double("Elevator/kD"));
+    	elevator.resetIntegrator(ElevatorSubsystem.Follower.ELEVATOR);
+    	
+    	//setup angle PID
+    	elevator.setMode(ElevatorSubsystem.Follower.WRIST, HBRSubsystem.Mode.PID);
+    	elevator.setPIDMode(ElevatorSubsystem.Follower.WRIST, HBRSubsystem.PIDMode.VELOCITY);
+    	elevator.setILimit(ElevatorSubsystem.Follower.WRIST, 0);
+    	elevator.setFeedforward(ElevatorSubsystem.Follower.WRIST, 0, GambeziDashboard.get_double("Wrist/kV"), GambeziDashboard.get_double("Wrist/kA"));
+    	elevator.setFeedback(ElevatorSubsystem.Follower.WRIST, GambeziDashboard.get_double("Wrist/kP"), GambeziDashboard.get_double("Wrist/kI"), GambeziDashboard.get_double("Wrist/kD"));
+		elevator.resetIntegrator(ElevatorSubsystem.Follower.WRIST);
+		*/
+//		elevator.setEnabled(true);
 	}
 	
 	
@@ -75,10 +105,10 @@ public class ElevatorSubsystem extends HBRSubsystem<ElevatorSubsystem.Follower> 
 		wristMotor.set(ControlMode.PercentOutput, power);
 	}
 	public double getWristPosition() {
-		if(wristEncoder.getVoltage() - RobotMap.WRIST_OFFSET >= 0){
-			return wristEncoder.getVoltage() - RobotMap.WRIST_OFFSET;
+		if(-wristEncoder.getVoltage() - RobotMap.WRIST_OFFSET >= 0){
+			return -wristEncoder.getVoltage() - RobotMap.WRIST_OFFSET;
 		}else{
-			return (5 + wristEncoder.getVoltage() - RobotMap.WRIST_OFFSET) * 2 * Math.PI/5;
+			return (5 + -wristEncoder.getVoltage() - RobotMap.WRIST_OFFSET) * 2 * Math.PI/5;
 		}
 		
 	}
@@ -96,7 +126,13 @@ public class ElevatorSubsystem extends HBRSubsystem<ElevatorSubsystem.Follower> 
 		return wristIndex;
 	}
 	
+	public double[] getWristStages() {
+		return wristPositions;
+	}
 	
+	public double[] getElevatorStages() {
+		return elevatorPositions;
+	}
 	
 	public boolean getLowerSwitch() {
 		return limitSwitch.get();
@@ -141,6 +177,7 @@ public class ElevatorSubsystem extends HBRSubsystem<ElevatorSubsystem.Follower> 
 	public void pidWrite(double[] output) {
 		setElevatorPower(output[0] + GambeziDashboard.get_double("Elevator/kF"));
 		setWristPower(output[1] + Math.sin(getWristPosition()) * GambeziDashboard.get_double("Wrist/kF"));
+		GambeziDashboard.set_double("Wrist/Angle", getWristPosition());
 	}
 	
 	public void resetEncoder() {

@@ -4,6 +4,8 @@ import org.usfirst.frc.team1747.robot.OI;
 import org.usfirst.frc.team1747.robot.subsystems.DriveSubsystem;
 import org.usfirst.frc.team1747.robot.subsystems.ElevatorSubsystem;
 
+import com.tigerhuang.gambezi.dashboard.GambeziDashboard;
+
 //import com.frc1747.subsystems.DriveSubsystem;
 
 import edu.wpi.first.wpilibj.command.Command;
@@ -40,18 +42,18 @@ public class ElevatorDown extends Command {
     	elevator.setMode(ElevatorSubsystem.Follower.ELEVATOR, HBRSubsystem.Mode.PID);
     	elevator.setPIDMode(ElevatorSubsystem.Follower.ELEVATOR, HBRSubsystem.PIDMode.VELOCITY);
     	elevator.setILimit(ElevatorSubsystem.Follower.ELEVATOR, 0);
-    	elevator.setFeedforward(ElevatorSubsystem.Follower.ELEVATOR, 0, 0, 0);
-    	elevator.setFeedback(ElevatorSubsystem.Follower.ELEVATOR, 0, 0, 0);
+    	elevator.setFeedforward(ElevatorSubsystem.Follower.ELEVATOR, 0, GambeziDashboard.get_double("Elevator/kV"), GambeziDashboard.get_double("Elevator/kA"));
+    	elevator.setFeedback(ElevatorSubsystem.Follower.ELEVATOR, GambeziDashboard.get_double("Elevator/kP"), GambeziDashboard.get_double("Elevator/kI"), GambeziDashboard.get_double("Elevator/kD"));
     	elevator.resetIntegrator(ElevatorSubsystem.Follower.ELEVATOR);
     	
     	//setup angle PID
     	elevator.setMode(ElevatorSubsystem.Follower.WRIST, HBRSubsystem.Mode.PID);
     	elevator.setPIDMode(ElevatorSubsystem.Follower.WRIST, HBRSubsystem.PIDMode.VELOCITY);
     	elevator.setILimit(ElevatorSubsystem.Follower.WRIST, 0);
-    	elevator.setFeedforward(ElevatorSubsystem.Follower.WRIST, 0, 0, 0);
-    	elevator.setFeedback(ElevatorSubsystem.Follower.WRIST, 0, 0, 0);
+    	elevator.setFeedforward(ElevatorSubsystem.Follower.WRIST, 0, GambeziDashboard.get_double("Wrist/kV"), GambeziDashboard.get_double("Wrist/kA"));
+    	elevator.setFeedback(ElevatorSubsystem.Follower.WRIST, GambeziDashboard.get_double("Wrist/kP"), GambeziDashboard.get_double("Wrist/kI"), GambeziDashboard.get_double("Wrist/kD"));
 		elevator.resetIntegrator(ElevatorSubsystem.Follower.WRIST);
-
+		
 		elevator.setEnabled(true);
 			
 		if(elevator.getElevatorStage() != 0){	
@@ -70,9 +72,6 @@ public class ElevatorDown extends Command {
 
     // Called once after isFinished returns true
     protected void end() {
-    	elevator.setEnabled(false);
-    	elevator.setLeftPower(0);
-    	elevator.setRightPower(0);
     }
 
     // Called when another command which requires one or more of the same

@@ -16,7 +16,7 @@ public class ElevateUp extends Command {
     public ElevateUp() {
     	requires(elevator = ElevatorSubsystem.getInstance());
     	setInterruptible(true);
-    	GambeziDashboard.set_double("Elevator/UpPower", 0.1);
+    	GambeziDashboard.set_double("Elevator/UpPower", 0.3);
     }
 
     // Called just before this Command runs the first time

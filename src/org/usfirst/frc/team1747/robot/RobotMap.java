@@ -41,7 +41,7 @@ public class RobotMap {
 	public static final int WRIST_ENCODER = 1;
 	
 	//wrist offset should be between 0 and 5
-	public static final double WRIST_OFFSET  = 0;					//used to set wrist to "0"
+	public static final double WRIST_OFFSET  = 0.54;					//used to set wrist to "0"
 	
 	//Intake
 	public static final int LEFT_INTAKE_PORT = 31;
