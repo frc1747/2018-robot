@@ -129,7 +129,7 @@ public class Robot extends TimedRobot {
 		drive = DriveSubsystem.getInstance();
 		intake = IntakeSubsystem.getInstance();
 		elevator = ElevatorSubsystem.getInstance();
-		//climber = ClimberSubsystem.getInstance();
+		climber = ClimberSubsystem.getInstance();
 		OI.getInstance();
 	}
 	

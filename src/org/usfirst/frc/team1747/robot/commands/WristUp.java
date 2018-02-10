@@ -38,17 +38,17 @@ public class WristUp extends Command {
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	//setup velocity PID
+    	//setup elevator PID
     	elevator.setMode(ElevatorSubsystem.Follower.ELEVATOR, HBRSubsystem.Mode.PID);
-    	elevator.setPIDMode(ElevatorSubsystem.Follower.ELEVATOR, HBRSubsystem.PIDMode.VELOCITY);
+    	elevator.setPIDMode(ElevatorSubsystem.Follower.ELEVATOR, HBRSubsystem.PIDMode.POSITION);
     	elevator.setILimit(ElevatorSubsystem.Follower.ELEVATOR, 0);
     	elevator.setFeedforward(ElevatorSubsystem.Follower.ELEVATOR, 0, GambeziDashboard.get_double("Elevator/kV"), GambeziDashboard.get_double("Elevator/kA"));
     	elevator.setFeedback(ElevatorSubsystem.Follower.ELEVATOR, GambeziDashboard.get_double("Elevator/kP"), GambeziDashboard.get_double("Elevator/kI"), GambeziDashboard.get_double("Elevator/kD"));
     	elevator.resetIntegrator(ElevatorSubsystem.Follower.ELEVATOR);
     	
-    	//setup angle PID
+    	//setup wrist PID
     	elevator.setMode(ElevatorSubsystem.Follower.WRIST, HBRSubsystem.Mode.PID);
-    	elevator.setPIDMode(ElevatorSubsystem.Follower.WRIST, HBRSubsystem.PIDMode.VELOCITY);
+    	elevator.setPIDMode(ElevatorSubsystem.Follower.WRIST, HBRSubsystem.PIDMode.POSITION);
     	elevator.setILimit(ElevatorSubsystem.Follower.WRIST, 0);
     	elevator.setFeedforward(ElevatorSubsystem.Follower.WRIST, 0, GambeziDashboard.get_double("Wrist/kV"), GambeziDashboard.get_double("Wrist/kA"));
     	elevator.setFeedback(ElevatorSubsystem.Follower.WRIST, GambeziDashboard.get_double("Wrist/kP"), GambeziDashboard.get_double("Wrist/kI"), GambeziDashboard.get_double("Wrist/kD"));
@@ -74,6 +74,8 @@ public class WristUp extends Command {
 			elevator.setWristStage(elevator.getWristStage() + 1);
 			elevator.setSetpoint(ElevatorSubsystem.Follower.WRIST, elevator.getWristStages()[elevator.getWristStage()]);
 		}
+		
+		GambeziDashboard.set_double("Wrist/Index", elevator.getWristStage());
     }
 
     // Called repeatedly when this Command is scheduled to run

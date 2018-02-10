@@ -27,7 +27,7 @@ public class ElevatorSubsystem extends HBRSubsystem<ElevatorSubsystem.Follower> 
 	int elevatorIndex = 0;
 	int wristIndex =  3;
 	double[] elevatorPositions = {0, 24, 60};
-	double[] wristPositions = {Math.PI / 2, 3 * Math.PI / 4, Math.PI, 4.6};
+	double[] wristPositions = {Math.PI / 2, 3 * Math.PI / 4, Math.PI, 3.8};
 	
 	private static ElevatorSubsystem elevator;
 	
@@ -57,7 +57,7 @@ public class ElevatorSubsystem extends HBRSubsystem<ElevatorSubsystem.Follower> 
 		wLogger.registerDouble("Position Setpoint", true, true);
 		wLogger.registerDouble("Actual Position", true, true);
 
-		GambeziDashboard.set_double("Elevator/kF", 0);				//TODO: Check WRIST_OFFSET
+		GambeziDashboard.set_double("Elevator/kF", 0);
 		GambeziDashboard.set_double("Elevator/kV", 0);
     	GambeziDashboard.set_double("Elevator/kA", 0);
     	GambeziDashboard.set_double("Elevator/kP", 0);
@@ -66,7 +66,7 @@ public class ElevatorSubsystem extends HBRSubsystem<ElevatorSubsystem.Follower> 
 		GambeziDashboard.set_double("Wrist/kF", 0.2);
     	GambeziDashboard.set_double("Wrist/kA", 0);
     	GambeziDashboard.set_double("Wrist/kV", 0);
-    	GambeziDashboard.set_double("Wrist/kP", 0);
+    	GambeziDashboard.set_double("Wrist/kP", 0.15);
     	GambeziDashboard.set_double("Wrist/kI", 0);
     	GambeziDashboard.set_double("Wrist/kD", 0);
 		/*
@@ -105,10 +105,10 @@ public class ElevatorSubsystem extends HBRSubsystem<ElevatorSubsystem.Follower> 
 		wristMotor.set(ControlMode.PercentOutput, power);
 	}
 	public double getWristPosition() {
-		if(-wristEncoder.getVoltage() - RobotMap.WRIST_OFFSET >= 0){
-			return -wristEncoder.getVoltage() - RobotMap.WRIST_OFFSET;
-		}else{
-			return (5 + -wristEncoder.getVoltage() - RobotMap.WRIST_OFFSET) * 2 * Math.PI/5;
+		if (RobotMap.WRIST_ENCODER_GEAR * (-wristEncoder.getVoltage()) * 2 * Math.PI/5 - RobotMap.WRIST_OFFSET >= 0) {
+			return RobotMap.WRIST_ENCODER_GEAR * (-wristEncoder.getVoltage()) * 2 * Math.PI/5 - RobotMap.WRIST_OFFSET;
+		} else {
+			return RobotMap.WRIST_ENCODER_GEAR * (5 + -wristEncoder.getVoltage()) * 2 * Math.PI/5 - RobotMap.WRIST_OFFSET;
 		}
 		
 	}
@@ -177,7 +177,9 @@ public class ElevatorSubsystem extends HBRSubsystem<ElevatorSubsystem.Follower> 
 	public void pidWrite(double[] output) {
 		setElevatorPower(output[0] + GambeziDashboard.get_double("Elevator/kF"));
 		setWristPower(output[1] + Math.sin(getWristPosition()) * GambeziDashboard.get_double("Wrist/kF"));
+		GambeziDashboard.set_double("Wrist/PIDOutput", output[1]);
 		GambeziDashboard.set_double("Wrist/Angle", getWristPosition());
+		GambeziDashboard.set_double("Wrist/Setpoint", wristPositions[wristIndex]);
 	}
 	
 	public void resetEncoder() {
@@ -197,6 +199,6 @@ public class ElevatorSubsystem extends HBRSubsystem<ElevatorSubsystem.Follower> 
 		eLogger.putDouble("Actual Position", output[1]);
 		wLogger.putDouble("Position Setpoint", output[2]);
 		wLogger.putDouble("Actual Position", output[3]);
-		
+		//GambeziDashboard.log_string("Internal Variables Write");
 	}
 }

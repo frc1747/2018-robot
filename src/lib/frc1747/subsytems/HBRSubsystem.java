@@ -618,7 +618,6 @@ public abstract class HBRSubsystem<E extends Enum<E>> extends Subsystem {
 			double[][] pv_raw = internalPidRead();
 			double[] pv = new double[n_followers];
 			double[] setPoints = new double[n_followers];
-			double[] internalVariables = new double[2*n_followers];
 			
 			// Calculate delta time
 			long time = System.nanoTime();
@@ -689,6 +688,7 @@ public abstract class HBRSubsystem<E extends Enum<E>> extends Subsystem {
 			pidWrite(output);
 			
 			// Write out internal variables
+			double[] internalVariables = new double[2*n_followers];
 			for(int i = 0; i < n_followers; i++){
 				internalVariables[2*i] = setPoints[i];
 				internalVariables[2*i+1] = pv[i];
