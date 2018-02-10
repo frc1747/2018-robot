@@ -31,6 +31,10 @@ public class DriveWithJoysticks extends Command {
     	logger = Instrumentation.getLogger("Robot");
     	logger.registerDouble("Left Speed", true, true);
 		logger.registerDouble("Right Speed", true, true);
+	  	logger.registerDouble("Left Position", true, true);
+		logger.registerDouble("Right Position", true, true);
+	 	logger.registerDouble("Left Acceleration", true, true);
+		logger.registerDouble("Right Acceleration", true, true);
     }
 
     // Called just before this Command runs the first time
@@ -65,6 +69,10 @@ public class DriveWithJoysticks extends Command {
     	
     	logger.putDouble("Left Speed", drivetrain.getLeftSpeed());
 		logger.putDouble("Right Speed", drivetrain.getRightSpeed());
+	 	logger.putDouble("Left Position", drivetrain.getLeftPosition());
+		logger.putDouble("Right Position", drivetrain.getRightPosition());
+		logger.putDouble("Left Acceleration", drivetrain.getLeftAcceleration());
+		logger.putDouble("Right Acceleration", drivetrain.getRightAcceleration());
     }
 
     // Make this return true when this Command no longer needs to run execute()

@@ -48,7 +48,7 @@ public class Robot extends TimedRobot {
 		initSubsystems();
 		logger = Instrumentation.getLogger("Robot");
 		logger.log(Level.INFO, "Robot Init");
-		logger.registerDouble("Battery voltage", false, true);
+		logger.registerDouble("Battery voltage", true, true);
 	}
 
 	/**

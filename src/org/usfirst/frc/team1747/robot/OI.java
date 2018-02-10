@@ -12,6 +12,7 @@ import org.usfirst.frc.team1747.robot.commands.AutonOutake;
 import org.usfirst.frc.team1747.robot.commands.ClimbDown;
 import org.usfirst.frc.team1747.robot.commands.ClimbUp;
 import org.usfirst.frc.team1747.robot.commands.DriveCurve;
+import org.usfirst.frc.team1747.robot.commands.DriveProfile;
 import org.usfirst.frc.team1747.robot.commands.ElevateDown;
 import org.usfirst.frc.team1747.robot.commands.ElevateUp;
 import org.usfirst.frc.team1747.robot.commands.ElevatorDown;
@@ -26,6 +27,10 @@ import org.usfirst.frc.team1747.robot.commands.WristUp;
 import org.usfirst.frc.team1747.robot.commands.ZeroedSensorDriveCurve;
 import org.usfirst.frc.team1747.robot.subsystems.DriveSubsystem;
 
+import com.tigerhuang.gambezi.OnUpdateListener;
+import com.tigerhuang.gambezi.dashboard.GambeziDashboard;
+
+import edu.wpi.first.wpilibj.command.Scheduler;
 import lib.frc1747.controller.Logitech;
 
 /**
@@ -40,6 +45,29 @@ public class OI {
 		driver = new Logitech(RobotMap.DRIVER);
 		
 		createDriver();
+		
+		DriveProfile drive10ft = new DriveProfile("/home/lvuser/10ft.csv");
+		DriveProfile curve_test_left = new DriveProfile("/home/lvuser/curve_test_left.csv");
+		DriveProfile curve_test_right = new DriveProfile("/home/lvuser/curve_test_right.csv");
+		GambeziDashboard.listen_button("Commands/Drive10ft", new OnUpdateListener() {
+			@Override
+			public void on_update(Object arg0) {
+				Scheduler.getInstance().add(drive10ft);
+			}
+		});
+		
+		GambeziDashboard.listen_button("Commands/CurveTestLeft", new OnUpdateListener() {
+			@Override
+			public void on_update(Object arg0) {
+				Scheduler.getInstance().add(curve_test_left);
+			}
+		});
+		GambeziDashboard.listen_button("Commands/CurveTestRight", new OnUpdateListener() {
+			@Override
+			public void on_update(Object arg0) {
+				Scheduler.getInstance().add(curve_test_right);
+			}
+		});
 	}
 	
 	public static OI getInstance() {

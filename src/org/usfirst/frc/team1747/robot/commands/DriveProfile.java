@@ -16,9 +16,9 @@ public class DriveProfile extends Command {
     	// Command initialization
     	requires(drive = DriveSubsystem.getInstance());
     	setInterruptible(true);
-    	GambeziDashboard.set_double("Drive/Distance/kA", 0);
-    	GambeziDashboard.set_double("Drive/Distance/kV", 0);
-    	GambeziDashboard.set_double("Drive/Distance/kP", 0);
+    	GambeziDashboard.set_double("Drive/Distance/kA", 0.02);
+    	GambeziDashboard.set_double("Drive/Distance/kV", 0.075);
+    	GambeziDashboard.set_double("Drive/Distance/kP", 1);
     	GambeziDashboard.set_double("Drive/Distance/kI", 0);
     	GambeziDashboard.set_double("Drive/Distance/kD", 0);
     	GambeziDashboard.set_double("Drive/Angle/kA", 0);
@@ -34,9 +34,8 @@ public class DriveProfile extends Command {
     	double[][][] profiles = HBRSubsystem.readProfilesFromFile(filename);
 
     	// Setup left side
-//    	drive.resetEncoders();
-//    	drive.getGyro().zeroYaw();
-
+    	drive.resetEncoders();
+    	drive.getGyro().zeroYaw();
     	drive.setMode(DriveSubsystem.Follower.DISTANCE, HBRSubsystem.Mode.FOLLOWER);
     	drive.setPIDMode(DriveSubsystem.Follower.DISTANCE, HBRSubsystem.PIDMode.POSITION);
     	drive.setILimit(DriveSubsystem.Follower.DISTANCE, 0);

@@ -100,6 +100,9 @@ public class DriveSubsystem extends HBRSubsystem<DriveSubsystem.Follower> {
 	public void resetLeftEncoder(){
 		left.resetEncoder();
 	}
+	public double getLeftAcceleration(){
+		return left.getAcceleretion();
+	}
 	
 	//Right drive side
 	public void setRightPower(double power) {
@@ -113,6 +116,9 @@ public class DriveSubsystem extends HBRSubsystem<DriveSubsystem.Follower> {
 	}
 	public void resetRightEncoder(){
 		left.resetEncoder();
+	}
+	public double getRightAcceleration(){
+		return right.getAcceleretion();
 	}
 
 	private void driveArcadeMode(double leftvert, double righthoriz) {
@@ -131,8 +137,11 @@ public class DriveSubsystem extends HBRSubsystem<DriveSubsystem.Follower> {
 		VictorSPX[] motors;
 		Encoder encoder;
 		private double scaling;
+		private double velocity;
+		private double acceleration;
 		
 		public DriveSide(int[] ports, boolean[] inverted, boolean sensInverted, int encA, int encB) {
+			velocity = 0;
 			motors = new VictorSPX[3];
 			talon = new HBRTalon(ports[0]);
 			talon.setInverted(inverted[0]);
@@ -156,6 +165,15 @@ public class DriveSubsystem extends HBRSubsystem<DriveSubsystem.Follower> {
 		
 		public double getSpeed() {
 			return encoder.getRate() / scaling;
+		}
+		
+		public double getAcceleretion(){
+			double oldVelocity = velocity;
+			velocity = getSpeed();
+			double oldAcceleration = acceleration;
+			acceleration = (velocity - oldVelocity)/0.01;
+			acceleration = 0.95*oldAcceleration + (0.05)*acceleration;
+			return acceleration;
 		}
 		
 		public double getPosition() {
