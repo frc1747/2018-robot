@@ -26,7 +26,7 @@ public class ElevatorSubsystem extends HBRSubsystem<ElevatorSubsystem.Follower> 
 	private Logger wLogger;
 	int elevatorIndex = 0;
 	int wristIndex =  3;
-	double[] elevatorPositions = {0, 24, 60};
+	double[] elevatorPositions = {0, 24, 48, 60, 67};
 	double[] wristPositions = {Math.PI / 2, 3 * Math.PI / 4, Math.PI, 3.8};
 	
 	private static ElevatorSubsystem elevator;
@@ -46,9 +46,7 @@ public class ElevatorSubsystem extends HBRSubsystem<ElevatorSubsystem.Follower> 
 		elevatorIndex = 0;
 		
 		limitSwitch = new DigitalInput(RobotMap.ELEVATOR_LIMIT_SWITCH);
-		
-		setElevatorScaling(RobotMap.ELEVATOR_SCALING);
-		
+				
 		elevatorEncoder = new Encoder(RobotMap.ELEVATOR_ENCODER_A, RobotMap.ELEVATOR_ENCODER_B, RobotMap.ELEVATOR_ENCODER_INVERSION);
 		eLogger = Instrumentation.getLogger("Elevator");
 		wLogger = Instrumentation.getLogger("Wrist");
@@ -56,17 +54,19 @@ public class ElevatorSubsystem extends HBRSubsystem<ElevatorSubsystem.Follower> 
 		eLogger.registerDouble("Actual Position", true, true);
 		wLogger.registerDouble("Position Setpoint", true, true);
 		wLogger.registerDouble("Actual Position", true, true);
+		
+		scaling = RobotMap.ELEVATOR_SCALING;
 
-		GambeziDashboard.set_double("Elevator/kF", 0);
+		GambeziDashboard.set_double("Elevator/kF", 0.2);
 		GambeziDashboard.set_double("Elevator/kV", 0);
     	GambeziDashboard.set_double("Elevator/kA", 0);
-    	GambeziDashboard.set_double("Elevator/kP", 0);
+    	GambeziDashboard.set_double("Elevator/kP", 0.02);
     	GambeziDashboard.set_double("Elevator/kI", 0);
     	GambeziDashboard.set_double("Elevator/kD", 0);
-		GambeziDashboard.set_double("Wrist/kF", 0.2);
+		GambeziDashboard.set_double("Wrist/kF", 0.35);
     	GambeziDashboard.set_double("Wrist/kA", 0);
     	GambeziDashboard.set_double("Wrist/kV", 0);
-    	GambeziDashboard.set_double("Wrist/kP", 0.15);
+    	GambeziDashboard.set_double("Wrist/kP", 0.59);
     	GambeziDashboard.set_double("Wrist/kI", 0);
     	GambeziDashboard.set_double("Wrist/kD", 0);
 		/*
@@ -142,12 +142,13 @@ public class ElevatorSubsystem extends HBRSubsystem<ElevatorSubsystem.Follower> 
 	public void setLeftPower(double power) {
 		leftMotor.set(ControlMode.PercentOutput, power);
 	}
-	public void setElevatorScaling(double scaling) {
-		leftMotor.setScaling(scaling);
-	}
+
+	//Inches per second
 	public double getElevatorSpeed() {
-		return elevatorEncoder.getRate() / scaling;
+		return elevatorEncoder.getRate()/scaling;
 	}
+	
+	//Inches
 	public double getElevatorPosition() {
 		return elevatorEncoder.get() / scaling;
 	}
@@ -178,8 +179,10 @@ public class ElevatorSubsystem extends HBRSubsystem<ElevatorSubsystem.Follower> 
 		setElevatorPower(output[0] + GambeziDashboard.get_double("Elevator/kF"));
 		setWristPower(output[1] + Math.sin(getWristPosition()) * GambeziDashboard.get_double("Wrist/kF"));
 		GambeziDashboard.set_double("Wrist/PIDOutput", output[1]);
+		GambeziDashboard.set_double("Elevator/PIDOutput", output[0]);
 		GambeziDashboard.set_double("Wrist/Angle", getWristPosition());
 		GambeziDashboard.set_double("Wrist/Setpoint", wristPositions[wristIndex]);
+		GambeziDashboard.set_double("Elevator/Position", getElevatorPosition());
 	}
 	
 	public void resetEncoder() {

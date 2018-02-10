@@ -56,10 +56,14 @@ public class ElevatorDown extends Command {
 		
 		elevator.setEnabled(true);
 			
-		if(elevator.getElevatorStage() != 0){	
-			elevator.setSetpoint(ElevatorSubsystem.Follower.ELEVATOR, (elevatorPositions[elevator.getElevatorStage()] - 1) * scaling);
+		if(elevator.getElevatorStage() > 0){	
 			elevator.setElevatorStage(elevator.getElevatorStage() - 1);
 		}
+		elevator.setSetpoint(ElevatorSubsystem.Follower.ELEVATOR, (elevator.getElevatorStages()[elevator.getElevatorStage()]));
+		elevator.setSetpoint(ElevatorSubsystem.Follower.WRIST, elevator.getWristStages()[elevator.getWristStage()]);
+
+		GambeziDashboard.set_double("Elevator/Index", elevator.getElevatorStage());
+		GambeziDashboard.set_double("Wrist/Index", elevator.getWristStage());
     }
 
     // Called repeatedly when this Command is scheduled to run

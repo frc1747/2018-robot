@@ -35,7 +35,7 @@ public class RobotMap {
 	
 	//ElevatorSubsystem
 	public static final int[] ELEVATOR_MOTOR_PORTS = {21,22};
-	public static final double ELEVATOR_SCALING = 5021.0;			//not tested
+	public static final double ELEVATOR_SCALING = 188.85140562248995983935742971888; //(2210+1418)/(25+5.0/8.0-6-9.0/16);			
 	public static final boolean[] ELEVATOR_MOTOR_INVERSIONS = {true, false};
 	public static final int WRIST_MOTOR_PORT = 51;
 	public static final int WRIST_ENCODER = 1;

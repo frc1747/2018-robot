@@ -56,17 +56,14 @@ public class WristDown extends Command {
 		elevator.resetIntegrator(ElevatorSubsystem.Follower.WRIST);
 		
 		elevator.setEnabled(true);
-		/*
-		if(elevator.getWristStage() != 0){	
-			elevator.setSetpoint(ElevatorSubsystem.Follower.WRIST, (wristPositions[elevator.getWristStage()] - 1) * wristScaling);
-			elevator.setElevatorStage(elevator.getElevatorStage() - 1);
-		}
-		*/
-		if (elevator.getWristStage() != 0) {
-			elevator.setWristStage(elevator.getWristStage() - 1);
-			elevator.setSetpoint(ElevatorSubsystem.Follower.WRIST, elevator.getWristStages()[elevator.getWristStage()]);
-		}
 		
+		if (elevator.getWristStage() > 0) {
+			elevator.setWristStage(elevator.getWristStage() - 1);
+		}
+		elevator.setSetpoint(ElevatorSubsystem.Follower.WRIST, elevator.getWristStages()[elevator.getWristStage()]);
+		elevator.setSetpoint(ElevatorSubsystem.Follower.ELEVATOR, (elevator.getElevatorStages()[elevator.getElevatorStage()]));
+
+		GambeziDashboard.set_double("Elevator/Index", elevator.getElevatorStage());
 		GambeziDashboard.set_double("Wrist/Index", elevator.getWristStage());
     }
 

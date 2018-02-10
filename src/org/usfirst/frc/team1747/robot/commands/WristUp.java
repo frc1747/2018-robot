@@ -21,7 +21,7 @@ public class WristUp extends Command {
 	private ElevatorSubsystem elevator;
 	
 	
-	private final double[] elevatorPositions = {0, 24, 48};
+	//private final double[] elevatorPositions = {0, 24, 48};
 	private final double[] wristPositions = {0, 90, 135};
 	private final double wristScaling = 5/360;
 	
@@ -70,11 +70,13 @@ public class WristUp extends Command {
 		}
 		*/
 		
-		if (elevator.getWristStage() != elevator.getWristStages().length - 1) {
+		if (elevator.getWristStage() < elevator.getWristStages().length - 1) {
 			elevator.setWristStage(elevator.getWristStage() + 1);
-			elevator.setSetpoint(ElevatorSubsystem.Follower.WRIST, elevator.getWristStages()[elevator.getWristStage()]);
 		}
+		elevator.setSetpoint(ElevatorSubsystem.Follower.WRIST, elevator.getWristStages()[elevator.getWristStage()]);
+		elevator.setSetpoint(ElevatorSubsystem.Follower.ELEVATOR, (elevator.getElevatorStages()[elevator.getElevatorStage()]));
 		
+		GambeziDashboard.set_double("Elevator/Index", elevator.getElevatorStage());
 		GambeziDashboard.set_double("Wrist/Index", elevator.getWristStage());
     }
 

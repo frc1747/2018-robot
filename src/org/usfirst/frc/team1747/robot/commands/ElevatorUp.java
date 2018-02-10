@@ -22,7 +22,6 @@ public class ElevatorUp extends Command {
 	
 	private final double s_v_max = 18;
 	private final double a_v_max = 17.28;
-	private final double[] elevatorPositions = {0, 24, 48};
 	private final double scaling = 1;
 
 	
@@ -55,10 +54,15 @@ public class ElevatorUp extends Command {
 		
 		elevator.setEnabled(true);
 			
-		if(elevator.getElevatorStage() != 2){	
-			elevator.setSetpoint(ElevatorSubsystem.Follower.ELEVATOR, (elevatorPositions[elevator.getElevatorStage()] + 1) * scaling);
+		if(elevator.getElevatorStage() < elevator.getElevatorStages().length - 1){	
 			elevator.setElevatorStage(elevator.getElevatorStage() + 1);
+			GambeziDashboard.log_string(elevator.getElevatorStage() +"");
 		}
+		elevator.setSetpoint(ElevatorSubsystem.Follower.ELEVATOR, (elevator.getElevatorStages()[elevator.getElevatorStage()]));
+		elevator.setSetpoint(ElevatorSubsystem.Follower.WRIST, elevator.getWristStages()[elevator.getWristStage()]);
+		
+		GambeziDashboard.set_double("Elevator/Index", elevator.getElevatorStage());
+		GambeziDashboard.set_double("Wrist/Index", elevator.getWristStage());
     }
 
     // Called repeatedly when this Command is scheduled to run
