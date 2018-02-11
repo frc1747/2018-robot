@@ -25,6 +25,8 @@ import org.usfirst.frc.team1747.robot.subsystems.DriveSubsystem;
 import org.usfirst.frc.team1747.robot.subsystems.ElevatorSubsystem;
 import org.usfirst.frc.team1747.robot.subsystems.IntakeSubsystem;
 
+import com.tigerhuang.gambezi.dashboard.GambeziDashboard;
+
 /**
  * The VM is configured to automatically run this class, and to call the
  * functions corresponding to each mode, as described in the TimedRobot
@@ -115,6 +117,7 @@ public class Robot extends TimedRobot {
 	public void teleopPeriodic() {
 		Scheduler.getInstance().run();
 		logger.putDouble("Battery voltage", RobotController.getBatteryVoltage());
+		GambeziDashboard.set_double("Intake/IntakeSensor", intake.getSwitch());
 	}
 	
 	/**

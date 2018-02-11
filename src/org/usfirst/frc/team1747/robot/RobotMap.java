@@ -81,5 +81,5 @@ public class RobotMap {
 	
 	//Limit Switches
 	public static final int ELEVATOR_LIMIT_SWITCH = 6;
-	public static final int INTAKE_LIMIT_SWITCH = 7;
+	public static final int INTAKE_LIMIT_SWITCH = 2;
 }

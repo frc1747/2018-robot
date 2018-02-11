@@ -3,6 +3,8 @@ package org.usfirst.frc.team1747.robot.commands;
 import org.usfirst.frc.team1747.robot.OI;
 import org.usfirst.frc.team1747.robot.subsystems.DriveSubsystem;
 
+import com.tigerhuang.gambezi.dashboard.GambeziDashboard;
+
 //import com.frc1747.subsystems.DriveSubsystem;
 
 import edu.wpi.first.wpilibj.command.Command;
@@ -35,6 +37,7 @@ public class DriveWithJoysticks extends Command {
 		logger.registerDouble("Right Position", true, true);
 	 	logger.registerDouble("Left Acceleration", true, true);
 		logger.registerDouble("Right Acceleration", true, true);
+		logger.registerDouble("Drive Angle", true, true);
     }
 
     // Called just before this Command runs the first time
@@ -73,6 +76,9 @@ public class DriveWithJoysticks extends Command {
 		logger.putDouble("Right Position", drivetrain.getRightPosition());
 		logger.putDouble("Left Acceleration", drivetrain.getLeftAcceleration());
 		logger.putDouble("Right Acceleration", drivetrain.getRightAcceleration());
+		logger.putDouble("Drive Angle", drivetrain.getGyro().getAngle());
+		//GambeziDashboard.set_double("gambezi/log", drivetrain.getRightSpeed());
+		//System.out.println(drivetrain.getGyro().getAngle());
     }
 
     // Make this return true when this Command no longer needs to run execute()

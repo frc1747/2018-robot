@@ -49,6 +49,8 @@ public class OI {
 		DriveProfile drive10ft = new DriveProfile("/home/lvuser/10ft.csv");
 		DriveProfile curve_test_left = new DriveProfile("/home/lvuser/curve_test_left.csv");
 		DriveProfile curve_test_right = new DriveProfile("/home/lvuser/curve_test_right.csv");
+		DriveProfile s_curve_left = new DriveProfile("/home/lvuser/S-Curve-Left.csv");
+		
 		GambeziDashboard.listen_button("Commands/Drive10ft", new OnUpdateListener() {
 			@Override
 			public void on_update(Object arg0) {
@@ -68,6 +70,12 @@ public class OI {
 				Scheduler.getInstance().add(curve_test_right);
 			}
 		});
+		GambeziDashboard.listen_button("Commands/S-Curve_left", new OnUpdateListener() {
+			@Override
+			public void on_update(Object arg0) {
+				Scheduler.getInstance().add(s_curve_left);
+			}
+		});
 	}
 	
 	public static OI getInstance() {
@@ -80,17 +88,21 @@ public class OI {
 	}
 	
 	public void createDriver() {
-		//driver.getButton(Logitech.RT).whenPressed(new ElevatorDown());
-		//driver.getButton(Logitech.RB).whenPressed(new ElevatorUp());
-		//driver.getButton(Logitech.Y).whenPressed(new WristUp());
-		//driver.getButton(Logitech.A).whenPressed(new WristDown());
-		//driver.getButton(Logitech.Y).whileHeld(new TestUp());
-		//driver.getButton(Logitech.A).whileHeld(new TestDown());
-		//driver.getButton(Logitech.X).whileHeld(new Intake());
-		//driver.getButton(Logitech.B).whileHeld(new Outtake());
+//		driver.getButton(Logitech.RT).whenPressed(new ElevatorDown());
+//		driver.getButton(Logitech.RB).whenPressed(new ElevatorUp());
+		driver.getButton(Logitech.Y).whenPressed(new WristUp());
+		driver.getButton(Logitech.A).whenPressed(new WristDown());
+//		driver.getButton(Logitech.X).whileHeld(new Intake());
+//		driver.getButton(Logitech.B).whileHeld(new Outtake());
 //		driver.getButton(Logitech.UP).whileHeld(new ClimbUp());
 //		driver.getButton(Logitech.DOWN).whileHeld(new ClimbDown());
 		driver.getButton(Logitech.LB).whileHeld(new OpenIntake());
+		
+		//Test Commands for wrist and elevator without PID loops
+//		driver.getButton(Logitech.Y).whileHeld(new TestUp());
+//		driver.getButton(Logitech.A).whileHeld(new TestDown());
+//		driver.getButton(Logitech.RT).whenPressed(new ElevateDown());
+//		driver.getButton(Logitech.RB).whenPressed(new ElevateUp());
 	}
 	
 	public Logitech getDriver() {
