@@ -15,10 +15,8 @@ import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import lib.frc1747.instrumentation.Instrumentation;
-import lib.frc1747.instrumentation.Logger;
 
-import java.util.logging.Level;
+//import java.util.logging.Level;
 
 import org.usfirst.frc.team1747.robot.subsystems.ClimberSubsystem;
 import org.usfirst.frc.team1747.robot.subsystems.DriveSubsystem;
@@ -40,17 +38,14 @@ public class Robot extends TimedRobot {
 	 * used for any initialization code.
 	 */
 	
-	Logger logger;
 	DriveSubsystem drive;
 	IntakeSubsystem intake;
 	ElevatorSubsystem elevator;
 	ClimberSubsystem climber;
+	int counter = 0;
 	@Override
 	public void robotInit() {
 		initSubsystems();
-		logger = Instrumentation.getLogger("Robot");
-		logger.log(Level.INFO, "Robot Init");
-		logger.registerDouble("Battery voltage", true, true);
 	}
 
 	/**
@@ -60,13 +55,13 @@ public class Robot extends TimedRobot {
 	 */
 	@Override
 	public void disabledInit() {
-		logger.disableLogging();
-		logger.flushAll();
 	}
 
 	@Override
 	public void disabledPeriodic() {
 		Scheduler.getInstance().run();
+		GambeziDashboard.set_double("Robot/Battery_Voltage", RobotController.getBatteryVoltage());
+		GambeziDashboard.set_double("Robot/Counter", counter++);
 	}
 
 	/**
@@ -82,14 +77,6 @@ public class Robot extends TimedRobot {
 	 */
 	@Override
 	public void autonomousInit() {
-		logger.enableLogging();
-		/*
-		 * String autoSelected = SmartDashboard.getString("Auto Selector",
-		 * "Default"); switch(autoSelected) { case "My Auto": autonomousCommand
-		 * = new MyAutoCommand(); break; case "Default Auto": default:
-		 * autonomousCommand = new ExampleCommand(); break; }
-		 */
-		
 	}
 
 	/**
@@ -98,11 +85,12 @@ public class Robot extends TimedRobot {
 	@Override
 	public void autonomousPeriodic() {
 		Scheduler.getInstance().run();
+		GambeziDashboard.set_double("Robot/Battery_Voltage", RobotController.getBatteryVoltage());
+		GambeziDashboard.set_double("Robot/Counter", counter++);
 	}
 
 	@Override
 	public void teleopInit() {
-		logger.enableLogging();
 		// This makes sure that the autonomous stops running when
 		// teleop starts running. If you want the autonomous to
 		// continue until interrupted by another command, remove
@@ -116,8 +104,10 @@ public class Robot extends TimedRobot {
 	@Override
 	public void teleopPeriodic() {
 		Scheduler.getInstance().run();
-		logger.putDouble("Battery voltage", RobotController.getBatteryVoltage());
+		//logger.putDouble("Battery voltage", RobotController.getBatteryVoltage());
 		GambeziDashboard.set_double("Intake/IntakeSensor", intake.getSwitch());
+		GambeziDashboard.set_double("Robot/Battery_Voltage", RobotController.getBatteryVoltage());
+		GambeziDashboard.set_double("Robot/Counter", counter++);
 	}
 	
 	/**

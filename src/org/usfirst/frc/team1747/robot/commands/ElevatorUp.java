@@ -10,8 +10,8 @@ import com.tigerhuang.gambezi.dashboard.GambeziDashboard;
 
 import edu.wpi.first.wpilibj.command.Command;
 import lib.frc1747.controller.Logitech;
-import lib.frc1747.instrumentation.Instrumentation;
-import lib.frc1747.instrumentation.Logger;
+//import lib.frc1747.instrumentation.Instrumentation;
+//import lib.frc1747.instrumentation.Logger;
 import lib.frc1747.subsytems.HBRSubsystem;
 
 /**

@@ -9,8 +9,8 @@ import com.tigerhuang.gambezi.dashboard.GambeziDashboard;
 
 import edu.wpi.first.wpilibj.command.Command;
 import lib.frc1747.controller.Logitech;
-import lib.frc1747.instrumentation.Instrumentation;
-import lib.frc1747.instrumentation.Logger;
+//import lib.frc1747.instrumentation.Instrumentation;
+//import lib.frc1747.instrumentation.Logger;
 import lib.frc1747.subsytems.HBRSubsystem;
 
 /**
@@ -22,22 +22,19 @@ public class DriveWithJoysticks extends Command {
 	private final double s_v_max = 18;
 	private final double a_v_max = 17.28;
 	
-	Logger logger;
-	
 	double speedSetpoint;
 	double angleSetpoint;
 
     public DriveWithJoysticks() {
     	requires(drivetrain = DriveSubsystem.getInstance());
     	setInterruptible(true);
-    	logger = Instrumentation.getLogger("Robot");
-    	logger.registerDouble("Left Speed", true, true);
+    	/*logger.registerDouble("Left Speed", true, true);
 		logger.registerDouble("Right Speed", true, true);
 	  	logger.registerDouble("Left Position", true, true);
 		logger.registerDouble("Right Position", true, true);
 	 	logger.registerDouble("Left Acceleration", true, true);
 		logger.registerDouble("Right Acceleration", true, true);
-		logger.registerDouble("Drive Angle", true, true);
+		logger.registerDouble("Drive Angle", true, true);*/
     }
 
     // Called just before this Command runs the first time
@@ -70,15 +67,21 @@ public class DriveWithJoysticks extends Command {
     	angleSetpoint = -a_v_max * OI.getInstance().getDriver().getAxis(Logitech.RIGHT_HORIZONTAL);
     	drivetrain.setSetpoint(DriveSubsystem.Follower.ANGLE, angleSetpoint);
     	
-    	logger.putDouble("Left Speed", drivetrain.getLeftSpeed());
-		logger.putDouble("Right Speed", drivetrain.getRightSpeed());
-	 	logger.putDouble("Left Position", drivetrain.getLeftPosition());
-		logger.putDouble("Right Position", drivetrain.getRightPosition());
-		logger.putDouble("Left Acceleration", drivetrain.getLeftAcceleration());
-		logger.putDouble("Right Acceleration", drivetrain.getRightAcceleration());
-		logger.putDouble("Drive Angle", drivetrain.getGyro().getAngle());
-		//GambeziDashboard.set_double("gambezi/log", drivetrain.getRightSpeed());
-		//System.out.println(drivetrain.getGyro().getAngle());
+    	/*
+    	GambeziDashboard.set_double("Drive/Left_Speed", drivetrain.getLeftSpeed());
+    	GambeziDashboard.set_double("Drive/Right_Speed", drivetrain.getRightSpeed());
+    	GambeziDashboard.set_double("Drive/Left_Position", drivetrain.getLeftPosition());
+    	GambeziDashboard.set_double("Drive/Right_Position", drivetrain.getRightPosition());
+    	GambeziDashboard.set_double("Drive/Left_Acceleration", drivetrain.getLeftAcceleration());
+    	GambeziDashboard.set_double("Drive/Right_Acceleration", drivetrain.getRightAcceleration());
+    	GambeziDashboard.set_double("Drive/Drive_Angle", drivetrain.getGyro().getAngle());
+
+
+		GambeziDashboard.set_double("navx/yaw", drivetrain.getGyro().getYaw());
+		GambeziDashboard.set_double("navx/rawgyroz", drivetrain.getGyro().getRawGyroZ());
+		GambeziDashboard.set_double("navx/rate", drivetrain.getGyro().getRate());
+		GambeziDashboard.set_double("navx/angle", drivetrain.getGyro().getAngle());
+		*/
     }
 
     // Make this return true when this Command no longer needs to run execute()

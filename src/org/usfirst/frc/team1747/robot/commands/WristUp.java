@@ -10,8 +10,8 @@ import com.tigerhuang.gambezi.dashboard.GambeziDashboard;
 
 import edu.wpi.first.wpilibj.command.Command;
 import lib.frc1747.controller.Logitech;
-import lib.frc1747.instrumentation.Instrumentation;
-import lib.frc1747.instrumentation.Logger;
+//import lib.frc1747.instrumentation.Instrumentation;
+//import lib.frc1747.instrumentation.Logger;
 import lib.frc1747.subsytems.HBRSubsystem;
 
 /**
@@ -78,6 +78,7 @@ public class WristUp extends Command {
 		
 		GambeziDashboard.set_double("Elevator/Index", elevator.getElevatorStage());
 		GambeziDashboard.set_double("Wrist/Index", elevator.getWristStage());
+		System.out.println("This prints");
     }
 
     // Called repeatedly when this Command is scheduled to run

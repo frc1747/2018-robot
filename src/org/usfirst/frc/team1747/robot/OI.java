@@ -88,8 +88,8 @@ public class OI {
 	}
 	
 	public void createDriver() {
-//		driver.getButton(Logitech.RT).whenPressed(new ElevatorDown());
-//		driver.getButton(Logitech.RB).whenPressed(new ElevatorUp());
+		driver.getButton(Logitech.RT).whenPressed(new ElevatorDown());
+		driver.getButton(Logitech.RB).whenPressed(new ElevatorUp());
 		driver.getButton(Logitech.Y).whenPressed(new WristUp());
 		driver.getButton(Logitech.A).whenPressed(new WristDown());
 //		driver.getButton(Logitech.X).whileHeld(new Intake());

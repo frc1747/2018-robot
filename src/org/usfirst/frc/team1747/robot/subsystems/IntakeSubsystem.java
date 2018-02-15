@@ -1,12 +1,10 @@
 package org.usfirst.frc.team1747.robot.subsystems;
 
 import org.usfirst.frc.team1747.robot.RobotMap;
-import org.usfirst.frc.team1747.robot.subsystems.DriveSubsystem.DriveSide;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 
 import edu.wpi.first.wpilibj.AnalogInput;
-import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Solenoid;
 import lib.frc1747.speed_controller.HBRTalon;
 import lib.frc1747.subsytems.HBRSubsystem;
@@ -92,20 +90,20 @@ public class IntakeSubsystem extends HBRSubsystem<IntakeSubsystem.Follower> {
 		
 	}
 
-
-public static IntakeSubsystem getInstance() {
-	if(intake == null) {
-		intake = new IntakeSubsystem();
-	}
-	return intake;
-}
-
-
-@Override
-public void internalVariablesWrite(double[] output) {
-	// TODO Auto-generated method stub
 	
-}
+	public static IntakeSubsystem getInstance() {
+		if(intake == null) {
+			intake = new IntakeSubsystem();
+		}
+		return intake;
+	}
+	
+	
+	@Override
+	public void internalVariablesWrite(double[] output) {
+		// TODO Auto-generated method stub
+		
+	}
 }
 
 

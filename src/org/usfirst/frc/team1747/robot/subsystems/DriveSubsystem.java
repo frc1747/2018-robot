@@ -1,17 +1,15 @@
 package org.usfirst.frc.team1747.robot.subsystems;
 
-import lib.frc1747.instrumentation.Instrumentation;
-import lib.frc1747.instrumentation.Logger;
 import lib.frc1747.speed_controller.HBRTalon;
 import lib.frc1747.subsytems.HBRSubsystem;
 
 import org.usfirst.frc.team1747.robot.RobotMap;
-import org.usfirst.frc.team1747.robot.commands.ArcadeDrive;
 import org.usfirst.frc.team1747.robot.commands.DriveWithJoysticks;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 import com.kauailabs.navx.frc.AHRS;
+import com.tigerhuang.gambezi.dashboard.GambeziDashboard;
 
 import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.Encoder;
@@ -27,8 +25,6 @@ public class DriveSubsystem extends HBRSubsystem<DriveSubsystem.Follower> {
 	
 	private AHRS gyro;
 	
-	private Logger logger;
-	
 	public enum Follower {
 		DISTANCE, ANGLE
 	}
@@ -39,14 +35,7 @@ public class DriveSubsystem extends HBRSubsystem<DriveSubsystem.Follower> {
 		left = new DriveSide(RobotMap.LEFT_MOTOR_PORTS,RobotMap.LEFT_MOTOR_INVERSION, RobotMap.LEFT_ENCODER_INVERSION, RobotMap.LEFT_ENCODER_A, RobotMap.LEFT_ENCODER_B);
 		right = new DriveSide(RobotMap.RIGHT_MOTOR_PORTS,RobotMap.RIGHT_MOTOR_INVERSION, RobotMap.RIGHT_ENCODER_INVERSION, RobotMap.RIGHT_ENCODER_A, RobotMap.RIGHT_ENCODER_B);
 		left.setScaling(RobotMap.LEFT_SCALING);
-		right.setScaling(RobotMap.RIGHT_SCALING);
-		
-		logger = Instrumentation.getLogger("Drive");
-		logger.registerDouble("Distance/Profile", true, true);
-		logger.registerDouble("Distance/Actual", true, true);
-		logger.registerDouble("Angle/Profile", true, true);
-		logger.registerDouble("Angle/Actual", true, true);
-		
+		right.setScaling(RobotMap.RIGHT_SCALING);		
 	}
 	
 	public static DriveSubsystem getInstance() {
@@ -192,7 +181,8 @@ public class DriveSubsystem extends HBRSubsystem<DriveSubsystem.Follower> {
 		output[0][0] = getAveragePosition();
 		output[1][0] = getAverageSpeed();
 		output[0][1] = (2 * Math.PI) * ((-getGyro().getAngle()) / 360);
-		output[1][1] = (2 * Math.PI) * (-getGyro().getRate() / 360);
+		output[1][1] = (2 * Math.PI) * (getGyro().getRawGyroZ() / 360);
+		
 		return output;
 	}
 
@@ -203,9 +193,9 @@ public class DriveSubsystem extends HBRSubsystem<DriveSubsystem.Follower> {
 
 	@Override
 	public void internalVariablesWrite(double[] output) {
-		logger.putDouble("Distance/Profile", output[0]);
-		logger.putDouble("Distance/Actual", output[1]);
-		logger.putDouble("Angle/Profile", output[2]);
-		logger.putDouble("Angle/Actual", output[3]);
+		GambeziDashboard.set_double("Drive/Distance/Profile", output[0]);
+		GambeziDashboard.set_double("Drive/Distance/Actual", output[1]);
+		GambeziDashboard.set_double("Drive/Angle/Profile", output[2]);
+		GambeziDashboard.set_double("Drive/Angle/Actual", output[3]);
 	}
 }

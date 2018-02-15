@@ -21,10 +21,10 @@ public class DriveProfile extends Command {
     	GambeziDashboard.set_double("Drive/Distance/kP", 1);
     	GambeziDashboard.set_double("Drive/Distance/kI", 0);
     	GambeziDashboard.set_double("Drive/Distance/kD", 0);
-    	GambeziDashboard.set_double("Drive/Angle/kA", 0.03);
-    	GambeziDashboard.set_double("Drive/Angle/kV", 0.65);
-    	GambeziDashboard.set_double("Drive/Angle/kP", 1.4);
-    	GambeziDashboard.set_double("Drive/Angle/kI", 0);
+    	GambeziDashboard.set_double("Drive/Angle/kA", 0.025);
+    	GambeziDashboard.set_double("Drive/Angle/kV", 0.12);
+    	GambeziDashboard.set_double("Drive/Angle/kP", 0.5);
+    	GambeziDashboard.set_double("Drive/Angle/kI", 0.01);
     	GambeziDashboard.set_double("Drive/Angle/kD", 0);
     	this.filename = filename;
     }
