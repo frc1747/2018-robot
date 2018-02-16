@@ -14,8 +14,9 @@ public class IntakeSubsystem extends HBRSubsystem<IntakeSubsystem.Follower> {
 	private HBRTalon leftIntakeMotor;
 	private HBRTalon rightIntakeMotor;
 	private static IntakeSubsystem intake;
-	private AnalogInput limitSwitch;
+	private AnalogInput sensor;
 	private Solenoid solenoid;
+	private final double sensorVoltage = 2;
 	
 	public enum Follower{
 		POSITION;
@@ -26,7 +27,7 @@ public class IntakeSubsystem extends HBRSubsystem<IntakeSubsystem.Follower> {
 		rightIntakeMotor = new HBRTalon(RobotMap.RIGHT_INTAKE_PORT);
 		leftIntakeMotor.setInverted(RobotMap.INTAKE_MOTOR_INVERSIONS[0]);
 		rightIntakeMotor.setInverted(RobotMap.INTAKE_MOTOR_INVERSIONS[1]);
-		limitSwitch = new AnalogInput(RobotMap.INTAKE_LIMIT_SWITCH);
+		sensor = new AnalogInput(RobotMap.INTAKE_CUBE_SENSOR);
 		solenoid = new Solenoid(RobotMap.INTAKE_SOLENOID);
 	}
 	
@@ -37,7 +38,7 @@ public class IntakeSubsystem extends HBRSubsystem<IntakeSubsystem.Follower> {
 	}
 	
 	public double getSwitch() {
-		return limitSwitch.getVoltage();
+		return sensor.getVoltage();
 	}
 	
 	//left motor
@@ -69,6 +70,10 @@ public class IntakeSubsystem extends HBRSubsystem<IntakeSubsystem.Follower> {
 	}
 	public double getRightPosition() {
 		return rightIntakeMotor.getPosition(0);
+	}
+	
+	public boolean ifCube(){
+		return (sensor.getVoltage() > sensorVoltage);
 	}
 	
 	//TODO: just uses left side, but the move together? possibly? It is writing to both sides.

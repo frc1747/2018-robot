@@ -39,6 +39,10 @@ public class WristDown extends Command {
 
     // Called just before this Command runs the first time
     protected void initialize() {
+    	if (elevator.getWristStage() > 0) {
+			elevator.setWristStage(elevator.getWristStage() - 1);
+		}
+    	
     	//setup elevator PID
     	elevator.setMode(ElevatorSubsystem.Follower.ELEVATOR, HBRSubsystem.Mode.PID);
     	elevator.setPIDMode(ElevatorSubsystem.Follower.ELEVATOR, HBRSubsystem.PIDMode.POSITION);
@@ -57,9 +61,7 @@ public class WristDown extends Command {
 		
 		elevator.setEnabled(true);
 		
-		if (elevator.getWristStage() > 0) {
-			elevator.setWristStage(elevator.getWristStage() - 1);
-		}
+	
 		elevator.setSetpoint(ElevatorSubsystem.Follower.WRIST, elevator.getWristStages()[elevator.getWristStage()]);
 		elevator.setSetpoint(ElevatorSubsystem.Follower.ELEVATOR, (elevator.getElevatorStages()[elevator.getElevatorStage()]));
 

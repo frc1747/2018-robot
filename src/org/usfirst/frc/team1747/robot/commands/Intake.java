@@ -1,6 +1,7 @@
 package org.usfirst.frc.team1747.robot.commands;
 
 import org.usfirst.frc.team1747.robot.subsystems.DriveSubsystem;
+import org.usfirst.frc.team1747.robot.subsystems.ElevatorSubsystem;
 import org.usfirst.frc.team1747.robot.subsystems.IntakeSubsystem;
 
 import com.tigerhuang.gambezi.dashboard.GambeziDashboard;
@@ -9,10 +10,13 @@ import edu.wpi.first.wpilibj.command.Command;
 
 public class Intake extends Command {
 	
-	public IntakeSubsystem intake;
+	private IntakeSubsystem intake;
+	private ElevatorSubsystem elevator;
 	
 	public Intake() {
 		intake = IntakeSubsystem.getInstance();
+		elevator = ElevatorSubsystem.getInstance();
+		requires (elevator);
 		requires (intake);
     	GambeziDashboard.set_double("Intake/InPower", 0.8);
 	}
@@ -21,7 +25,9 @@ public class Intake extends Command {
 	// Called just before this Command runs the first time
 		@Override
 		protected void initialize() {
-			intake.setPower(GambeziDashboard.get_double("Intake/InPower"));
+			if(/*!intake.ifCube() &&*/ Math.abs(elevator.getWristPosition() - elevator.getWristStages()[0]) < Math.PI/12){
+				intake.setPower(GambeziDashboard.get_double("Intake/InPower"));
+			}
 		}
 
 		// Called repeatedly when this Command is scheduled to run
@@ -33,6 +39,7 @@ public class Intake extends Command {
 	protected boolean isFinished() {
 		// TODO Auto-generated method stub
 		return false;
+		//return intake.ifCube();
 	}
 	// Called once after isFinished returns true
 		@Override

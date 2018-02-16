@@ -22,7 +22,7 @@ public class ElevatorSubsystem extends HBRSubsystem<ElevatorSubsystem.Follower> 
 	double scaling;
 	int elevatorIndex = 0;
 	int wristIndex =  3;
-	double[] elevatorPositions = {0, 24, 48, 60, 67};
+	double[] elevatorPositions = {0, 24, 48, 60, 72};
 	double[] wristPositions = {Math.PI / 2, 3 * Math.PI / 4, Math.PI, 3.8};
 	
 	private static ElevatorSubsystem elevator;
@@ -47,16 +47,16 @@ public class ElevatorSubsystem extends HBRSubsystem<ElevatorSubsystem.Follower> 
 		
 		scaling = RobotMap.ELEVATOR_SCALING;
 
-		GambeziDashboard.set_double("Elevator/kF", 0); //0.04
+		GambeziDashboard.set_double("Elevator/kF", 0.04); //0.04
 		GambeziDashboard.set_double("Elevator/kV", 0); //0
     	GambeziDashboard.set_double("Elevator/kA", 0); //0
-    	GambeziDashboard.set_double("Elevator/kP", 0); //0.025
-    	GambeziDashboard.set_double("Elevator/kI", 0); //0.005
+    	GambeziDashboard.set_double("Elevator/kP", 0.025); //0.025
+    	GambeziDashboard.set_double("Elevator/kI", 0.005); //0.005
     	GambeziDashboard.set_double("Elevator/kD", 0); //0
 		GambeziDashboard.set_double("Wrist/kF", 0.35);
     	GambeziDashboard.set_double("Wrist/kA", 0);
     	GambeziDashboard.set_double("Wrist/kV", 0);
-    	GambeziDashboard.set_double("Wrist/kP", 0.59);
+    	GambeziDashboard.set_double("Wrist/kP", 0.55);
     	GambeziDashboard.set_double("Wrist/kI", 0);
     	GambeziDashboard.set_double("Wrist/kD", 0);
 	}
@@ -149,13 +149,21 @@ public class ElevatorSubsystem extends HBRSubsystem<ElevatorSubsystem.Follower> 
 	@Override
 	public void pidWrite(double[] output) {
 		//Sets motor power to 0 if we are not changing the stage and wrist is all the way down/up
-		if(((getWristStage() == 0) && (Math.abs(getWristPosition() - getWristStages()[0]) < Math.PI/12)) || ((getWristStage() == (getWristStages().length - 1)) && (Math.abs(getWristPosition() - getWristStages()[getWristStages().length - 1]) < Math.PI/12))){
+		if(((getWristStage() == 0) && (Math.abs(getWristPosition() - getWristStages()[0]) < Math.PI/12))
+				|| ((getWristStage() == (getWristStages().length - 1))
+						&& (Math.abs(getWristPosition() - getWristStages()[getWristStages().length - 1]) < Math.PI/12))){
 			setWristPower(0);
 		}else{
 			setWristPower(output[1] + Math.sin(getWristPosition()) * GambeziDashboard.get_double("Wrist/kF"));
 		}
-		setElevatorPower(output[0] + GambeziDashboard.get_double("Elevator/kF"));
+		
+		if((getElevatorStage() == 0) && (Math.abs(getElevatorPosition() - getElevatorStages()[0]) < 3)){
+			setElevatorPower(0);
+		}else{
+			setElevatorPower(output[0] + GambeziDashboard.get_double("Elevator/kF"));
+		}
 		GambeziDashboard.set_double("Wrist/PIDOutput", output[1]);
+		System.out.println(output[1]);
 		GambeziDashboard.set_double("Elevator/PIDOutput", output[0]);
 		GambeziDashboard.set_double("Wrist/Angle", getWristPosition());
 		GambeziDashboard.set_double("Wrist/Setpoint", wristPositions[wristIndex]);
