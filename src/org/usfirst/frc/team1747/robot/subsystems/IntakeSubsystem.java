@@ -15,8 +15,8 @@ public class IntakeSubsystem extends HBRSubsystem<IntakeSubsystem.Follower> {
 	private HBRTalon rightIntakeMotor;
 	private static IntakeSubsystem intake;
 	private AnalogInput sensor;
-	private Solenoid solenoid;
-	private final double sensorVoltage = 2;
+	private final double fullyHeldSensorVoltage = 2;
+	private final double partiallyHeldSensorVoltage = 4;
 	
 	public enum Follower{
 		POSITION;
@@ -28,7 +28,6 @@ public class IntakeSubsystem extends HBRSubsystem<IntakeSubsystem.Follower> {
 		leftIntakeMotor.setInverted(RobotMap.INTAKE_MOTOR_INVERSIONS[0]);
 		rightIntakeMotor.setInverted(RobotMap.INTAKE_MOTOR_INVERSIONS[1]);
 		sensor = new AnalogInput(RobotMap.INTAKE_CUBE_SENSOR);
-		solenoid = new Solenoid(RobotMap.INTAKE_SOLENOID);
 	}
 	
 	
@@ -54,9 +53,7 @@ public class IntakeSubsystem extends HBRSubsystem<IntakeSubsystem.Follower> {
 	public double getLeftPosition() {
 		return leftIntakeMotor.getPosition(0);
 	}
-	public void setSolenoid(boolean state){
-		solenoid.set(state);
-	}
+
 	
 	//Right motor
 	public void setRightPower(double power) {
@@ -72,8 +69,20 @@ public class IntakeSubsystem extends HBRSubsystem<IntakeSubsystem.Follower> {
 		return rightIntakeMotor.getPosition(0);
 	}
 	
-	public boolean ifCube(){
-		return (sensor.getVoltage() > sensorVoltage);
+	/**Uses IR sensor to returns true if cube is all the way in
+	 * 
+	 * @return Whether cube is all the way in
+	 */
+	public boolean ifCubeCompletelyHeld(){
+		return (sensor.getVoltage() > fullyHeldSensorVoltage);
+	}
+	
+	/**
+	 * 
+	 * @return
+	 */
+	public boolean ifCubePartiallyHeld(){
+		return (sensor.getVoltage() > partiallyHeldSensorVoltage);
 	}
 	
 	//TODO: just uses left side, but the move together? possibly? It is writing to both sides.

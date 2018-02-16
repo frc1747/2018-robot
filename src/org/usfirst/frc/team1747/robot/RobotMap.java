@@ -57,7 +57,7 @@ public class RobotMap {
 	public static final boolean CLIMB_2_INVERT = false;
 	
 	//Pneumatics
-	public static final int INTAKE_SOLENOID = 1;
+	public static final int CLAW_SOLENOID = 1;
 	public static final int CLIMBER_SOLENOID = 3;
 	public static final int WHEELIE_BAR_SOLENOID = 2;
 	

@@ -28,8 +28,7 @@ public class EjectCube extends Command {
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-    	//TODO: !!!!Make this not stop immediately when cube isn't all the way in. Possibly a different method in IntakeSubsystem is needed
-    	return !intake.ifCube();
+    	return !intake.ifCubePartiallyHeld();
     }
 
     // Called once after isFinished returns true

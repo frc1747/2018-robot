@@ -18,7 +18,7 @@ import org.usfirst.frc.team1747.robot.commands.ElevateUp;
 import org.usfirst.frc.team1747.robot.commands.ElevatorDown;
 import org.usfirst.frc.team1747.robot.commands.ElevatorUp;
 import org.usfirst.frc.team1747.robot.commands.Intake;
-import org.usfirst.frc.team1747.robot.commands.OpenIntake;
+import org.usfirst.frc.team1747.robot.commands.OpenClaw;
 import org.usfirst.frc.team1747.robot.commands.Outtake;
 import org.usfirst.frc.team1747.robot.commands.TestDown;
 import org.usfirst.frc.team1747.robot.commands.TestUp;
@@ -96,7 +96,7 @@ public class OI {
 //		driver.getButton(Logitech.DOWN).whileHeld(new ClimbDown());
 		driver.getButton(Logitech.RB).whileHeld(new Intake());
 		driver.getButton(Logitech.RT).whileHeld(new Outtake());
-		driver.getButton(Logitech.LB).whileHeld(new OpenIntake());
+		driver.getButton(Logitech.LB).whileHeld(new OpenClaw());
 		
 		//Test Commands for wrist and elevator without PID loops
 //		driver.getButton(Logitech.Y).whileHeld(new TestUp());
