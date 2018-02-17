@@ -39,10 +39,13 @@ public class RobotMap {
 	public static final boolean[] ELEVATOR_MOTOR_INVERSIONS = {true, false};
 	public static final int WRIST_MOTOR_PORT = 51;
 	public static final int WRIST_ENCODER = 1;
+	public static final double ELEVATOR_SPEED_LIMIT_POSITION = 24;
 	
 	//wrist offset should be between 0 and 5
-	public static final double WRIST_OFFSET  = 0.09;					//used to set wrist to "0"
+	public static final double WRIST_OFFSET_PRACTICE  = 0.09;					//used to set wrist to "0"
 	public static final double WRIST_ENCODER_GEAR = 60. / 84;
+	public static final double WRIST_OFFSET_COMP  = 0.09;					//used to set wrist to "0"
+
 	
 	//Intake
 	public static final int LEFT_INTAKE_PORT = 31;
@@ -82,4 +85,5 @@ public class RobotMap {
 	//Limit Switches
 	public static final int ELEVATOR_LIMIT_SWITCH = 6;
 	public static final int INTAKE_CUBE_SENSOR = 2;
+	public static final int JUMPER_DIGITAL_INPUT = 9;
 }

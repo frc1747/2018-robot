@@ -15,8 +15,8 @@ public class IntakeSubsystem extends HBRSubsystem<IntakeSubsystem.Follower> {
 	private HBRTalon rightIntakeMotor;
 	private static IntakeSubsystem intake;
 	private AnalogInput sensor;
-	private final double fullyHeldSensorVoltage = 2;
-	private final double partiallyHeldSensorVoltage = 4;
+	private final double fullyHeldSensorVoltage = 2.25;
+	private final double partiallyHeldSensorVoltage = 0.5;
 	
 	public enum Follower{
 		POSITION;

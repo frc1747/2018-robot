@@ -1,7 +1,9 @@
 package org.usfirst.frc.team1747.robot.commands;
 
 import org.usfirst.frc.team1747.robot.OI;
+import org.usfirst.frc.team1747.robot.RobotMap;
 import org.usfirst.frc.team1747.robot.subsystems.DriveSubsystem;
+import org.usfirst.frc.team1747.robot.subsystems.ElevatorSubsystem;
 
 import com.tigerhuang.gambezi.dashboard.GambeziDashboard;
 
@@ -18,6 +20,8 @@ import lib.frc1747.subsytems.HBRSubsystem;
  */
 public class DriveWithJoysticks extends Command {
 	private DriveSubsystem drivetrain;
+	
+	private ElevatorSubsystem elevator = ElevatorSubsystem.getInstance();
 	
 	private final double s_v_max = 18;
 	private final double a_v_max = 17.28;
@@ -61,10 +65,24 @@ public class DriveWithJoysticks extends Command {
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
     	speedSetpoint = s_v_max * OI.getInstance().getDriver().getAxis(Logitech.LEFT_VERTICAL);
+       	angleSetpoint = -a_v_max * OI.getInstance().getDriver().getAxis(Logitech.RIGHT_HORIZONTAL);
+    	
+       	//Limits robot speed when elevator is up
+    	if (elevator.getElevatorPosition() > RobotMap.ELEVATOR_SPEED_LIMIT_POSITION)  {
+    		drivetrain.setFeedforward(DriveSubsystem.Follower.DISTANCE, 0, 1 / s_v_max, 0);
+        	drivetrain.setFeedback(DriveSubsystem.Follower.DISTANCE, 0, 0, 0);
+        	
+        	drivetrain.setFeedforward(DriveSubsystem.Follower.ANGLE, 0, 0.6 / a_v_max, 0);
+        	drivetrain.setFeedback(DriveSubsystem.Follower.ANGLE, 0, 0, 0);
+    	} else {
+    		drivetrain.setFeedforward(DriveSubsystem.Follower.DISTANCE, 0, 1 / s_v_max, 0);
+        	drivetrain.setFeedback(DriveSubsystem.Follower.DISTANCE, 0, 0, 0);
+        	
+        	drivetrain.setFeedforward(DriveSubsystem.Follower.ANGLE, 0, 0.6 / a_v_max, 0);
+        	drivetrain.setFeedback(DriveSubsystem.Follower.ANGLE, 0, 0, 0);
+    	}
+    	
     	drivetrain.setSetpoint(DriveSubsystem.Follower.DISTANCE, speedSetpoint);
-    	
-    	
-    	angleSetpoint = -a_v_max * OI.getInstance().getDriver().getAxis(Logitech.RIGHT_HORIZONTAL);
     	drivetrain.setSetpoint(DriveSubsystem.Follower.ANGLE, angleSetpoint);
     	
     	/*

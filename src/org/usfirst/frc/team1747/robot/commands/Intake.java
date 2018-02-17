@@ -25,7 +25,7 @@ public class Intake extends Command {
 	// Called just before this Command runs the first time
 		@Override
 		protected void initialize() {
-			if(/*!intake.ifCube() &&*/ Math.abs(elevator.getWristPosition() - elevator.getWristStages()[0]) < Math.PI/12){
+			if(!intake.ifCubeCompletelyHeld() && Math.abs(elevator.getWristPosition() - elevator.getWristStages()[0]) < Math.PI/12){
 				intake.setPower(GambeziDashboard.get_double("Intake/InPower"));
 			}
 		}
@@ -38,8 +38,7 @@ public class Intake extends Command {
 	@Override
 	protected boolean isFinished() {
 		// TODO Auto-generated method stub
-		return false;
-		//return intake.ifCube();
+		return intake.ifCubeCompletelyHeld();
 	}
 	// Called once after isFinished returns true
 		@Override

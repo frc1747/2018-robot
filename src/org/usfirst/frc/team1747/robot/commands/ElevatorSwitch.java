@@ -24,16 +24,17 @@ public class ElevatorSwitch extends Command {
 	double elevatorSetpoint;
 	double distance;
 
-	public final double POSITION = elevator.getElevatorStages()[elevator.getElevatorStages().length - 3];
+	public final double position;
 	
     public ElevatorSwitch() {
     	requires(elevator = ElevatorSubsystem.getInstance());
+    	position = elevator.getElevatorStages()[elevator.getElevatorStages().length - 3];
     	setInterruptible(false);
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	distance = POSITION - elevator.getElevatorPosition();
+    	distance = position - elevator.getElevatorPosition();
     	double[][][] profiles = HBRSubsystem.generateSkidSteerPseudoProfile(distance, 0, Parameters.I_SAMPLE_LENGTH, 120, 200, 9000.1, Parameters.W_WIDTH, Parameters.DT, true, true);
 
     	//setup elevator PID
@@ -53,14 +54,14 @@ public class ElevatorSwitch extends Command {
     	elevator.setFeedforward(ElevatorSubsystem.Follower.WRIST, 0, GambeziDashboard.get_double("Wrist/kV"), GambeziDashboard.get_double("Wrist/kA"));
     	elevator.setFeedback(ElevatorSubsystem.Follower.WRIST, GambeziDashboard.get_double("Wrist/kP"), GambeziDashboard.get_double("Wrist/kI"), GambeziDashboard.get_double("Wrist/kD"));
 		elevator.resetIntegrator(ElevatorSubsystem.Follower.WRIST);
-		
+
+    	elevator.resume(ElevatorSubsystem.Follower.ELEVATOR);
 		elevator.setEnabled(true);
 			
 		if(elevator.getElevatorStage() < elevator.getElevatorStages().length - 1){	
 			elevator.setElevatorStage(elevator.getElevatorStage() + 1);
 			GambeziDashboard.log_string(elevator.getElevatorStage() +"");
 		}
-		elevator.setSetpoint(ElevatorSubsystem.Follower.ELEVATOR, (elevator.getElevatorStages()[elevator.getElevatorStage()]));
 		elevator.setSetpoint(ElevatorSubsystem.Follower.WRIST, elevator.getWristStages()[elevator.getWristStage()]);
 		
 		GambeziDashboard.set_double("Elevator/Index", elevator.getElevatorStage());
@@ -72,7 +73,7 @@ public class ElevatorSwitch extends Command {
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return true;
+        return !elevator.isRunning(ElevatorSubsystem.Follower.ELEVATOR);
     }
 
     // Called once after isFinished returns true

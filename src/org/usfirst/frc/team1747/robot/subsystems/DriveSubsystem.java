@@ -4,6 +4,7 @@ import lib.frc1747.speed_controller.HBRTalon;
 import lib.frc1747.subsytems.HBRSubsystem;
 
 import org.usfirst.frc.team1747.robot.RobotMap;
+import org.usfirst.frc.team1747.robot.commands.ArcadeDrive;
 import org.usfirst.frc.team1747.robot.commands.DriveWithJoysticks;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
@@ -117,7 +118,8 @@ public class DriveSubsystem extends HBRSubsystem<DriveSubsystem.Follower> {
 
 	@Override
 	protected void initDefaultCommand() {
-		setDefaultCommand(new DriveWithJoysticks());
+//		setDefaultCommand(new DriveWithJoysticks());
+		setDefaultCommand(new ArcadeDrive());
 	}
 	
 	public class DriveSide {
@@ -145,7 +147,9 @@ public class DriveSubsystem extends HBRSubsystem<DriveSubsystem.Follower> {
 			talon.set(ControlMode.PercentOutput, power);
 			for(int i = 0; i < 3; i++) {
 				motors[i].set(ControlMode.PercentOutput, power);
+				//victor 4 might go bad soon
 			}
+			
 		}
 		
 		public void resetEncoder() {

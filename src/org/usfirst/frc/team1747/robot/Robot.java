@@ -108,6 +108,8 @@ public class Robot extends TimedRobot {
 		GambeziDashboard.set_double("Intake/IntakeSensor", intake.getSwitch());
 		GambeziDashboard.set_double("Robot/Battery_Voltage", RobotController.getBatteryVoltage());
 		GambeziDashboard.set_double("Robot/Counter", counter++);
+		GambeziDashboard.set_double("Robot/elevatorPosition", elevator.getElevatorPosition());
+		GambeziDashboard.set_double("Robot/wristPosition", elevator.getWristPosition());
 	}
 	
 	/**

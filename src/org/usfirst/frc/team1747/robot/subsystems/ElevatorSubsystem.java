@@ -24,6 +24,8 @@ public class ElevatorSubsystem extends HBRSubsystem<ElevatorSubsystem.Follower> 
 	int wristIndex =  3;
 	double[] elevatorPositions = {0, 24, 48, 60, 72};
 	double[] wristPositions = {Math.PI / 2, 3 * Math.PI / 4, Math.PI, 3.8};
+	double wristOffset;
+	DigitalInput jumper;
 	
 	private static ElevatorSubsystem elevator;
 	
@@ -42,6 +44,7 @@ public class ElevatorSubsystem extends HBRSubsystem<ElevatorSubsystem.Follower> 
 		elevatorIndex = 0;
 		
 		limitSwitch = new DigitalInput(RobotMap.ELEVATOR_LIMIT_SWITCH);
+		jumper = new DigitalInput(RobotMap.JUMPER_DIGITAL_INPUT);
 				
 		elevatorEncoder = new Encoder(RobotMap.ELEVATOR_ENCODER_A, RobotMap.ELEVATOR_ENCODER_B, RobotMap.ELEVATOR_ENCODER_INVERSION);
 		
@@ -59,6 +62,12 @@ public class ElevatorSubsystem extends HBRSubsystem<ElevatorSubsystem.Follower> 
     	GambeziDashboard.set_double("Wrist/kP", 0.55);
     	GambeziDashboard.set_double("Wrist/kI", 0);
     	GambeziDashboard.set_double("Wrist/kD", 0);
+    	
+    	if(!jumper.get()){
+    		wristOffset = RobotMap.WRIST_OFFSET_COMP;
+    	}else{
+    		wristOffset = RobotMap.WRIST_OFFSET_PRACTICE;
+    	}
 	}
 	
 	
@@ -77,10 +86,10 @@ public class ElevatorSubsystem extends HBRSubsystem<ElevatorSubsystem.Follower> 
 		wristMotor.set(ControlMode.PercentOutput, power);
 	}
 	public double getWristPosition() {
-		if (RobotMap.WRIST_ENCODER_GEAR * (-wristEncoder.getVoltage()) * 2 * Math.PI/5 - RobotMap.WRIST_OFFSET >= 0) {
-			return RobotMap.WRIST_ENCODER_GEAR * (-wristEncoder.getVoltage()) * 2 * Math.PI/5 - RobotMap.WRIST_OFFSET;
+		if (RobotMap.WRIST_ENCODER_GEAR * (-wristEncoder.getVoltage()) * 2 * Math.PI/5 - wristOffset >= 0) {
+			return RobotMap.WRIST_ENCODER_GEAR * (-wristEncoder.getVoltage()) * 2 * Math.PI/5 - wristOffset;
 		} else {
-			return RobotMap.WRIST_ENCODER_GEAR * (5 + -wristEncoder.getVoltage()) * 2 * Math.PI/5 - RobotMap.WRIST_OFFSET;
+			return RobotMap.WRIST_ENCODER_GEAR * (5 + -wristEncoder.getVoltage()) * 2 * Math.PI/5 - wristOffset;
 		}
 		
 	}
