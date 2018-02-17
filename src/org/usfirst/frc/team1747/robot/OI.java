@@ -16,7 +16,7 @@ import org.usfirst.frc.team1747.robot.commands.DriveProfile;
 import org.usfirst.frc.team1747.robot.commands.ElevateDown;
 import org.usfirst.frc.team1747.robot.commands.ElevateUp;
 import org.usfirst.frc.team1747.robot.commands.ElevatorDown;
-import org.usfirst.frc.team1747.robot.commands.ElevatorUp;
+import org.usfirst.frc.team1747.robot.commands.ElevatorTop;
 import org.usfirst.frc.team1747.robot.commands.Intake;
 import org.usfirst.frc.team1747.robot.commands.OpenClaw;
 import org.usfirst.frc.team1747.robot.commands.Outtake;
@@ -89,7 +89,7 @@ public class OI {
 	
 	public void createDriver() {
 		driver.getButton(Logitech.X).whenPressed(new ElevatorDown());
-		driver.getButton(Logitech.B).whenPressed(new ElevatorUp());
+		driver.getButton(Logitech.B).whenPressed(new ElevatorTop());
 		driver.getButton(Logitech.Y).whenPressed(new WristUp());
 		driver.getButton(Logitech.A).whenPressed(new WristDown());
 //		driver.getButton(Logitech.UP).whileHeld(new ClimbUp());

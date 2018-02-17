@@ -21,8 +21,8 @@ public class Autonomous extends CommandGroup {
     			if(scoringPositions[1] == 'L'){
     				
     				addSequential(new DriveProfile(""));
-    				addSequential(new ElevatorUp());
-    				addSequential(new ElevatorUp());
+    				addSequential(new ElevatorTop());
+    				addSequential(new ElevatorTop());
     				addSequential(new Delay(500));
     				addSequential(new WristUp());
     				addSequential(new WristUp());
@@ -37,14 +37,14 @@ public class Autonomous extends CommandGroup {
         			if(scoringPositions[0] == 'L'){
         				addSequential(new DriveProfile(""));
         				addParallel(new Intake());  				
-        				addSequential(new ElevatorUp());
+        				addSequential(new ElevatorTop());
         				addSequential(new Delay(500));
         				addSequential(new AutonOutake());
         			}
         			else if(scoringPositions[0] == 'R'){
         				addSequential(new DriveProfile(""));
         				addParallel(new Intake());
-        				addSequential(new ElevatorUp());
+        				addSequential(new ElevatorTop());
         				addSequential(new Delay(500));
         				addSequential(new AutonOutake());
         			}
@@ -52,8 +52,8 @@ public class Autonomous extends CommandGroup {
     			else if(scoringPositions[1] == 'R'){
     				
     				addSequential(new DriveProfile(""));
-    				addSequential(new ElevatorUp());
-    				addSequential(new ElevatorUp());
+    				addSequential(new ElevatorTop());
+    				addSequential(new ElevatorTop());
     				addSequential(new Delay(500));
     				addSequential(new WristUp());
     				addSequential(new WristUp());
@@ -68,14 +68,14 @@ public class Autonomous extends CommandGroup {
         			if(scoringPositions[0] == 'L'){
         				addSequential(new DriveProfile(""));
         				addParallel(new Intake());
-        				addSequential(new ElevatorUp());
+        				addSequential(new ElevatorTop());
         				addSequential(new Delay(500));
         				addSequential(new AutonOutake());
         			}
         			else if(scoringPositions[0] == 'R'){
         				addSequential(new DriveProfile(""));
         				addParallel(new Intake());
-        				addSequential(new ElevatorUp());
+        				addSequential(new ElevatorTop());
         				addSequential(new Delay(500));
         				addSequential(new AutonOutake());
         			}
@@ -92,8 +92,8 @@ public class Autonomous extends CommandGroup {
     			if(scoringPositions[1] == 'L'){
     				
     				addSequential(new DriveProfile(""));
-    				addSequential(new ElevatorUp());
-    				addSequential(new ElevatorUp());
+    				addSequential(new ElevatorTop());
+    				addSequential(new ElevatorTop());
     				addSequential(new Delay(500));
     				addSequential(new WristUp());
     				addSequential(new WristUp());
@@ -108,14 +108,14 @@ public class Autonomous extends CommandGroup {
         			if(scoringPositions[0] == 'L'){
         				addSequential(new DriveProfile(""));
         				addParallel(new Intake());
-        				addSequential(new ElevatorUp());
+        				addSequential(new ElevatorTop());
         				addSequential(new Delay(500));
         				addSequential(new AutonOutake());
         			}
         			else if(scoringPositions[0] == 'R'){
         				addSequential(new DriveProfile(""));
         				addParallel(new Intake());
-        				addSequential(new ElevatorUp());
+        				addSequential(new ElevatorTop());
         				addSequential(new Delay(500));
         				addSequential(new AutonOutake());
         			}
@@ -123,8 +123,8 @@ public class Autonomous extends CommandGroup {
     			else if(scoringPositions[1] == 'R'){
     				
     				addSequential(new DriveProfile(""));
-    				addSequential(new ElevatorUp());
-    				addSequential(new ElevatorUp());
+    				addSequential(new ElevatorTop());
+    				addSequential(new ElevatorTop());
     				addSequential(new Delay(500));
     				addSequential(new WristUp());
     				addSequential(new WristUp());
@@ -139,14 +139,14 @@ public class Autonomous extends CommandGroup {
         			if(scoringPositions[0] == 'L'){
         				addSequential(new DriveProfile(""));
         				addParallel(new Intake());
-        				addSequential(new ElevatorUp());
+        				addSequential(new ElevatorTop());
         				addSequential(new Delay(500));
         				addSequential(new AutonOutake());
         			}
         			else if(scoringPositions[0] == 'R'){
         				addSequential(new DriveProfile(""));
         				addParallel(new Intake());
-        				addSequential(new ElevatorUp());
+        				addSequential(new ElevatorTop());
         				addSequential(new Delay(500));
         				addSequential(new AutonOutake());
         			}

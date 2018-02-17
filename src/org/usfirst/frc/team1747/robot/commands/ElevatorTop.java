@@ -10,6 +10,7 @@ import com.tigerhuang.gambezi.dashboard.GambeziDashboard;
 
 import edu.wpi.first.wpilibj.command.Command;
 import lib.frc1747.controller.Logitech;
+import lib.frc1747.motion_profile.Parameters;
 //import lib.frc1747.instrumentation.Instrumentation;
 //import lib.frc1747.instrumentation.Logger;
 import lib.frc1747.subsytems.HBRSubsystem;
@@ -17,32 +18,32 @@ import lib.frc1747.subsytems.HBRSubsystem;
 /**
  *
  */
-public class ElevatorUp extends Command {
+public class ElevatorTop extends Command {
 	private ElevatorSubsystem elevator;
 	
-	private final double s_v_max = 18;
-	private final double a_v_max = 17.28;
-	private final double scaling = 1;
-
-	
 	double elevatorSetpoint;
-	double wristSetpoint;
+	double distance;
 
-    public ElevatorUp() {
+	public final double POSITION = elevator.getElevatorStages()[elevator.getElevatorStages().length - 1];
+	
+    public ElevatorTop() {
     	requires(elevator = ElevatorSubsystem.getInstance());
-    	setInterruptible(true);
-    	
+    	setInterruptible(false);
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
+    	distance = POSITION - elevator.getElevatorPosition();
+    	double[][][] profiles = HBRSubsystem.generateSkidSteerPseudoProfile(distance, 0, Parameters.I_SAMPLE_LENGTH, 120, 200, 9000.1, Parameters.W_WIDTH, Parameters.DT, true, true);
+
     	//setup elevator PID
-    	elevator.setMode(ElevatorSubsystem.Follower.ELEVATOR, HBRSubsystem.Mode.PID);
+    	elevator.setMode(ElevatorSubsystem.Follower.ELEVATOR, HBRSubsystem.Mode.FOLLOWER);
     	elevator.setPIDMode(ElevatorSubsystem.Follower.ELEVATOR, HBRSubsystem.PIDMode.POSITION);
     	elevator.setILimit(ElevatorSubsystem.Follower.ELEVATOR, 0);
     	elevator.setFeedforward(ElevatorSubsystem.Follower.ELEVATOR, 0, GambeziDashboard.get_double("Elevator/kV"), GambeziDashboard.get_double("Elevator/kA"));
     	elevator.setFeedback(ElevatorSubsystem.Follower.ELEVATOR, GambeziDashboard.get_double("Elevator/kP"), GambeziDashboard.get_double("Elevator/kI"), GambeziDashboard.get_double("Elevator/kD"));
     	elevator.resetIntegrator(ElevatorSubsystem.Follower.ELEVATOR);
+    	elevator.setProfile(ElevatorSubsystem.Follower.ELEVATOR, profiles[0]);
     	
     	//setup wrist PID
     	elevator.setMode(ElevatorSubsystem.Follower.WRIST, HBRSubsystem.Mode.PID);

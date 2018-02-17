@@ -4,7 +4,7 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 
 public class SwitchForward extends CommandGroup {
 	public SwitchForward(){
-		addSequential(new ElevatorUp());
+		addSequential(new ElevatorTop());
 		addSequential(new WristBottom());
 		addSequential(new EjectCube());
 		addSequential(new WristVertical());
