@@ -8,10 +8,13 @@ import edu.wpi.first.wpilibj.command.Command;
 
 public class OpenClaw extends Command {
 	
-	public ClawSubsystem claw;
+	private ClawSubsystem claw;
+	private IntakeSubsystem intake;
 	
 	public OpenClaw() {
 		claw = ClawSubsystem.getInstance();
+		requires(claw);
+		intake = IntakeSubsystem.getInstance();
 	}
 	
 	
@@ -30,7 +33,7 @@ public class OpenClaw extends Command {
 	@Override
 	protected boolean isFinished() {
 		// TODO Auto-generated method stub
-		return false;
+		return intake.ifCubeCompletelyHeld();
 	}
 	// Called once after isFinished returns true
 		@Override
