@@ -60,7 +60,8 @@ public class WristTop extends Command {
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return true;
+      return Math.abs(elevator.getWristPosition() - elevator.getWristStages()[elevator.getWristStages().length - 1]) < Math.PI/18;
+
     }
 
     // Called once after isFinished returns true

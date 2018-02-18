@@ -2,6 +2,7 @@ package lib.frc1747.controller;
 
 import edu.wpi.first.wpilibj.Joystick;
 import lib.frc1747.controller.button.JoystickButton;
+import lib.frc1747.controller.button.POVButton;
 
 public abstract class Controller {
 	
@@ -23,8 +24,8 @@ public abstract class Controller {
 	/*public enum dpad {
 		UP, UP_RIGHT, RIGHT, DOWN_RIGHT, DOWN, DOWN_LEFT, LEFT, UP_LEFT
 	}*/
-	JoystickButton up, upRight, right, downRight, down, downLeft, left, upLeft;
-	JoystickButton[] dpad = new JoystickButton[] {up, upRight, right, downRight, 
+	POVButton up, upRight, right, downRight, down, downLeft, left, upLeft;
+	POVButton[] dpad = new POVButton[] {up, upRight, right, downRight, 
 													down, downLeft, left, upLeft};
 	
 	public static final int LEFT_HORIZONTAL = 0, /*RIGHT_HORIZONTAL = 2,*/ 
@@ -38,9 +39,9 @@ public abstract class Controller {
 		
 		buttons[LB] = new JoystickButton(getStick(), LB);
 		buttons[RB] = new JoystickButton(getStick(), RB);
-		
+						
 		for(int i = 0; i < 8; i++) {
-			dpad[i] = new JoystickButton(getStick(), i * 45);
+			dpad[i] = new POVButton(getStick(), i * 45);
 		}
 	}
 		
@@ -48,11 +49,15 @@ public abstract class Controller {
 		return buttons[buttonName];
 	}
 	
-	public JoystickButton getDpad(int dpadButton) {
+	public POVButton getDPad(int dpadButton) {
 		return dpad[dpadButton];
 	}
 
 	public Joystick getStick() {
 		return stick;
+	}
+	
+	public boolean getDPADButton(int Angle){
+		return /*getStick().getPOV(0) == Angle;*/ getStick().getPOV() == Angle;
 	}
 }

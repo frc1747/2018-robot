@@ -121,6 +121,7 @@ public class Robot extends TimedRobot {
 	}
 	
 	public void initSubsystems(){
+    	GambeziDashboard.set_double("Intake/OutPower", -0.8);
 		GambeziDashboard.set_double("Elevator/kF", 0.04); //0.04
 		GambeziDashboard.set_double("Elevator/kV", 0.0066); //0
     	GambeziDashboard.set_double("Elevator/kA", 0.0009); //0
