@@ -60,7 +60,11 @@ public class AutoIntake extends Command {
 	protected void execute(){
 		System.out.println(OI.getInstance().getDriver().getButton(Logitech.LT).get());
 		if(!intake.ifCubeCompletelyHeld() && Math.abs(elevator.getWristPosition() - elevator.getWristStages()[0]) < Math.PI/12){
-			claw.setSolenoid(true);
+			if(intake.ifCubePartiallyHeld()){
+				claw.setSolenoid(false);
+			}else{
+				claw.setSolenoid(true);
+			}
 			intake.setPower(/*GambeziDashboard.get_double("Intake/InPower")*/ 0.8);
 		}else{
 			intake.setPower(0.0);

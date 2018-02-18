@@ -16,6 +16,7 @@ public class IntakeSubsystem extends HBRSubsystem<IntakeSubsystem.Follower> {
 	private static IntakeSubsystem intake;
 	private AnalogInput sensor;
 	private final double fullyHeldSensorVoltage = 2.25;
+	//just over .5 when just inside robot, just over .4 when just outside robot (around .45 and .55 respectively)
 	private final double partiallyHeldSensorVoltage = 0.5;
 	private Solenoid led;
 	
