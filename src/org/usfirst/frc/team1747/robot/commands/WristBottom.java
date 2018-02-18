@@ -62,7 +62,7 @@ private ElevatorSubsystem elevator;
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return true;
+        return Math.abs(elevator.getWristPosition() - elevator.getWristStages()[0]) < Math.PI/18;
     }
 
     // Called once after isFinished returns true

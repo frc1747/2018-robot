@@ -17,8 +17,6 @@ public class Outtake extends Command {
     public Outtake() {
     	intake = IntakeSubsystem.getInstance();
 		requires (intake);
-    	GambeziDashboard.set_double("Intake/OutPower", -0.8);
-
     }
 
     // Called just before this Command runs the first time

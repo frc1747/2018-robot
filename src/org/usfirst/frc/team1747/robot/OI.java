@@ -21,11 +21,15 @@ import org.usfirst.frc.team1747.robot.commands.ElevatorUp;
 import org.usfirst.frc.team1747.robot.commands.Intake;
 import org.usfirst.frc.team1747.robot.commands.OpenClaw;
 import org.usfirst.frc.team1747.robot.commands.Outtake;
+import org.usfirst.frc.team1747.robot.commands.ScaleBackward;
+import org.usfirst.frc.team1747.robot.commands.ScaleForward;
 import org.usfirst.frc.team1747.robot.commands.SetElevatorPosition;
+import org.usfirst.frc.team1747.robot.commands.SwitchForward;
 import org.usfirst.frc.team1747.robot.commands.TestDown;
 import org.usfirst.frc.team1747.robot.commands.TestUp;
 import org.usfirst.frc.team1747.robot.commands.WristDown;
 import org.usfirst.frc.team1747.robot.commands.WristUp;
+import org.usfirst.frc.team1747.robot.commands.WristVertical;
 import org.usfirst.frc.team1747.robot.commands.ZeroedSensorDriveCurve;
 import org.usfirst.frc.team1747.robot.subsystems.DriveSubsystem;
 import org.usfirst.frc.team1747.robot.subsystems.ElevatorSubsystem;
@@ -42,12 +46,14 @@ import lib.frc1747.controller.Logitech;
  */
 public class OI {
 	
-	private static OI instance; Logitech driver;
+	private static OI instance; Logitech driver, operator;
 	
 	private OI() {
 		driver = new Logitech(RobotMap.DRIVER);
+		operator = new Logitech(RobotMap.OPERATOR);
 		
 		createDriver();
+		createOperator();
 		
 		DriveProfile drive10ft = new DriveProfile("/home/lvuser/10ft.csv");
 		DriveProfile curve_left = new DriveProfile("/home/lvuser/curve_left.csv");
@@ -110,10 +116,11 @@ public class OI {
 //		driver.getButton(Logitech.UP).whileHeld(new ClimbUp());
 //		driver.getButton(Logitech.DOWN).whileHeld(new ClimbDown());
 		driver.getButton(Logitech.RB).whileHeld(new Intake());
-//		driver.getButton(Logitech.RT).whileHeld(new Outtake());
-		driver.getButton(Logitech.LB).whileHeld(new OpenClaw());
-		
-		driver.getButton(Logitech.RT).whenPressed(new DriveProfile("/home/lvuser/S-Curve-Right.csv"));
+		driver.getButton(Logitech.RT).whileHeld(new Outtake());
+		driver.getButton(Logitech.LB).whileHeld(new OpenClaw());		
+//		driver.getButton(Logitech.RT).whenPressed(new DriveProfile("/home/lvuser/curve_test_right.csv"));
+		driver.getDPad(Logitech.UP).whenPressed(new SwitchForward());
+		driver.getDPad(Logitech.RIGHT).whenPressed(new ScaleBackward());
 		
 		//Test Commands for wrist and elevator without PID loops
 //		driver.getButton(Logitech.Y).whileHeld(new TestUp());
@@ -124,7 +131,15 @@ public class OI {
 //		driver.getDpad(Logitech.DOWN).whileHeld(new TestDown());
 	}
 	
+	public void createOperator(){
+		
+	}
+	
 	public Logitech getDriver() {
 		return driver;
+	}
+	
+	public Logitech getOperator(){
+		return operator;
 	}
 }
