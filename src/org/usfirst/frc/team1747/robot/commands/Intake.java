@@ -6,6 +6,7 @@ import org.usfirst.frc.team1747.robot.subsystems.IntakeSubsystem;
 
 import com.tigerhuang.gambezi.dashboard.GambeziDashboard;
 
+import edu.wpi.first.wpilibj.Notifier;
 import edu.wpi.first.wpilibj.command.Command;
 
 public class Intake extends Command {
@@ -18,21 +19,23 @@ public class Intake extends Command {
 		elevator = ElevatorSubsystem.getInstance();
 		requires (elevator);
 		requires (intake);
-    	GambeziDashboard.set_double("Intake/InPower", 0.8);
+    	//GambeziDashboard.set_double("Intake/InPower", 0.8);
 	}
 	
 	
 	// Called just before this Command runs the first time
 		@Override
 		protected void initialize() {
-			if(!intake.ifCubeCompletelyHeld() && Math.abs(elevator.getWristPosition() - elevator.getWristStages()[0]) < Math.PI/12){
-				intake.setPower(GambeziDashboard.get_double("Intake/InPower"));
-			}
+	    	//System.out.println("Intake Cube");
 		}
 
 		// Called repeatedly when this Command is scheduled to run
 		@Override
 		protected void execute() {
+	    	//System.out.println("Intake Periodic");
+			if(!intake.ifCubeCompletelyHeld() && Math.abs(elevator.getWristPosition() - elevator.getWristStages()[0]) < Math.PI/12){
+				intake.setPower(/*GambeziDashboard.get_double("Intake/InPower")*/ 0.8);
+			}
 		}
 		
 	@Override

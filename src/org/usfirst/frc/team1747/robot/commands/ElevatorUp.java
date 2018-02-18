@@ -7,31 +7,27 @@ import com.tigerhuang.gambezi.dashboard.GambeziDashboard;
 import edu.wpi.first.wpilibj.command.Command;
 import lib.frc1747.subsytems.HBRSubsystem;
 
-public class WristVertical extends Command {
+public class ElevatorUp extends Command {
 	private ElevatorSubsystem elevator;
 	
 	private final double s_v_max = 18;
 	private final double a_v_max = 17.28;
 	private final double[] elevatorPositions = {0, 24, 48};
-	private final double[] wristPositions = {0, 90, 135};
-	private final double wristScaling = 5/360;
-	
+	private final double scaling = 1;
 	
 
 	
 	double elevatorSetpoint;
 	double wristSetpoint;
 
-    public WristVertical() {
+    public ElevatorUp() {
     	requires(elevator = ElevatorSubsystem.getInstance());
-    	setInterruptible(true); 	
+    	setInterruptible(true);
+    	
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	System.out.println("Wrist Vertical");
-    	elevator.setWristStage(elevator.getWristStages().length - 2);
-    	
     	//setup elevator PID
     	elevator.setMode(ElevatorSubsystem.Follower.ELEVATOR, HBRSubsystem.Mode.PID);
     	elevator.setPIDMode(ElevatorSubsystem.Follower.ELEVATOR, HBRSubsystem.PIDMode.POSITION);
@@ -49,10 +45,12 @@ public class WristVertical extends Command {
 		elevator.resetIntegrator(ElevatorSubsystem.Follower.WRIST);
 		
 		elevator.setEnabled(true);
-		
-	
-		elevator.setSetpoint(ElevatorSubsystem.Follower.WRIST, elevator.getWristStages()[elevator.getWristStage()]);
+			
+		if(elevator.getElevatorStage() < elevator.getElevatorStages().length - 1){	
+			elevator.setElevatorStage(elevator.getElevatorStage() + 1);
+		}
 		elevator.setSetpoint(ElevatorSubsystem.Follower.ELEVATOR, (elevator.getElevatorStages()[elevator.getElevatorStage()]));
+		elevator.setSetpoint(ElevatorSubsystem.Follower.WRIST, elevator.getWristStages()[elevator.getWristStage()]);
 
 		GambeziDashboard.set_double("Elevator/Index", elevator.getElevatorStage());
 		GambeziDashboard.set_double("Wrist/Index", elevator.getWristStage());

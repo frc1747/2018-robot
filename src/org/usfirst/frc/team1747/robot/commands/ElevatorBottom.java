@@ -35,7 +35,7 @@ public class ElevatorBottom extends Command {
     // Called just before this Command runs the first time
     protected void initialize() {
     	distance = position - elevator.getElevatorPosition();
-    	double[][][] profiles = HBRSubsystem.generateSkidSteerPseudoProfile(distance, 0, Parameters.I_SAMPLE_LENGTH, 120, 200, 9000.1, Parameters.W_WIDTH, Parameters.DT, true, true);
+    	double[][][] profiles = HBRSubsystem.generateSkidSteerPseudoProfile(distance, 0, 12 * Parameters.I_SAMPLE_LENGTH, 120, 200, 9000.1, Parameters.W_WIDTH, Parameters.DT, true, true);
 
     	//setup elevator PID
     	elevator.setMode(ElevatorSubsystem.Follower.ELEVATOR, HBRSubsystem.Mode.FOLLOWER);
@@ -59,7 +59,7 @@ public class ElevatorBottom extends Command {
 		elevator.setEnabled(true);
 			
 		if(elevator.getElevatorStage() < elevator.getElevatorStages().length - 1){	
-			elevator.setElevatorStage(elevator.getElevatorStage() + 1);
+			elevator.setElevatorStage(0);
 			GambeziDashboard.log_string(elevator.getElevatorStage() +"");
 		}
 		elevator.setSetpoint(ElevatorSubsystem.Follower.WRIST, elevator.getWristStages()[elevator.getWristStage()]);

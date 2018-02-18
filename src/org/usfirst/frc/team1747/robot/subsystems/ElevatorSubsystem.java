@@ -29,6 +29,10 @@ public class ElevatorSubsystem extends HBRSubsystem<ElevatorSubsystem.Follower> 
 	
 	private static ElevatorSubsystem elevator;
 	
+	public enum ElevatorPositions{
+		BOTTOM, SWITCH, LOW_SCALE, TOP;
+	}
+	
 	public enum Follower{
 		ELEVATOR, WRIST;
 	}
@@ -51,10 +55,10 @@ public class ElevatorSubsystem extends HBRSubsystem<ElevatorSubsystem.Follower> 
 		scaling = RobotMap.ELEVATOR_SCALING;
 
 		GambeziDashboard.set_double("Elevator/kF", 0.04); //0.04
-		GambeziDashboard.set_double("Elevator/kV", 0); //0
-    	GambeziDashboard.set_double("Elevator/kA", 0); //0
-    	GambeziDashboard.set_double("Elevator/kP", 0.025); //0.025
-    	GambeziDashboard.set_double("Elevator/kI", 0.005); //0.005
+		GambeziDashboard.set_double("Elevator/kV", 0.0066); //0
+    	GambeziDashboard.set_double("Elevator/kA", 0.0009); //0
+    	GambeziDashboard.set_double("Elevator/kP", 0.01); //0.025
+    	GambeziDashboard.set_double("Elevator/kI", 0.0); //0.005
     	GambeziDashboard.set_double("Elevator/kD", 0); //0
 		GambeziDashboard.set_double("Wrist/kF", 0.35);
     	GambeziDashboard.set_double("Wrist/kA", 0);
@@ -172,7 +176,7 @@ public class ElevatorSubsystem extends HBRSubsystem<ElevatorSubsystem.Follower> 
 			setElevatorPower(output[0] + GambeziDashboard.get_double("Elevator/kF"));
 		}
 		GambeziDashboard.set_double("Wrist/PIDOutput", output[1]);
-		System.out.println(output[1]);
+		//System.out.println(output[1]);
 		GambeziDashboard.set_double("Elevator/PIDOutput", output[0]);
 		GambeziDashboard.set_double("Wrist/Angle", getWristPosition());
 		GambeziDashboard.set_double("Wrist/Setpoint", wristPositions[wristIndex]);

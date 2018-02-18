@@ -118,8 +118,7 @@ public class DriveSubsystem extends HBRSubsystem<DriveSubsystem.Follower> {
 
 	@Override
 	protected void initDefaultCommand() {
-//		setDefaultCommand(new DriveWithJoysticks());
-		setDefaultCommand(new ArcadeDrive());
+		setDefaultCommand(new DriveWithJoysticks());
 	}
 	
 	public class DriveSide {

@@ -8,6 +8,7 @@ public class AutoIntake extends CommandGroup {
 		addSequential(new WristBottom());
 		addParallel(new OpenClaw());
 		addSequential(new Intake());
+		addSequential(new Delay(500));
 		addSequential(new WristVertical());
 	}
 }

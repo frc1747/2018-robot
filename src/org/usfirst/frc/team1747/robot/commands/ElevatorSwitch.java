@@ -28,14 +28,14 @@ public class ElevatorSwitch extends Command {
 	
     public ElevatorSwitch() {
     	requires(elevator = ElevatorSubsystem.getInstance());
-    	position = elevator.getElevatorStages()[elevator.getElevatorStages().length - 3];
+    	position = elevator.getElevatorStages()[elevator.getElevatorStages().length - 4];
     	setInterruptible(false);
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
     	distance = position - elevator.getElevatorPosition();
-    	double[][][] profiles = HBRSubsystem.generateSkidSteerPseudoProfile(distance, 0, Parameters.I_SAMPLE_LENGTH, 120, 200, 9000.1, Parameters.W_WIDTH, Parameters.DT, true, true);
+    	double[][][] profiles = HBRSubsystem.generateSkidSteerPseudoProfile(distance, 0, 12 * Parameters.I_SAMPLE_LENGTH, 120, 200, 9000.1, Parameters.W_WIDTH, Parameters.DT, true, true);
 
     	//setup elevator PID
     	elevator.setMode(ElevatorSubsystem.Follower.ELEVATOR, HBRSubsystem.Mode.FOLLOWER);
@@ -78,6 +78,8 @@ public class ElevatorSwitch extends Command {
 
     // Called once after isFinished returns true
     protected void end() {
+    	elevator.setMode(ElevatorSubsystem.Follower.ELEVATOR, HBRSubsystem.Mode.PID);
+    	elevator.setSetpoint(ElevatorSubsystem.Follower.ELEVATOR, elevator.getElevatorStages()[1]);
     }
 
     // Called when another command which requires one or more of the same

@@ -30,6 +30,7 @@ private ElevatorSubsystem elevator;
 
     // Called just before this Command runs the first time
     protected void initialize() {
+    	System.out.println("Wrist Bottom");
     	elevator.setWristStage(0);
     	
     	//setup elevator PID

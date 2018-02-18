@@ -24,7 +24,7 @@ public class DriveWithJoysticks extends Command {
 	private ElevatorSubsystem elevator = ElevatorSubsystem.getInstance();
 	
 	private final double s_v_max = 18;
-	private final double a_v_max = 17.28;
+	private final double a_v_max = 8.6;
 	
 	double speedSetpoint;
 	double angleSetpoint;
@@ -55,7 +55,7 @@ public class DriveWithJoysticks extends Command {
     	drivetrain.setMode(DriveSubsystem.Follower.ANGLE, HBRSubsystem.Mode.PID);
     	drivetrain.setPIDMode(DriveSubsystem.Follower.ANGLE, HBRSubsystem.PIDMode.VELOCITY);
     	drivetrain.setILimit(DriveSubsystem.Follower.ANGLE, 0);
-    	drivetrain.setFeedforward(DriveSubsystem.Follower.ANGLE, 0, 0.6 / a_v_max, 0);
+    	drivetrain.setFeedforward(DriveSubsystem.Follower.ANGLE, 0, 1 / a_v_max, 0);
     	drivetrain.setFeedback(DriveSubsystem.Follower.ANGLE, 0, 0, 0);
 		drivetrain.resetIntegrator(DriveSubsystem.Follower.ANGLE);
 		
@@ -72,13 +72,13 @@ public class DriveWithJoysticks extends Command {
     		drivetrain.setFeedforward(DriveSubsystem.Follower.DISTANCE, 0, 1 / s_v_max, 0);
         	drivetrain.setFeedback(DriveSubsystem.Follower.DISTANCE, 0, 0, 0);
         	
-        	drivetrain.setFeedforward(DriveSubsystem.Follower.ANGLE, 0, 0.6 / a_v_max, 0);
+        	drivetrain.setFeedforward(DriveSubsystem.Follower.ANGLE, 0, 1/ a_v_max, 0);
         	drivetrain.setFeedback(DriveSubsystem.Follower.ANGLE, 0, 0, 0);
     	} else {
     		drivetrain.setFeedforward(DriveSubsystem.Follower.DISTANCE, 0, 1 / s_v_max, 0);
         	drivetrain.setFeedback(DriveSubsystem.Follower.DISTANCE, 0, 0, 0);
         	
-        	drivetrain.setFeedforward(DriveSubsystem.Follower.ANGLE, 0, 0.6 / a_v_max, 0);
+        	drivetrain.setFeedforward(DriveSubsystem.Follower.ANGLE, 0, 1 / a_v_max, 0);
         	drivetrain.setFeedback(DriveSubsystem.Follower.ANGLE, 0, 0, 0);
     	}
     	
