@@ -79,6 +79,7 @@ public class OI {
 			@Override
 			public void on_update(Object arg0) {
 				Scheduler.getInstance().add(s_curve_left);
+				System.out.println("S-Curve_left");
 			}
 		});
 		GambeziDashboard.listen_button("Commands/S-Curve_right", new OnUpdateListener() {

@@ -26,6 +26,9 @@ public class DriveWithJoysticks extends Command {
 	private final double s_v_max = 18;
 	private final double a_v_max = 8.6;
 	
+	private final double lowFilter = -0.005;			//TODO: Tune these values
+	private final double highFilter = -0.005;
+	
 	double speedSetpoint;
 	double angleSetpoint;
 
@@ -48,7 +51,7 @@ public class DriveWithJoysticks extends Command {
     	drivetrain.setPIDMode(DriveSubsystem.Follower.DISTANCE, HBRSubsystem.PIDMode.VELOCITY);
     	drivetrain.setILimit(DriveSubsystem.Follower.DISTANCE, 0);
     	drivetrain.setFeedforward(DriveSubsystem.Follower.DISTANCE, 0, 1 / s_v_max, 0);
-    	drivetrain.setFeedback(DriveSubsystem.Follower.DISTANCE, 0, 0, 0);
+    	drivetrain.setFeedback(DriveSubsystem.Follower.DISTANCE, lowFilter, 0, 0);
     	drivetrain.resetIntegrator(DriveSubsystem.Follower.DISTANCE);
     	
     	//setup angle PID
@@ -70,12 +73,12 @@ public class DriveWithJoysticks extends Command {
        	//Limits robot speed when elevator is up
     	if (elevator.getElevatorPosition() > RobotMap.ELEVATOR_SPEED_LIMIT_POSITION)  {
     		drivetrain.setFeedforward(DriveSubsystem.Follower.DISTANCE, 0, 1 / s_v_max, 0);
-        	drivetrain.setFeedback(DriveSubsystem.Follower.DISTANCE, 0, 0, 0);
+        	drivetrain.setFeedback(DriveSubsystem.Follower.DISTANCE, highFilter, 0, 0);
         	
         	drivetrain.setFeedforward(DriveSubsystem.Follower.ANGLE, 0, 1/ a_v_max, 0);
         	drivetrain.setFeedback(DriveSubsystem.Follower.ANGLE, 0, 0, 0);
     	} else {
-    		drivetrain.setFeedforward(DriveSubsystem.Follower.DISTANCE, 0, 1 / s_v_max, 0);
+    		drivetrain.setFeedforward(DriveSubsystem.Follower.DISTANCE, lowFilter, 1 / s_v_max, 0);
         	drivetrain.setFeedback(DriveSubsystem.Follower.DISTANCE, 0, 0, 0);
         	
         	drivetrain.setFeedforward(DriveSubsystem.Follower.ANGLE, 0, 1 / a_v_max, 0);
