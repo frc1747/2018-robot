@@ -65,6 +65,7 @@ public class OI {
 			@Override
 			public void on_update(Object arg0) {
 				Scheduler.getInstance().add(curve_test_left);
+				System.out.println("Testing");
 			}
 		});
 		GambeziDashboard.listen_button("Commands/CurveTestRight", new OnUpdateListener() {
@@ -101,8 +102,10 @@ public class OI {
 //		driver.getButton(Logitech.UP).whileHeld(new ClimbUp());
 //		driver.getButton(Logitech.DOWN).whileHeld(new ClimbDown());
 		driver.getButton(Logitech.RB).whileHeld(new Intake());
-		driver.getButton(Logitech.RT).whileHeld(new Outtake());
+//		driver.getButton(Logitech.RT).whileHeld(new Outtake());
 		driver.getButton(Logitech.LB).whileHeld(new OpenClaw());
+		
+		driver.getButton(Logitech.RT).whenPressed(new DriveProfile("/home/lvuser/curve_test_right.csv"));
 		
 		//Test Commands for wrist and elevator without PID loops
 //		driver.getButton(Logitech.Y).whileHeld(new TestUp());
