@@ -18,25 +18,31 @@ import lib.frc1747.subsytems.HBRSubsystem;
 /**
  *
  */
-public class ElevatorScaleLower extends Command {
+public class SetElevatorPosition extends Command {
 	private ElevatorSubsystem elevator;
 	
 	double elevatorSetpoint;
 	double distance;
+	ElevatorSubsystem.ElevatorPositions stage;
 
 	public final double position;
 	
-    public ElevatorScaleLower() {
+    public SetElevatorPosition(ElevatorSubsystem.ElevatorPositions stage) {
     	requires(elevator = ElevatorSubsystem.getInstance());
-    	position = elevator.getElevatorStages()[elevator.getElevatorStages().length - 2];
+    	position = elevator.getElevatorStages()[stage.ordinal()];
     	setInterruptible(false);
+    	this.stage = stage;
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	distance = position - elevator.getElevatorPosition();
-    	double[][][] profiles = HBRSubsystem.generateSkidSteerPseudoProfile(distance, 0, Parameters.I_SAMPLE_LENGTH, 120, 200, 9000.1, Parameters.W_WIDTH, Parameters.DT, true, true);
-
+    	double currentPosition = elevator.getElevatorPosition();
+    	distance = position - currentPosition;
+    	double[][][] profiles = HBRSubsystem.generateSkidSteerPseudoProfile(distance, 0, Parameters.I_SAMPLE_LENGTH * 12, 120, 200, 9000.1, Parameters.W_WIDTH, Parameters.DT, true, true);
+    	for(int i = 0; i < profiles[0].length; i++){
+    		profiles[0][i][0] += currentPosition;
+    	}
+    	
     	//setup elevator PID
     	elevator.setMode(ElevatorSubsystem.Follower.ELEVATOR, HBRSubsystem.Mode.FOLLOWER);
     	elevator.setPIDMode(ElevatorSubsystem.Follower.ELEVATOR, HBRSubsystem.PIDMode.POSITION);
@@ -45,7 +51,6 @@ public class ElevatorScaleLower extends Command {
     	elevator.setFeedback(ElevatorSubsystem.Follower.ELEVATOR, GambeziDashboard.get_double("Elevator/kP"), GambeziDashboard.get_double("Elevator/kI"), GambeziDashboard.get_double("Elevator/kD"));
     	elevator.resetIntegrator(ElevatorSubsystem.Follower.ELEVATOR);
     	elevator.setProfile(ElevatorSubsystem.Follower.ELEVATOR, profiles[0]);
-
     	
     	//setup wrist PID
     	elevator.setMode(ElevatorSubsystem.Follower.WRIST, HBRSubsystem.Mode.PID);
@@ -58,10 +63,7 @@ public class ElevatorScaleLower extends Command {
     	elevator.resume(ElevatorSubsystem.Follower.ELEVATOR);
 		elevator.setEnabled(true);
 			
-		if(elevator.getElevatorStage() < elevator.getElevatorStages().length - 1){	
-			elevator.setElevatorStage(elevator.getElevatorStage() + 1);
-			GambeziDashboard.log_string(elevator.getElevatorStage() +"");
-		}
+		elevator.setElevatorStage(stage.ordinal());
 		elevator.setSetpoint(ElevatorSubsystem.Follower.WRIST, elevator.getWristStages()[elevator.getWristStage()]);
 		
 		GambeziDashboard.set_double("Elevator/Index", elevator.getElevatorStage());
@@ -78,6 +80,13 @@ public class ElevatorScaleLower extends Command {
 
     // Called once after isFinished returns true
     protected void end() {
+    	if(!(stage == ElevatorSubsystem.ElevatorPositions.BOTTOM)){
+    		elevator.setMode(ElevatorSubsystem.Follower.ELEVATOR, HBRSubsystem.Mode.PID);
+    		elevator.setSetpoint(ElevatorSubsystem.Follower.ELEVATOR, elevator.getElevatorStages()[stage.ordinal()]);
+    	}else{
+    		elevator.setFeedforward(ElevatorSubsystem.Follower.ELEVATOR, 0, 0, 0);
+    		elevator.setFeedback(ElevatorSubsystem.Follower.ELEVATOR, 0, 0, 0);
+    	}
     }
 
     // Called when another command which requires one or more of the same

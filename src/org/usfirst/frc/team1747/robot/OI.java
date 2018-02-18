@@ -16,20 +16,19 @@ import org.usfirst.frc.team1747.robot.commands.DriveCurve;
 import org.usfirst.frc.team1747.robot.commands.DriveProfile;
 import org.usfirst.frc.team1747.robot.commands.ElevateDown;
 import org.usfirst.frc.team1747.robot.commands.ElevateUp;
-import org.usfirst.frc.team1747.robot.commands.ElevatorBottom;
 import org.usfirst.frc.team1747.robot.commands.ElevatorDown;
-import org.usfirst.frc.team1747.robot.commands.ElevatorSwitch;
-import org.usfirst.frc.team1747.robot.commands.ElevatorTop;
 import org.usfirst.frc.team1747.robot.commands.ElevatorUp;
 import org.usfirst.frc.team1747.robot.commands.Intake;
 import org.usfirst.frc.team1747.robot.commands.OpenClaw;
 import org.usfirst.frc.team1747.robot.commands.Outtake;
+import org.usfirst.frc.team1747.robot.commands.SetElevatorPosition;
 import org.usfirst.frc.team1747.robot.commands.TestDown;
 import org.usfirst.frc.team1747.robot.commands.TestUp;
 import org.usfirst.frc.team1747.robot.commands.WristDown;
 import org.usfirst.frc.team1747.robot.commands.WristUp;
 import org.usfirst.frc.team1747.robot.commands.ZeroedSensorDriveCurve;
 import org.usfirst.frc.team1747.robot.subsystems.DriveSubsystem;
+import org.usfirst.frc.team1747.robot.subsystems.ElevatorSubsystem;
 
 import com.tigerhuang.gambezi.OnUpdateListener;
 import com.tigerhuang.gambezi.dashboard.GambeziDashboard;
@@ -92,8 +91,10 @@ public class OI {
 	}
 	
 	public void createDriver() {
-		driver.getButton(Logitech.X).whenPressed(new ElevatorBottom());
-		driver.getButton(Logitech.B).whenPressed(new ElevatorSwitch());
+		driver.getButton(Logitech.X).whenPressed(new SetElevatorPosition(ElevatorSubsystem.ElevatorPositions.BOTTOM));
+		driver.getButton(Logitech.B).whenPressed(new SetElevatorPosition(ElevatorSubsystem.ElevatorPositions.SWITCH));
+		driver.getButton(Logitech.START).whenPressed(new SetElevatorPosition(ElevatorSubsystem.ElevatorPositions.LOW_SCALE));
+		driver.getButton(Logitech.BACK).whenPressed(new SetElevatorPosition(ElevatorSubsystem.ElevatorPositions.TOP));
 		driver.getButton(Logitech.Y).whenPressed(new WristUp());
 		driver.getButton(Logitech.A).whenPressed(new WristDown());
 		driver.getButton(Logitech.LT).whenPressed(new AutoIntake());
