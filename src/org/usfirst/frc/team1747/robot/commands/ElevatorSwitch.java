@@ -35,8 +35,7 @@ public class ElevatorSwitch extends Command {
     // Called just before this Command runs the first time
     protected void initialize() {
     	distance = position - elevator.getElevatorPosition();
-    	double[][][] profiles = HBRSubsystem.generateSkidSteerPseudoProfile(distance, 0, Parameters.I_SAMPLE_LENGTH, 120, 200, 9000.1, Parameters.W_WIDTH, Parameters.DT, true, true);
-
+    	double[][][] profiles = HBRSubsystem.generateSkidSteerPseudoProfile(distance, 0, 12 * Parameters.I_SAMPLE_LENGTH, 120, 200, 9000.1, Parameters.W_WIDTH, Parameters.DT, true, true);
     	//setup elevator PID
     	elevator.setMode(ElevatorSubsystem.Follower.ELEVATOR, HBRSubsystem.Mode.FOLLOWER);
     	elevator.setPIDMode(ElevatorSubsystem.Follower.ELEVATOR, HBRSubsystem.PIDMode.POSITION);
@@ -58,14 +57,18 @@ public class ElevatorSwitch extends Command {
     	elevator.resume(ElevatorSubsystem.Follower.ELEVATOR);
 		elevator.setEnabled(true);
 			
+		/*
 		if(elevator.getElevatorStage() < elevator.getElevatorStages().length - 1){	
 			elevator.setElevatorStage(elevator.getElevatorStage() + 1);
 			GambeziDashboard.log_string(elevator.getElevatorStage() +"");
 		}
+		*/
+		elevator.setElevatorStage(elevator.getElevatorStages().length - 3);
 		elevator.setSetpoint(ElevatorSubsystem.Follower.WRIST, elevator.getWristStages()[elevator.getWristStage()]);
 		
 		GambeziDashboard.set_double("Elevator/Index", elevator.getElevatorStage());
 		GambeziDashboard.set_double("Wrist/Index", elevator.getWristStage());
+		GambeziDashboard.set_double("Elevator/Distance", distance);
     }
 
     // Called repeatedly when this Command is scheduled to run
@@ -78,6 +81,13 @@ public class ElevatorSwitch extends Command {
 
     // Called once after isFinished returns true
     protected void end() {
+    	elevator.setMode(ElevatorSubsystem.Follower.ELEVATOR, HBRSubsystem.Mode.PID);
+    	elevator.setPIDMode(ElevatorSubsystem.Follower.ELEVATOR, HBRSubsystem.PIDMode.POSITION);
+    	elevator.setILimit(ElevatorSubsystem.Follower.ELEVATOR, 0);
+    	elevator.setFeedforward(ElevatorSubsystem.Follower.ELEVATOR, 0, GambeziDashboard.get_double("Elevator/kV"), GambeziDashboard.get_double("Elevator/kA"));
+    	elevator.setFeedback(ElevatorSubsystem.Follower.ELEVATOR, GambeziDashboard.get_double("Elevator/kP"), GambeziDashboard.get_double("Elevator/kI"), GambeziDashboard.get_double("Elevator/kD"));
+    	elevator.resetIntegrator(ElevatorSubsystem.Follower.ELEVATOR);
+		elevator.setSetpoint(ElevatorSubsystem.Follower.ELEVATOR, (elevator.getElevatorStages()[elevator.getElevatorStage()]));
     }
 
     // Called when another command which requires one or more of the same

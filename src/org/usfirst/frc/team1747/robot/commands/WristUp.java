@@ -78,7 +78,6 @@ public class WristUp extends Command {
 		
 		GambeziDashboard.set_double("Elevator/Index", elevator.getElevatorStage());
 		GambeziDashboard.set_double("Wrist/Index", elevator.getWristStage());
-		System.out.println("This prints");
     }
 
     // Called repeatedly when this Command is scheduled to run

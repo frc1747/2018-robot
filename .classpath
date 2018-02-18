@@ -10,10 +10,9 @@
 	<classpathentry kind="var" path="USERLIBS_DIR/CTRE_Phoenix.jar"/>
 	<classpathentry kind="var" path="USERLIBS_DIR/navx_frc.jar"/>
 	<classpathentry kind="var" path="USERLIBS_DIR/java_websocket.jar"/>
-	<classpathentry kind="var" path="USERLIBS_DIR/motion_profile.jar"/>
-	<classpathentry kind="var" path="USERLIBS_DIR/json-simple-1.1.1.jar"/>
 	<classpathentry kind="var" path="USERLIBS_DIR/CTRE_Phoenix-sources.jar"/>
 	<classpathentry kind="var" path="USERLIBS_DIR/gambezi.jar"/>
 	<classpathentry kind="var" path="USERLIBS_DIR/gambezi_dashboard.jar"/>
+	<classpathentry kind="var" path="USERLIBS_DIR/motion_profile.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

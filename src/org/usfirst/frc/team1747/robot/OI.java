@@ -15,6 +15,7 @@ import org.usfirst.frc.team1747.robot.commands.DriveCurve;
 import org.usfirst.frc.team1747.robot.commands.DriveProfile;
 import org.usfirst.frc.team1747.robot.commands.ElevateDown;
 import org.usfirst.frc.team1747.robot.commands.ElevateUp;
+import org.usfirst.frc.team1747.robot.commands.ElevatorBottom;
 import org.usfirst.frc.team1747.robot.commands.ElevatorDown;
 import org.usfirst.frc.team1747.robot.commands.ElevatorSwitch;
 import org.usfirst.frc.team1747.robot.commands.ElevatorTop;
@@ -89,10 +90,10 @@ public class OI {
 	}
 	
 	public void createDriver() {
-//		driver.getButton(Logitech.X).whenPressed(new ElevatorDown());
-//		driver.getButton(Logitech.B).whenPressed(new ElevatorSwitch());
-//		driver.getButton(Logitech.Y).whenPressed(new WristUp());
-//		driver.getButton(Logitech.A).whenPressed(new WristDown());
+		driver.getButton(Logitech.X).whenPressed(new ElevatorBottom());
+		driver.getButton(Logitech.B).whenPressed(new ElevatorSwitch());
+		driver.getButton(Logitech.Y).whenPressed(new WristUp());
+		driver.getButton(Logitech.A).whenPressed(new WristDown());
 //		driver.getButton(Logitech.UP).whileHeld(new ClimbUp());
 //		driver.getButton(Logitech.DOWN).whileHeld(new ClimbDown());
 		driver.getButton(Logitech.RB).whileHeld(new Intake());
@@ -103,8 +104,8 @@ public class OI {
 //		driver.getButton(Logitech.Y).whileHeld(new TestUp());
 //		driver.getButton(Logitech.A).whileHeld(new TestDown());
 //		driver.getButton(Logitech.RT).whenPressed(new ElevateDown());
-		driver.getButton(Logitech.B).whileHeld(new ElevateUp());
-		driver.getButton(Logitech.X).whileHeld(new TestUp());
+//		driver.getButton(Logitech.B).whileHeld(new ElevateUp());
+//		driver.getButton(Logitech.X).whileHeld(new TestUp());
 //		driver.getDpad(Logitech.DOWN).whileHeld(new TestDown());
 
 	}
