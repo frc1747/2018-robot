@@ -42,7 +42,7 @@ public class WristDown extends Command {
     	if (elevator.getWristStage() > 0) {
 			elevator.setWristStage(elevator.getWristStage() - 1);
 		}
-    	
+		
     	//setup elevator PID
     	elevator.setMode(ElevatorSubsystem.Follower.ELEVATOR, HBRSubsystem.Mode.PID);
     	elevator.setPIDMode(ElevatorSubsystem.Follower.ELEVATOR, HBRSubsystem.PIDMode.POSITION);
@@ -57,10 +57,9 @@ public class WristDown extends Command {
     	elevator.setILimit(ElevatorSubsystem.Follower.WRIST, 0);
     	elevator.setFeedforward(ElevatorSubsystem.Follower.WRIST, 0, GambeziDashboard.get_double("Wrist/kV"), GambeziDashboard.get_double("Wrist/kA"));
     	elevator.setFeedback(ElevatorSubsystem.Follower.WRIST, GambeziDashboard.get_double("Wrist/kP"), GambeziDashboard.get_double("Wrist/kI"), GambeziDashboard.get_double("Wrist/kD"));
-		elevator.resetIntegrator(ElevatorSubsystem.Follower.WRIST);
+    	elevator.resetIntegrator(ElevatorSubsystem.Follower.WRIST);
 		
 		elevator.setEnabled(true);
-		
 	
 		elevator.setSetpoint(ElevatorSubsystem.Follower.WRIST, elevator.getWristStages()[elevator.getWristStage()]);
 		elevator.setSetpoint(ElevatorSubsystem.Follower.ELEVATOR, (elevator.getElevatorStages()[elevator.getElevatorStage()]));

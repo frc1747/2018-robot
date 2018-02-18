@@ -121,6 +121,27 @@ public class Robot extends TimedRobot {
 	}
 	
 	public void initSubsystems(){
+		GambeziDashboard.set_double("Elevator/kF", 0.0); //0.04
+		GambeziDashboard.set_double("Elevator/kV", 0); //0
+    	GambeziDashboard.set_double("Elevator/kA", 0); //0
+    	GambeziDashboard.set_double("Elevator/kP", 0.0); //0.025
+    	GambeziDashboard.set_double("Elevator/kI", 0.00); //0.005
+    	GambeziDashboard.set_double("Elevator/kD", 0); //0
+		GambeziDashboard.set_double("Wrist/kF", 0.35);
+    	GambeziDashboard.set_double("Wrist/kA", 0);
+    	GambeziDashboard.set_double("Wrist/kV", 0);
+    	GambeziDashboard.set_double("Wrist/kP", 0.55);
+    	GambeziDashboard.set_double("Wrist/kI", 0);
+    	GambeziDashboard.set_double("Wrist/kD", 0);
+    	
+    	// NO! Do not do this anywhere else
+		try {
+			Thread.sleep(1000);
+		}
+		catch(InterruptedException ex) {
+			ex.printStackTrace();
+		}
+		
 		drive = DriveSubsystem.getInstance();
 		intake = IntakeSubsystem.getInstance();
 		elevator = ElevatorSubsystem.getInstance();

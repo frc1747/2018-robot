@@ -38,6 +38,9 @@ public class ElevatorSubsystem extends HBRSubsystem<ElevatorSubsystem.Follower> 
 	}
 	
 	public ElevatorSubsystem() {
+		
+		//		constants are now in Robot.java to fix bad issues
+		
 		leftMotor = new HBRTalon(RobotMap.ELEVATOR_MOTOR_PORTS[0]);
 		rightMotor = new HBRTalon(RobotMap.ELEVATOR_MOTOR_PORTS[1]);
 		leftMotor.setInverted(RobotMap.ELEVATOR_MOTOR_INVERSIONS[0]);
@@ -53,19 +56,6 @@ public class ElevatorSubsystem extends HBRSubsystem<ElevatorSubsystem.Follower> 
 		elevatorEncoder = new Encoder(RobotMap.ELEVATOR_ENCODER_A, RobotMap.ELEVATOR_ENCODER_B, RobotMap.ELEVATOR_ENCODER_INVERSION);
 		
 		scaling = RobotMap.ELEVATOR_SCALING;
-
-		GambeziDashboard.set_double("Elevator/kF", 0.04); //0.04
-		GambeziDashboard.set_double("Elevator/kV", 0.0066); //0
-    	GambeziDashboard.set_double("Elevator/kA", 0.0009); //0
-    	GambeziDashboard.set_double("Elevator/kP", 0.01); //0.025
-    	GambeziDashboard.set_double("Elevator/kI", 0.0); //0.005
-    	GambeziDashboard.set_double("Elevator/kD", 0); //0
-		GambeziDashboard.set_double("Wrist/kF", 0.35);
-    	GambeziDashboard.set_double("Wrist/kA", 0);
-    	GambeziDashboard.set_double("Wrist/kV", 0);
-    	GambeziDashboard.set_double("Wrist/kP", 0.55);
-    	GambeziDashboard.set_double("Wrist/kI", 0);
-    	GambeziDashboard.set_double("Wrist/kD", 0);
     	
     	if(!jumper.get()){
     		wristOffset = RobotMap.WRIST_OFFSET_COMP;
@@ -176,7 +166,6 @@ public class ElevatorSubsystem extends HBRSubsystem<ElevatorSubsystem.Follower> 
 			setElevatorPower(output[0] + GambeziDashboard.get_double("Elevator/kF"));
 		}
 		GambeziDashboard.set_double("Wrist/PIDOutput", output[1]);
-		//System.out.println(output[1]);
 		GambeziDashboard.set_double("Elevator/PIDOutput", output[0]);
 		GambeziDashboard.set_double("Wrist/Angle", getWristPosition());
 		GambeziDashboard.set_double("Wrist/Setpoint", wristPositions[wristIndex]);
@@ -199,6 +188,6 @@ public class ElevatorSubsystem extends HBRSubsystem<ElevatorSubsystem.Follower> 
 		GambeziDashboard.set_double("Elevator/Position_Setpoint", output[0]);
 		GambeziDashboard.set_double("Elevator/Actual_Position", output[1]);
 		GambeziDashboard.set_double("Wrist/Position_Setpoint", output[2]);
-		GambeziDashboard.set_double("Wrist/Position_Setpoint", output[3]);
+		GambeziDashboard.set_double("Wrist/Actual_Position", output[3]);
 	}
 }

@@ -58,14 +58,18 @@ public class ElevatorSwitch extends Command {
     	elevator.resume(ElevatorSubsystem.Follower.ELEVATOR);
 		elevator.setEnabled(true);
 			
+		/*
 		if(elevator.getElevatorStage() < elevator.getElevatorStages().length - 1){	
 			elevator.setElevatorStage(elevator.getElevatorStage() + 1);
 			GambeziDashboard.log_string(elevator.getElevatorStage() +"");
 		}
+		*/
+		elevator.setElevatorStage(elevator.getElevatorStages().length - 3);
 		elevator.setSetpoint(ElevatorSubsystem.Follower.WRIST, elevator.getWristStages()[elevator.getWristStage()]);
 		
 		GambeziDashboard.set_double("Elevator/Index", elevator.getElevatorStage());
 		GambeziDashboard.set_double("Wrist/Index", elevator.getWristStage());
+		GambeziDashboard.set_double("Elevator/Distance", distance);
     }
 
     // Called repeatedly when this Command is scheduled to run
@@ -80,6 +84,7 @@ public class ElevatorSwitch extends Command {
     protected void end() {
     	elevator.setMode(ElevatorSubsystem.Follower.ELEVATOR, HBRSubsystem.Mode.PID);
     	elevator.setSetpoint(ElevatorSubsystem.Follower.ELEVATOR, elevator.getElevatorStages()[1]);
+
     }
 
     // Called when another command which requires one or more of the same
