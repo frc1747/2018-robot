@@ -110,7 +110,6 @@ public class OI {
 //		driver.getButton(Logitech.B).whileHeld(new ElevateUp());
 //		driver.getButton(Logitech.X).whileHeld(new TestUp());
 //		driver.getDpad(Logitech.DOWN).whileHeld(new TestDown());
-
 	}
 	
 	public Logitech getDriver() {
