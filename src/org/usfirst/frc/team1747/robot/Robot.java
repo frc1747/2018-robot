@@ -134,6 +134,17 @@ public class Robot extends TimedRobot {
     	GambeziDashboard.set_double("Wrist/kI", 0);
     	GambeziDashboard.set_double("Wrist/kD", 0);
     	
+    	GambeziDashboard.set_double("Drive/Distance/kA", 0.02);
+    	GambeziDashboard.set_double("Drive/Distance/kV", 0.075);
+    	GambeziDashboard.set_double("Drive/Distance/kP", 1);
+    	GambeziDashboard.set_double("Drive/Distance/kI", 0);
+    	GambeziDashboard.set_double("Drive/Distance/kD", 0);
+    	GambeziDashboard.set_double("Drive/Angle/kA", 0.02);
+    	GambeziDashboard.set_double("Drive/Angle/kV", 0.18);
+    	GambeziDashboard.set_double("Drive/Angle/kP", 1.7);
+    	GambeziDashboard.set_double("Drive/Angle/kI", 0.0);
+    	GambeziDashboard.set_double("Drive/Angle/kD", 0.07);
+    	
     	// NO! Do not do this anywhere else
 		try {
 			Thread.sleep(1000);

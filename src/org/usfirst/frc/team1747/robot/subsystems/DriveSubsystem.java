@@ -191,6 +191,8 @@ public class DriveSubsystem extends HBRSubsystem<DriveSubsystem.Follower> {
 
 	@Override
 	public void pidWrite(double[] output) {
+		GambeziDashboard.set_double("Drive/output[0]", output[0]);
+		GambeziDashboard.set_double("Drive/output[1]", output[1]);
 		driveArcadeMode(output[0], -output[1]);
 	}
 

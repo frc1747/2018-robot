@@ -82,6 +82,12 @@ public class DriveWithJoysticks extends Command {
         	drivetrain.setFeedback(DriveSubsystem.Follower.ANGLE, 0, 0, 0);
     	}
     	
+    	GambeziDashboard.set_double("Drive/Left Encoder", drivetrain.getLeftPosition());
+    	GambeziDashboard.set_double("Drive/Right Encoder", drivetrain.getRightPosition());
+    	
+    	GambeziDashboard.set_double("Drive/Encoder Average", drivetrain.getAveragePosition());
+    	
+    	GambeziDashboard.set_double("Drive/angleSetpoint", angleSetpoint);
     	drivetrain.setSetpoint(DriveSubsystem.Follower.DISTANCE, speedSetpoint);
     	drivetrain.setSetpoint(DriveSubsystem.Follower.ANGLE, angleSetpoint);
     	

@@ -50,9 +50,10 @@ public class OI {
 		createDriver();
 		
 		DriveProfile drive10ft = new DriveProfile("/home/lvuser/10ft.csv");
-		DriveProfile curve_test_left = new DriveProfile("/home/lvuser/curve_test_left.csv");
-		DriveProfile curve_test_right = new DriveProfile("/home/lvuser/curve_test_right.csv");
+		DriveProfile curve_left = new DriveProfile("/home/lvuser/curve_left.csv");
+		DriveProfile curve_right = new DriveProfile("/home/lvuser/curve_right.csv");
 		DriveProfile s_curve_left = new DriveProfile("/home/lvuser/S-Curve-Left.csv");
+		DriveProfile s_curve_right = new DriveProfile("/home/lvuser/S-Curve-Right.csv");
 		
 		GambeziDashboard.listen_button("Commands/Drive10ft", new OnUpdateListener() {
 			@Override
@@ -61,23 +62,29 @@ public class OI {
 			}
 		});
 		
-		GambeziDashboard.listen_button("Commands/CurveTestLeft", new OnUpdateListener() {
+		GambeziDashboard.listen_button("Commands/CurveLeft", new OnUpdateListener() {
 			@Override
 			public void on_update(Object arg0) {
-				Scheduler.getInstance().add(curve_test_left);
+				Scheduler.getInstance().add(curve_left);
 				System.out.println("Testing");
 			}
 		});
-		GambeziDashboard.listen_button("Commands/CurveTestRight", new OnUpdateListener() {
+		GambeziDashboard.listen_button("Commands/CurveRight", new OnUpdateListener() {
 			@Override
 			public void on_update(Object arg0) {
-				Scheduler.getInstance().add(curve_test_right);
+				Scheduler.getInstance().add(curve_right);
 			}
 		});
 		GambeziDashboard.listen_button("Commands/S-Curve_left", new OnUpdateListener() {
 			@Override
 			public void on_update(Object arg0) {
 				Scheduler.getInstance().add(s_curve_left);
+			}
+		});
+		GambeziDashboard.listen_button("Commands/S-Curve_right", new OnUpdateListener() {
+			@Override
+			public void on_update(Object arg0) {
+				Scheduler.getInstance().add(s_curve_right);
 			}
 		});
 	}
@@ -105,7 +112,7 @@ public class OI {
 //		driver.getButton(Logitech.RT).whileHeld(new Outtake());
 		driver.getButton(Logitech.LB).whileHeld(new OpenClaw());
 		
-		driver.getButton(Logitech.RT).whenPressed(new DriveProfile("/home/lvuser/curve_test_right.csv"));
+		driver.getButton(Logitech.RT).whenPressed(new DriveProfile("/home/lvuser/S-Curve-Right.csv"));
 		
 		//Test Commands for wrist and elevator without PID loops
 //		driver.getButton(Logitech.Y).whileHeld(new TestUp());
