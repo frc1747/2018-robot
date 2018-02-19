@@ -12,5 +12,6 @@ public class SwitchForward extends CommandGroup {
 		addSequential(new EjectCube());
 		addSequential(new WristVertical());
 		addSequential(new SetElevatorPosition(ElevatorSubsystem.ElevatorPositions.BOTTOM));
+		addSequential(new WristTop());
 	}
 }
