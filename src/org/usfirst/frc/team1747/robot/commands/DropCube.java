@@ -30,7 +30,7 @@ public class DropCube extends Command {
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-    	return !intake.ifCubePartiallyHeld();
+    	return !intake.ifCubeCompletelyHeld();
     }
 
     // Called once after isFinished returns true
