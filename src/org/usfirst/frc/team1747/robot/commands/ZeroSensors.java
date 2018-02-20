@@ -1,6 +1,7 @@
 package org.usfirst.frc.team1747.robot.commands;
 
 import org.usfirst.frc.team1747.robot.subsystems.DriveSubsystem;
+import org.usfirst.frc.team1747.robot.subsystems.ElevatorSubsystem;
 
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
@@ -11,6 +12,7 @@ import edu.wpi.first.wpilibj.command.Scheduler;
 public class ZeroSensors extends Command {
 	
 	DriveSubsystem drive;
+	
 	long startTime;
 
     public ZeroSensors() {
@@ -22,6 +24,7 @@ public class ZeroSensors extends Command {
     protected void initialize() {
     	startTime = System.currentTimeMillis();
     	drive.resetEncoders();
+ 
     	drive.getGyro().zeroYaw();
     }
 

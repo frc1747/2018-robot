@@ -15,6 +15,11 @@ import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import lib.frc1747.controller.Logitech;
+
+import java.util.logging.Level;
+
+import org.usfirst.frc.team1747.robot.commands.Autonomous;
 
 //import java.util.logging.Level;
 
@@ -23,6 +28,8 @@ import org.usfirst.frc.team1747.robot.subsystems.DriveSubsystem;
 import org.usfirst.frc.team1747.robot.subsystems.ElevatorSubsystem;
 import org.usfirst.frc.team1747.robot.subsystems.IntakeSubsystem;
 
+//import com.frc1747.OI;
+//import com.frc1747.commands.auton.AutonTemplate;
 import com.tigerhuang.gambezi.dashboard.GambeziDashboard;
 
 /**
@@ -42,7 +49,12 @@ public class Robot extends TimedRobot {
 	IntakeSubsystem intake;
 	ElevatorSubsystem elevator;
 	ClimberSubsystem climber;
+	Command auton;
 	int counter = 0;
+	boolean aButtonState, bButtonState;
+	int index;
+	AutonRobotPosition [] modes;
+	
 	@Override
 	public void robotInit() {
 		initSubsystems();
@@ -59,6 +71,14 @@ public class Robot extends TimedRobot {
 
 	@Override
 	public void disabledPeriodic() {
+		if(!aButtonState && OI.getInstance().getOperator().getButton(Logitech.A).get()){
+			nextAuton();
+		}
+		aButtonState = OI.getInstance().getOperator().getButton(Logitech.A).get();
+		if(!bButtonState && OI.getInstance().getOperator().getButton(Logitech.B).get()){
+			prevAuton();
+		}
+		bButtonState = OI.getInstance().getOperator().getButton(Logitech.B).get();
 		Scheduler.getInstance().run();
 		GambeziDashboard.set_double("Robot/Battery_Voltage", RobotController.getBatteryVoltage());
 		GambeziDashboard.set_double("Robot/Counter", counter++);
@@ -77,6 +97,8 @@ public class Robot extends TimedRobot {
 	 */
 	@Override
 	public void autonomousInit() {
+//		GambeziDashboard.get_double("auton/start_pos", );
+		(auton = new Autonomous(AutonRobotPosition.RIGHT)).start();
 	}
 
 	/**
@@ -145,6 +167,7 @@ public class Robot extends TimedRobot {
     	GambeziDashboard.set_double("Drive/Angle/kP", 1.7);
     	GambeziDashboard.set_double("Drive/Angle/kI", 0.0);
     	GambeziDashboard.set_double("Drive/Angle/kD", 0.07);
+    	GambeziDashboard.set_string("auton/start_pos", "RIGHT");
     	
     	// NO! Do not do this anywhere else
 		try {
@@ -164,4 +187,16 @@ public class Robot extends TimedRobot {
 	public enum AutonRobotPosition{
 		LEFT, CENTER, RIGHT;
 	}
+	// Auton Chooser handling
+    public void nextAuton() {
+    	
+    	index++;
+    	if(index >= modes.length) index -= modes.length;
+    }
+    
+    public void prevAuton() {
+    	
+    	index--;
+    	if(index < 0) index += modes.length;
+    }
 }

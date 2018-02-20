@@ -117,6 +117,7 @@ public class OI {
 //		driver.getButton(Logitech.DOWN).whileHeld(new ClimbDown());
 		driver.getButton(Logitech.RB).whileHeld(new Intake());
 		driver.getButton(Logitech.RT).whileHeld(new Outtake());
+		
 		driver.getButton(Logitech.LB).whileHeld(new OpenClaw());		
 //		driver.getButton(Logitech.RT).whenPressed(new DriveProfile("/home/lvuser/curve_test_right.csv"));
 		driver.getDPad(Logitech.UP).whenPressed(new SwitchForward());
