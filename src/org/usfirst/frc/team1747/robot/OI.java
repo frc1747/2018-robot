@@ -1,3 +1,4 @@
+
 /*----------------------------------------------------------------------------*/
 /* Copyright (c) 2017-2018 FIRST. All Rights Reserved.                        */
 /* Open Source Software - may be modified and shared by FRC teams. The code   */
@@ -19,7 +20,7 @@ import org.usfirst.frc.team1747.robot.commands.ElevateUp;
 import org.usfirst.frc.team1747.robot.commands.ElevatorDown;
 import org.usfirst.frc.team1747.robot.commands.ElevatorUp;
 import org.usfirst.frc.team1747.robot.commands.Intake;
-import org.usfirst.frc.team1747.robot.commands.TeleopScaleForward;
+//import org.usfirst.frc.team1747.robot.commands.TeleopScaleForward;
 import org.usfirst.frc.team1747.robot.commands.OpenClaw;
 import org.usfirst.frc.team1747.robot.commands.Outtake;
 import org.usfirst.frc.team1747.robot.commands.ScaleBackward;
@@ -122,7 +123,7 @@ public class OI {
 		driver.getButton(Logitech.RT).whileHeld(new Outtake());
 		driver.getButton(Logitech.LB).whileHeld(new OpenClaw());		
 //		driver.getButton(Logitech.RT).whenPressed(new DriveProfile("/home/lvuser/curve_test_right.csv"));
-		driver.getDPad(Logitech.UP).whenPressed(new TeleopScaleForward());
+//		driver.getDPad(Logitech.UP).whenPressed(new TeleopScaleForward());
 		driver.getDPad(Logitech.RIGHT).whenPressed(new TeleopScaleBackward());
 		
 		//Test Commands for wrist and elevator without PID loops
