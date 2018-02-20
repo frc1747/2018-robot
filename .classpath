@@ -14,6 +14,5 @@
 	<classpathentry kind="var" path="USERLIBS_DIR/gambezi.jar"/>
 	<classpathentry kind="var" path="USERLIBS_DIR/gambezi_dashboard.jar"/>
 	<classpathentry kind="var" path="USERLIBS_DIR/motion_profile.jar"/>
-	<classpathentry kind="var" path="USERLIBS_DIR/json-simple-1.1.1.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

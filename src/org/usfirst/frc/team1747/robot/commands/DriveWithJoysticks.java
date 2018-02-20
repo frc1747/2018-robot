@@ -27,7 +27,9 @@ public class DriveWithJoysticks extends Command {
 	private final double a_v_max = 8.6;
 	
 	private final double lowFilter = -0.005;			//TODO: Tune these values
-	private final double highFilter = -0.005;
+	private final double highFilter = -0.01;
+
+	private final double a_kp = 0.2;
 	
 	double speedSetpoint;
 	double angleSetpoint;
@@ -59,7 +61,7 @@ public class DriveWithJoysticks extends Command {
     	drivetrain.setPIDMode(DriveSubsystem.Follower.ANGLE, HBRSubsystem.PIDMode.VELOCITY);
     	drivetrain.setILimit(DriveSubsystem.Follower.ANGLE, 0);
     	drivetrain.setFeedforward(DriveSubsystem.Follower.ANGLE, 0, 1 / a_v_max, 0);
-    	drivetrain.setFeedback(DriveSubsystem.Follower.ANGLE, 0, 0, 0);
+    	drivetrain.setFeedback(DriveSubsystem.Follower.ANGLE, a_kp, 0, 0);
 		drivetrain.resetIntegrator(DriveSubsystem.Follower.ANGLE);
 		
 		drivetrain.setEnabled(true);
@@ -76,13 +78,16 @@ public class DriveWithJoysticks extends Command {
         	drivetrain.setFeedback(DriveSubsystem.Follower.DISTANCE, highFilter, 0, 0);
         	
         	drivetrain.setFeedforward(DriveSubsystem.Follower.ANGLE, 0, 1/ a_v_max, 0);
-        	drivetrain.setFeedback(DriveSubsystem.Follower.ANGLE, 0, 0, 0);
+        	drivetrain.setFeedback(DriveSubsystem.Follower.ANGLE, a_kp, 0, 0);
+        	
+        	speedSetpoint = speedSetpoint / 10;
+        	angleSetpoint = angleSetpoint / 8;
     	} else {
     		drivetrain.setFeedforward(DriveSubsystem.Follower.DISTANCE, lowFilter, 1 / s_v_max, 0);
         	drivetrain.setFeedback(DriveSubsystem.Follower.DISTANCE, 0, 0, 0);
         	
         	drivetrain.setFeedforward(DriveSubsystem.Follower.ANGLE, 0, 1 / a_v_max, 0);
-        	drivetrain.setFeedback(DriveSubsystem.Follower.ANGLE, 0, 0, 0);
+        	drivetrain.setFeedback(DriveSubsystem.Follower.ANGLE, a_kp, 0, 0);
     	}
     	
     	GambeziDashboard.set_double("Drive/Left Encoder", drivetrain.getLeftPosition());
