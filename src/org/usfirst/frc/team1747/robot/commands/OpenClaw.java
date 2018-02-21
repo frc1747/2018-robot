@@ -34,20 +34,20 @@ public class OpenClaw extends Command {
 	@Override
 	protected boolean isFinished() {
 		// TODO Auto-generated method stub
-		return intake.ifCubeCompletelyHeld();
+		return intake.ifCubePartiallyHeld();
 	}
 	// Called once after isFinished returns true
-		@Override
-		protected void end() {
-			claw.setSolenoid(false);
-		}
+	@Override
+	protected void end() {
+		claw.setSolenoid(false);
+	}
 
-		// Called when another command which requires one or more of the same
-		// subsystems is scheduled to run
-		@Override
-		protected void interrupted() {
-			end();
-		}
+	// Called when another command which requires one or more of the same
+	// subsystems is scheduled to run
+	@Override
+	protected void interrupted() {
+		end();
+	}
 
 	
 	}
