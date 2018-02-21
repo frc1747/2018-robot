@@ -150,7 +150,7 @@ public class Robot extends TimedRobot {
     	GambeziDashboard.set_double("Elevator/kP", 0.1); //0.025
     	GambeziDashboard.set_double("Elevator/kI", 0.00); //0.005
     	GambeziDashboard.set_double("Elevator/kD", 0); //0
-		GambeziDashboard.set_double("Wrist/kF", 0.35);
+		GambeziDashboard.set_double("Wrist/kF", 0.07);
     	GambeziDashboard.set_double("Wrist/kA", 0);
     	GambeziDashboard.set_double("Wrist/kV", 0);
     	GambeziDashboard.set_double("Wrist/kP", 0.55);
