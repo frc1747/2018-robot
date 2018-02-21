@@ -28,6 +28,7 @@ import org.usfirst.frc.team1747.robot.commands.ScaleForward;
 import org.usfirst.frc.team1747.robot.commands.SetElevatorPosition;
 import org.usfirst.frc.team1747.robot.commands.SwitchForward;
 import org.usfirst.frc.team1747.robot.commands.TeleopScaleBackward;
+import org.usfirst.frc.team1747.robot.commands.TeleopScaleForward;
 import org.usfirst.frc.team1747.robot.commands.TestDown;
 import org.usfirst.frc.team1747.robot.commands.TestUp;
 import org.usfirst.frc.team1747.robot.commands.WristDown;
@@ -123,7 +124,7 @@ public class OI {
 		driver.getButton(Logitech.RT).whileHeld(new Outtake());
 		driver.getButton(Logitech.LB).whileHeld(new OpenClaw());		
 //		driver.getButton(Logitech.RT).whenPressed(new DriveProfile("/home/lvuser/curve_test_right.csv"));
-//		driver.getDPad(Logitech.UP).whenPressed(new TeleopScaleForward());
+		driver.getDPad(Logitech.UP).whenPressed(new TeleopScaleForward());
 		driver.getDPad(Logitech.RIGHT).whenPressed(new TeleopScaleBackward());
 		
 		//Test Commands for wrist and elevator without PID loops

@@ -28,6 +28,8 @@ import org.usfirst.frc.team1747.robot.subsystems.DriveSubsystem;
 import org.usfirst.frc.team1747.robot.subsystems.ElevatorSubsystem;
 import org.usfirst.frc.team1747.robot.subsystems.IntakeSubsystem;
 
+//import com.frc1747.commands.auton.AutonTemplate;
+//import com.frc1747.Robot.Autons;
 //import com.frc1747.OI;
 //import com.frc1747.commands.auton.AutonTemplate;
 import com.tigerhuang.gambezi.dashboard.GambeziDashboard;
@@ -55,9 +57,25 @@ public class Robot extends TimedRobot {
 	int index;
 	AutonRobotPosition [] modes;
 	
+	Command autonChoice;
+	boolean xButtonState, yButtonState;
+	int index2;
+	AutonChoice [] states;
+	
 	@Override
 	public void robotInit() {
 		initSubsystems();
+		
+		aButtonState = false;
+		bButtonState = false;
+		
+		xButtonState = false;
+		yButtonState = false;
+		
+		modes = AutonRobotPosition.class.getEnumConstants();
+		index = 1;
+		states = AutonChoice.class.getEnumConstants();
+		index2 = 1;
 	}
 
 	/**
@@ -71,17 +89,30 @@ public class Robot extends TimedRobot {
 
 	@Override
 	public void disabledPeriodic() {
-		if(!aButtonState && OI.getInstance().getOperator().getButton(Logitech.A).get()){
+		//for robot position
+		if(!aButtonState && OI.getInstance().getDriver().getButton(Logitech.A).get()){
 			nextAuton();
 		}
-		aButtonState = OI.getInstance().getOperator().getButton(Logitech.A).get();
-		if(!bButtonState && OI.getInstance().getOperator().getButton(Logitech.B).get()){
+		aButtonState = OI.getInstance().getDriver().getButton(Logitech.A).get();
+		if(!bButtonState && OI.getInstance().getDriver().getButton(Logitech.B).get()){
 			prevAuton();
 		}
-		bButtonState = OI.getInstance().getOperator().getButton(Logitech.B).get();
+		bButtonState = OI.getInstance().getDriver().getButton(Logitech.B).get();
+		Scheduler.getInstance().run();
+		GambeziDashboard.set_string("auton/pos", modes[index].toString());
+		//for strategy choice
+		if(!xButtonState && OI.getInstance().getDriver().getButton(Logitech.X).get()){
+			nextChoice();
+		}
+		xButtonState = OI.getInstance().getDriver().getButton(Logitech.X).get();
+		if(!yButtonState && OI.getInstance().getDriver().getButton(Logitech.Y).get()){
+			prevChoice();
+		}
+		yButtonState = OI.getInstance().getDriver().getButton(Logitech.Y).get();
 		Scheduler.getInstance().run();
 		GambeziDashboard.set_double("Robot/Battery_Voltage", RobotController.getBatteryVoltage());
 		GambeziDashboard.set_double("Robot/Counter", counter++);
+		GambeziDashboard.set_string("auton/choice", states[index2].toString());
 	}
 
 	/**
@@ -98,7 +129,9 @@ public class Robot extends TimedRobot {
 	@Override
 	public void autonomousInit() {
 //		GambeziDashboard.get_double("auton/start_pos", );
-		(auton = new Autonomous(AutonRobotPosition.RIGHT)).start();
+		//(auton = new Autonomous(AutonRobotPosition.RIGHT)).start();
+		(auton = new Autonomous(modes[index], states[index2])).start();
+//		(autonChoice = new Autonomous(states[index2])).start();
 	}
 
 	/**
@@ -187,6 +220,10 @@ public class Robot extends TimedRobot {
 	public enum AutonRobotPosition{
 		LEFT, CENTER, RIGHT;
 	}
+	
+	public enum AutonChoice{
+		SCALE_SCALE, SCALE_SWITCH;
+	}
 	// Auton Chooser handling
     public void nextAuton() {
     	
@@ -198,5 +235,17 @@ public class Robot extends TimedRobot {
     	
     	index--;
     	if(index < 0) index += modes.length;
+    }
+    
+    public void nextChoice() {
+    	
+    	index2++;
+    	if(index2 >= states.length) index2 -= states.length;
+    }
+    
+    public void prevChoice() {
+    	
+    	index2--;
+    	if(index2 < 0) index2 += states.length;
     }
 }

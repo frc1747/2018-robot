@@ -1,5 +1,6 @@
 package org.usfirst.frc.team1747.robot.commands;
 
+import org.usfirst.frc.team1747.robot.Robot.AutonChoice;
 import org.usfirst.frc.team1747.robot.Robot.AutonRobotPosition;
 import org.usfirst.frc.team1747.robot.subsystems.ElevatorSubsystem;
 
@@ -11,7 +12,7 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
  */
 public class Autonomous extends CommandGroup {
 
-    public Autonomous(AutonRobotPosition robotPosition) {
+    public Autonomous(AutonRobotPosition robotPosition, AutonChoice choice) {
     	DriverStation ds = DriverStation.getInstance();
     	String gameMessage = ds.getGameSpecificMessage();
     	char[] scoringPositions = gameMessage.toCharArray();
@@ -33,24 +34,38 @@ public class Autonomous extends CommandGroup {
     				addSequential(new ZeroSensors());
     				
         			if(scoringPositions[0] == 'L'){
-        				addSequential(new DriveProfile("/home/lvuser/left_to_left_switch.csv"));
-        				addSequential(new WristBottom());
-        				addParallel(new Intake());  
-        				addSequential(new WristVertical());
-        				addSequential(new SetElevatorPosition(ElevatorSubsystem.ElevatorPositions.SWITCH));
-        				addSequential(new WristVertical());
-        				addSequential(new Delay(500));
-        				addSequential(new AutonOutake());
+        				if(choice == AutonChoice.SCALE_SWITCH){
+	        				addSequential(new WristBottom());
+	        				addParallel(new Intake());
+	        				addParallel(new OpenClaw());
+	        				addSequential(new DriveProfile("/home/lvuser/left_to_left_switch.csv"));
+	        				addSequential(new WristBottom());
+	        				addParallel(new Intake());  
+	        				addSequential(new WristVertical());
+	        				addSequential(new SetElevatorPosition(ElevatorSubsystem.ElevatorPositions.SWITCH));
+	        				addSequential(new WristVertical());
+	        				addSequential(new Delay(500));
+	        				addSequential(new AutonOutake());
+        				}else if(choice == AutonChoice.SCALE_SCALE){
+        					
+        				}
         			}
         			else if(scoringPositions[0] == 'R'){
-        				addSequential(new DriveProfile("/home/lvuser/left_to_right_switch.csv"));
-        				addSequential(new WristBottom());
-        				addParallel(new Intake());  
-        				addSequential(new WristVertical());
-        				addSequential(new SetElevatorPosition(ElevatorSubsystem.ElevatorPositions.SWITCH));
-        				addSequential(new WristVertical());
-        				addSequential(new Delay(500));
-        				addSequential(new AutonOutake());
+        				if(choice == AutonChoice.SCALE_SWITCH){
+	        				addSequential(new WristBottom());
+	        				addParallel(new Intake());
+	        				addParallel(new OpenClaw());
+	        				addSequential(new DriveProfile("/home/lvuser/left_to_right_switch.csv"));
+	        				addSequential(new WristBottom());
+	        				addParallel(new Intake());  
+	        				addSequential(new WristVertical());
+	        				addSequential(new SetElevatorPosition(ElevatorSubsystem.ElevatorPositions.SWITCH));
+	        				addSequential(new WristVertical());
+	        				addSequential(new Delay(500));
+	        				addSequential(new AutonOutake());
+        				}else if(choice == AutonChoice.SCALE_SCALE){
+        					
+        				}
         			}
     			}
     			else if(scoringPositions[1] == 'R'){
@@ -68,16 +83,26 @@ public class Autonomous extends CommandGroup {
     				addSequential(new ZeroSensors());
     				
         			if(scoringPositions[0] == 'L'){
-        				addSequential(new DriveProfile("/home/lvuser/right_to_left_switch.csv"));
-        				addSequential(new WristBottom());
-        				addParallel(new Intake());  
-        				addSequential(new WristVertical());
-        				addSequential(new SetElevatorPosition(ElevatorSubsystem.ElevatorPositions.SWITCH));
-        				addSequential(new WristVertical());
-        				addSequential(new Delay(500));
-        				addSequential(new AutonOutake());
-        			}
+        				if(choice == AutonChoice.SCALE_SWITCH){
+	        				addSequential(new WristBottom());
+	        				addParallel(new Intake());
+	        				addParallel(new OpenClaw());
+	        				addSequential(new DriveProfile("/home/lvuser/right_to_left_switch.csv"));
+	        				addSequential(new WristBottom());
+	        				addParallel(new Intake());  
+	        				addSequential(new WristVertical());
+	        				addSequential(new SetElevatorPosition(ElevatorSubsystem.ElevatorPositions.SWITCH));
+	        				addSequential(new WristVertical());
+	        				addSequential(new Delay(500));
+	        				addSequential(new AutonOutake());
+        					}else if(choice == AutonChoice.SCALE_SCALE){
+        						
+        					}
+        				}
         			else if(scoringPositions[0] == 'R'){
+        				addSequential(new WristBottom());
+        				addParallel(new Intake());
+        				addParallel(new OpenClaw());
         				addSequential(new DriveProfile("/home/lvuser/right_to_right_switch.csv"));
         				addSequential(new WristBottom());
         				addParallel(new Intake());  
@@ -111,6 +136,9 @@ public class Autonomous extends CommandGroup {
     				addSequential(new ZeroSensors());
     				
         			if(scoringPositions[0] == 'L'){
+        				addSequential(new WristBottom());
+        				addParallel(new Intake());
+        				addParallel(new OpenClaw());
         				addSequential(new DriveProfile("/home/lvuser/left_to_left_switch.csv"));
         				addSequential(new WristBottom());
         				addParallel(new Intake());  
@@ -121,6 +149,9 @@ public class Autonomous extends CommandGroup {
         				addSequential(new AutonOutake());
         			}
         			else if(scoringPositions[0] == 'R'){
+        				addSequential(new WristBottom());
+        				addParallel(new Intake());
+        				addParallel(new OpenClaw());
         				addSequential(new DriveProfile("/home/lvuser/left_to_right_switch.csv"));
         				addSequential(new WristBottom());
         				addParallel(new Intake());  
@@ -146,6 +177,9 @@ public class Autonomous extends CommandGroup {
     				addSequential(new ZeroSensors());
     				
         			if(scoringPositions[0] == 'L'){
+        				addSequential(new WristBottom());
+        				addParallel(new Intake());
+        				addParallel(new OpenClaw());
         				addSequential(new DriveProfile("/home/lvuser/right_to_left_switch.csv"));
         				addSequential(new WristBottom());
         				addParallel(new Intake());  
@@ -158,8 +192,8 @@ public class Autonomous extends CommandGroup {
         			else if(scoringPositions[0] == 'R'){
         				addSequential(new WristBottom());
         				addParallel(new Intake());
+        				addParallel(new OpenClaw());
         				addSequential(new DriveProfile("/home/lvuser/right_to_right_switch.csv"));
-        				
         				addSequential(new Delay(500));
         				addSequential(new WristVertical());
         				addSequential(new SetElevatorPosition(ElevatorSubsystem.ElevatorPositions.SWITCH));
