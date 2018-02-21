@@ -8,7 +8,6 @@ public class TeleopScaleBackward extends Command {
 
 	@Override
 	protected void initialize(){
-		
 		switch (index){
 			case 0: Scheduler.getInstance().add(new ScaleBackwardStage1()); break;
 			case 1: Scheduler.getInstance().add(new ScaleBackwardStage2()); break;

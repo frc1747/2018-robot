@@ -87,4 +87,12 @@ public class RobotMap {
 	public static final int ELEVATOR_LIMIT_SWITCH = 6;
 	public static final int INTAKE_CUBE_SENSOR = 2;
 	public static final int JUMPER_DIGITAL_INPUT = 9;
+	
+	//Camera
+	//ToDo: Find constants
+	public static final double CAM_THETA = 10 * (Math.PI / 180);	//rad
+	public static final double CAM_MOUNT_HEIGHT = 4;	//ft
+	public static final double CAM_VD = 550;			//px
+	public static final double CAM_WIDTH = 480;			//px
+	public static final double CAM_HEIGHT = 640;		//px
 }

@@ -2,6 +2,8 @@ package org.usfirst.frc.team1747.robot.commands;
 
 import org.usfirst.frc.team1747.robot.subsystems.DriveSubsystem;
 
+import com.tigerhuang.gambezi.dashboard.GambeziDashboard;
+
 import edu.wpi.first.wpilibj.command.Command;
 import lib.frc1747.motion_profile.Parameters;
 import lib.frc1747.subsytems.HBRSubsystem;
@@ -25,13 +27,19 @@ public class DriveCurve extends Command {
     // Called just before this Command runs the first time
     protected void initialize() {
     	double[][][] profiles = HBRSubsystem.generateSkidSteerPseudoProfile(distance, angle, Parameters.I_SAMPLE_LENGTH, 10.4, 40, 9000.1, Parameters.W_WIDTH, Parameters.DT, true, true);
-
+    	double linearOffset = drive.getAveragePosition();
+    	double angularOffset = (2 * Math.PI) * ((-drive.getGyro().getAngle()) / 360);
+    	for(int i = 0;i < profiles[0].length;i++) {
+    		profiles[0][i][0] += linearOffset;
+    		profiles[1][i][0] += angularOffset;
+    	}
+    	
+    	// Setup left side
     	drive.setMode(DriveSubsystem.Follower.DISTANCE, HBRSubsystem.Mode.FOLLOWER);
     	drive.setPIDMode(DriveSubsystem.Follower.DISTANCE, HBRSubsystem.PIDMode.POSITION);
     	drive.setILimit(DriveSubsystem.Follower.DISTANCE, 0);
-    	//0.415
-    	drive.setFeedforward(DriveSubsystem.Follower.DISTANCE, 0, 1.5/16.4, 0.55/72.0);
-    	drive.setFeedback(DriveSubsystem.Follower.DISTANCE, 2, 0, 0);
+    	drive.setFeedforward(DriveSubsystem.Follower.DISTANCE, 0, GambeziDashboard.get_double("Drive/Distance/kV"), GambeziDashboard.get_double("Drive/Distance/kA"));
+    	drive.setFeedback(DriveSubsystem.Follower.DISTANCE, GambeziDashboard.get_double("Drive/Distance/kP"), GambeziDashboard.get_double("Drive/Distance/kI"), GambeziDashboard.get_double("Drive/Distance/kD"));
     	drive.resetIntegrator(DriveSubsystem.Follower.DISTANCE);
     	drive.setProfile(DriveSubsystem.Follower.DISTANCE, profiles[0]);
     	
@@ -39,8 +47,8 @@ public class DriveCurve extends Command {
     	drive.setMode(DriveSubsystem.Follower.ANGLE, HBRSubsystem.Mode.FOLLOWER);
     	drive.setPIDMode(DriveSubsystem.Follower.ANGLE, HBRSubsystem.PIDMode.POSITION);
     	drive.setILimit(DriveSubsystem.Follower.ANGLE, 0);
-    	drive.setFeedforward(DriveSubsystem.Follower.ANGLE, 0, 1/11.4, 1.5/40.0);
-    	drive.setFeedback(DriveSubsystem.Follower.ANGLE, 0.7, 0.0001, 0);
+    	drive.setFeedforward(DriveSubsystem.Follower.ANGLE, 0, GambeziDashboard.get_double("Drive/Angle/kV"), GambeziDashboard.get_double("Drive/Angle/kA"));
+    	drive.setFeedback(DriveSubsystem.Follower.ANGLE, GambeziDashboard.get_double("Drive/Angle/kP"), GambeziDashboard.get_double("Drive/Angle/kI"), GambeziDashboard.get_double("Drive/Angle/kD"));
     	drive.resetIntegrator(DriveSubsystem.Follower.ANGLE);
     	drive.setProfile(DriveSubsystem.Follower.ANGLE, profiles[1]);
     	    	
