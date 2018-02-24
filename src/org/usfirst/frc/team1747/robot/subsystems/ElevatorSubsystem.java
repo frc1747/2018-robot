@@ -22,7 +22,7 @@ public class ElevatorSubsystem extends HBRSubsystem<ElevatorSubsystem.Follower> 
 	double scaling;
 	int elevatorIndex = 0;
 	int wristIndex =  3;
-	double[] elevatorPositions = {0, 24, 60, 72};
+	double[] elevatorPositions = {0, 24, 60, 70};
 	double[] wristPositions = {Math.PI / 2, 3 * Math.PI / 4, Math.PI, 3.8};
 	double wristOffset;
 	DigitalInput jumper;

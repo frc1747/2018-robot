@@ -27,7 +27,7 @@ public class DriveWithJoysticks extends Command {
 	private final double a_v_max = 8.6;
 	
 	private final double lowFilter = -0.005;			//TODO: Tune these values
-	private final double highFilter = -0.01;
+	private final double highFilter = -0.0075;
 
 	private final double a_kp = -0.02;
 	

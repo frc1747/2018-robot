@@ -5,6 +5,7 @@ import org.usfirst.frc.team1747.robot.Robot.AutonRobotPosition;
 import org.usfirst.frc.team1747.robot.subsystems.ElevatorSubsystem;
 
 import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
 /**
@@ -25,11 +26,11 @@ public class Autonomous extends CommandGroup {
     				addSequential(new DriveProfile("/home/lvuser/left_to_left_scale.csv"));
     				addSequential(new WristVertical());
     				addSequential(new SetElevatorPosition(ElevatorSubsystem.ElevatorPositions.TOP));
-    				addSequential(new WristTop());
-    				addSequential(new Delay(500));
+    				addSequential(new WristOverTop());
     				addSequential(new Delay(500));
     				addSequential(new AutonOutake());
     				addSequential(new WristVertical());
+//    				
     				addSequential(new SetElevatorPosition(ElevatorSubsystem.ElevatorPositions.BOTTOM));
     				addSequential(new ZeroSensors());
     				
@@ -39,13 +40,12 @@ public class Autonomous extends CommandGroup {
 	        				addParallel(new Intake());
 	        				addParallel(new OpenClaw());
 	        				addSequential(new DriveProfile("/home/lvuser/left_to_left_switch.csv"));
-	        				addSequential(new WristBottom());
-	        				addParallel(new Intake());  
-	        				addSequential(new WristVertical());
 	        				addSequential(new SetElevatorPosition(ElevatorSubsystem.ElevatorPositions.SWITCH));
-	        				addSequential(new WristVertical());
+	        				addSequential(new WristBottom());
 	        				addSequential(new Delay(500));
+	        				addSequential(new DriveCurve(1.4, 20));
 	        				addSequential(new AutonOutake());
+	        				
         				}else if(choice == AutonChoice.SCALE_SCALE){
         					
         				}
@@ -113,7 +113,7 @@ public class Autonomous extends CommandGroup {
         				addSequential(new AutonOutake());
         			}
     			}
-    			
+    			break;
     		case CENTER:
     			if(scoringPositions[0] == 'L'){
     				addSequential(new DriveProfile("/home/lvuser/center_to_left_switch.csv"));
@@ -121,6 +121,7 @@ public class Autonomous extends CommandGroup {
     			else if(scoringPositions[0] == 'R'){
     				addSequential(new DriveProfile("/home/lvuser/center_to_right_switch.csv"));
     			}
+    			break;
     		case RIGHT:
     			if(scoringPositions[1] == 'L'){
     				
