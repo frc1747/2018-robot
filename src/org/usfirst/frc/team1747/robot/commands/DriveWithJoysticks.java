@@ -80,14 +80,16 @@ public class DriveWithJoysticks extends Command {
         	drivetrain.setFeedforward(DriveSubsystem.Follower.ANGLE, 0, 1/ a_v_max, 0);
         	drivetrain.setFeedback(DriveSubsystem.Follower.ANGLE, a_kp, 0, 0);
         	
-        	speedSetpoint = speedSetpoint / 10;
-        	angleSetpoint = angleSetpoint / 8;
+        	speedSetpoint = speedSetpoint / 7;
+        	angleSetpoint = angleSetpoint / 3;
     	} else {
     		drivetrain.setFeedforward(DriveSubsystem.Follower.DISTANCE, lowFilter, 1 / s_v_max, 0);
         	drivetrain.setFeedback(DriveSubsystem.Follower.DISTANCE, 0, 0, 0);
         	
         	drivetrain.setFeedforward(DriveSubsystem.Follower.ANGLE, 0, 1 / a_v_max, 0);
         	drivetrain.setFeedback(DriveSubsystem.Follower.ANGLE, a_kp, 0, 0);
+        	
+        	angleSetpoint = angleSetpoint * 0.55;
     	}
     	
     	GambeziDashboard.set_double("Drive/Left Encoder", drivetrain.getLeftPosition());
@@ -111,7 +113,7 @@ public class DriveWithJoysticks extends Command {
 
 		GambeziDashboard.set_double("navx/yaw", drivetrain.getGyro().getYaw());
 		GambeziDashboard.set_double("navx/rawgyroz", drivetrain.getGyro().getRawGyroZ());
-		GambeziDashboard.set_double("navx/rate", drivetrain.getGyro().getRate());
+		Gamb9eziDashboard.set_double("navx/rate", drivetrain.getGyro().getRate());
 		GambeziDashboard.set_double("navx/angle", drivetrain.getGyro().getAngle());
 		*/
     }

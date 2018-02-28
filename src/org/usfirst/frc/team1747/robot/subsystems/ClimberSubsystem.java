@@ -17,6 +17,7 @@ public class ClimberSubsystem extends HBRSubsystem {
 	private Solenoid solenoid;
 	
 	public ClimberSubsystem() {
+		super(RobotMap.DT);
 		motor1 = new HBRTalon(RobotMap.CLIMB_MOTOR_1);
 		motor2 = new HBRTalon(RobotMap.CLIMB_MOTOR_2);
 		

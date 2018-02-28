@@ -113,6 +113,8 @@ public class Robot extends TimedRobot {
 		GambeziDashboard.set_double("Robot/Battery_Voltage", RobotController.getBatteryVoltage());
 		GambeziDashboard.set_double("Robot/Counter", counter++);
 		GambeziDashboard.set_string("auton/choice", states[index2].toString());
+		GambeziDashboard.set_double("Robot/thermistor", drive.getTempF());
+		GambeziDashboard.set_double("Robot/Brownout", RobotController.isBrownedOut() ? 1 : 0);
 	}
 
 	/**
@@ -128,6 +130,7 @@ public class Robot extends TimedRobot {
 	 */
 	@Override
 	public void autonomousInit() {
+		elevator.setElevatorStage(0);
 //		GambeziDashboard.get_double("auton/start_pos", );
 		//(auton = new Autonomous(AutonRobotPosition.RIGHT)).start();
 		(auton = new Autonomous(modes[index], states[index2])).start();
@@ -142,6 +145,8 @@ public class Robot extends TimedRobot {
 		Scheduler.getInstance().run();
 		GambeziDashboard.set_double("Robot/Battery_Voltage", RobotController.getBatteryVoltage());
 		GambeziDashboard.set_double("Robot/Counter", counter++);
+		GambeziDashboard.set_double("Robot/thermistor", drive.getTempF());
+		GambeziDashboard.set_double("Robot/Brownout", RobotController.isBrownedOut() ? 1 : 0);
 	}
 
 	@Override
@@ -165,6 +170,8 @@ public class Robot extends TimedRobot {
 		GambeziDashboard.set_double("Robot/Counter", counter++);
 		GambeziDashboard.set_double("Robot/elevatorPosition", elevator.getElevatorPosition());
 		GambeziDashboard.set_double("Robot/wristPosition", elevator.getWristPosition());
+		GambeziDashboard.set_double("Robot/thermistor", drive.getTempF());
+		GambeziDashboard.set_double("Robot/Brownout", RobotController.isBrownedOut() ? 1 : 0);
 	}
 	
 	/**

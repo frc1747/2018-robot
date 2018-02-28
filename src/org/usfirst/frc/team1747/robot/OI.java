@@ -23,12 +23,14 @@ import org.usfirst.frc.team1747.robot.commands.Intake;
 //import org.usfirst.frc.team1747.robot.commands.TeleopScaleForward;
 import org.usfirst.frc.team1747.robot.commands.OpenClaw;
 import org.usfirst.frc.team1747.robot.commands.Outtake;
+import org.usfirst.frc.team1747.robot.commands.ResetIndex;
 import org.usfirst.frc.team1747.robot.commands.ScaleBackward;
 import org.usfirst.frc.team1747.robot.commands.ScaleForward;
 import org.usfirst.frc.team1747.robot.commands.SetElevatorPosition;
 import org.usfirst.frc.team1747.robot.commands.SwitchForward;
 import org.usfirst.frc.team1747.robot.commands.TeleopScaleBackward;
 import org.usfirst.frc.team1747.robot.commands.TeleopScaleForward;
+import org.usfirst.frc.team1747.robot.commands.TeleopSwitch;
 import org.usfirst.frc.team1747.robot.commands.TestDown;
 import org.usfirst.frc.team1747.robot.commands.TestUp;
 import org.usfirst.frc.team1747.robot.commands.WristDown;
@@ -42,6 +44,7 @@ import org.usfirst.frc.team1747.robot.subsystems.ElevatorSubsystem;
 import com.tigerhuang.gambezi.OnUpdateListener;
 import com.tigerhuang.gambezi.dashboard.GambeziDashboard;
 
+import edu.wpi.first.wpilibj.command.CommandGroup;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import lib.frc1747.controller.Logitech;
 
@@ -52,10 +55,13 @@ import lib.frc1747.controller.Logitech;
 public class OI {
 	
 	private static OI instance; Logitech driver, operator;
+	public int index;
 	
 	private OI() {
 		driver = new Logitech(RobotMap.DRIVER);
 		operator = new Logitech(RobotMap.OPERATOR);
+		
+		index = 0;
 		
 		createDriver();
 		createOperator();
@@ -66,34 +72,50 @@ public class OI {
 		DriveProfile s_curve_left = new DriveProfile("/home/lvuser/S-Curve-Left.csv");
 		DriveProfile s_curve_right = new DriveProfile("/home/lvuser/S-Curve-Right.csv");
 		
-		GambeziDashboard.listen_button("Commands/Drive10ft", new OnUpdateListener() {
+		System.out.println("HI");
+		GambeziDashboard.listen_button("Commands2/No", new OnUpdateListener() {
 			@Override
 			public void on_update(Object arg0) {
 				Scheduler.getInstance().add(drive10ft);
 			}
 		});
+		System.out.println("HI");
 		
-		GambeziDashboard.listen_button("Commands/CurveLeft", new OnUpdateListener() {
+		System.out.println("HI");
+		GambeziDashboard.set_boolean("Commands2/DriveForward", false);
+		GambeziDashboard.listen_button("Commands2/DriveForward", new OnUpdateListener() {
+			@Override
+			public void on_update(Object arg0) {
+				Scheduler.getInstance().add(drive10ft);
+			}
+		});
+		System.out.println("HI");
+
+		GambeziDashboard.set_boolean("Commands2/CurveLeft", false);
+		GambeziDashboard.listen_button("Commands2/CurveLeft", new OnUpdateListener() {
 			@Override
 			public void on_update(Object arg0) {
 				Scheduler.getInstance().add(curve_left);
 				System.out.println("Testing");
 			}
 		});
-		GambeziDashboard.listen_button("Commands/CurveRight", new OnUpdateListener() {
+		GambeziDashboard.set_boolean("Commands2/CurveRight", false);
+		GambeziDashboard.listen_button("Commands2/CurveRight", new OnUpdateListener() {
 			@Override
 			public void on_update(Object arg0) {
 				Scheduler.getInstance().add(curve_right);
 			}
 		});
-		GambeziDashboard.listen_button("Commands/S-Curve_left", new OnUpdateListener() {
+		GambeziDashboard.set_boolean("Commands2/S-Curve_left", false);
+		GambeziDashboard.listen_button("Commands2/S-Curve_left", new OnUpdateListener() {
 			@Override
 			public void on_update(Object arg0) {
 				Scheduler.getInstance().add(s_curve_left);
 				System.out.println("S-Curve_left");
 			}
 		});
-		GambeziDashboard.listen_button("Commands/S-Curve_right", new OnUpdateListener() {
+		GambeziDashboard.set_boolean("Commands2/S-Curve_right", false);
+		GambeziDashboard.listen_button("Commands2/S-Curve_right", new OnUpdateListener() {
 			@Override
 			public void on_update(Object arg0) {
 				Scheduler.getInstance().add(s_curve_right);
@@ -111,22 +133,24 @@ public class OI {
 	}
 	
 	public void createDriver() {
-		driver.getButton(Logitech.X).whenPressed(new SetElevatorPosition(ElevatorSubsystem.ElevatorPositions.BOTTOM));
-		driver.getButton(Logitech.B).whenPressed(new SetElevatorPosition(ElevatorSubsystem.ElevatorPositions.SWITCH));
-		driver.getButton(Logitech.START).whenPressed(new SetElevatorPosition(ElevatorSubsystem.ElevatorPositions.LOW_SCALE));
-		driver.getButton(Logitech.BACK).whenPressed(new SetElevatorPosition(ElevatorSubsystem.ElevatorPositions.TOP));
-		driver.getButton(Logitech.Y).whenPressed(new WristTop());
-		driver.getButton(Logitech.A).whenPressed(new WristDown());
-		driver.getButton(Logitech.LT).whenPressed(new AutoIntake());
+		driver.getButton(Logitech.X).whenPressed(new ResetIndex(new SetElevatorPosition(ElevatorSubsystem.ElevatorPositions.BOTTOM)));
+		driver.getButton(Logitech.A).whenPressed(new ResetIndex(new SetElevatorPosition(ElevatorSubsystem.ElevatorPositions.SWITCH)));
+		driver.getButton(Logitech.B).whenPressed(new ResetIndex(new SetElevatorPosition(ElevatorSubsystem.ElevatorPositions.LOW_SCALE)));
+		driver.getButton(Logitech.Y).whenPressed(new ResetIndex(new SetElevatorPosition(ElevatorSubsystem.ElevatorPositions.TOP)));
+		driver.getButton(Logitech.START).whenPressed(new DriveProfile("/home/lvuser/S-Curve-Left.csv"));
+//		driver.getButton(Logitech.Y).whenPressed(new WristTop());
+//		driver.getButton(Logitech.A).whenPressed(new WristDown());
+		driver.getButton(Logitech.LT).whenPressed(new ResetIndex(new AutoIntake()));
 //		driver.getButton(Logitech.UP).whileHeld(new ClimbUp());
 //		driver.getButton(Logitech.DOWN).whileHeld(new ClimbDown());
-		driver.getButton(Logitech.RB).whileHeld(new Intake());
-		driver.getButton(Logitech.RT).whileHeld(new Outtake());
-		driver.getButton(Logitech.LB).whileHeld(new OpenClaw());		
+		driver.getButton(Logitech.RB).whileHeld(new ResetIndex(new Intake()));
+		driver.getButton(Logitech.RT).whileHeld(new ResetIndex(new Outtake()));
+		driver.getButton(Logitech.LB).whileHeld(new ResetIndex(new OpenClaw()));		
 //		driver.getButton(Logitech.RT).whenPressed(new DriveProfile("/home/lvuser/curve_test_right.csv"));
-		driver.getDPad(Logitech.UP).whenPressed(new TeleopScaleForward());
-		driver.getDPad(Logitech.RIGHT).whenPressed(new TeleopScaleBackward());
-		
+		driver.getDPad(Logitech.LEFT).whenPressed(new TeleopScaleForward());
+		driver.getDPad(Logitech.RIGHT).whenPressed(new TeleopSwitch());
+		driver.getDPad(Logitech.UP).whenPressed(new ResetIndex(new WristTop()));
+		driver.getDPad(Logitech.DOWN).whenPressed(new ResetIndex(new WristDown()));
 		//Test Commands for wrist and elevator without PID loops
 //		driver.getButton(Logitech.Y).whileHeld(new TestUp());
 //		driver.getButton(Logitech.A).whileHeld(new TestDown());

@@ -34,7 +34,7 @@ public class OpenClaw extends Command {
 	@Override
 	protected boolean isFinished() {
 		// TODO Auto-generated method stub
-		return intake.ifCubePartiallyHeld();
+		return false;
 	}
 	// Called once after isFinished returns true
 	@Override

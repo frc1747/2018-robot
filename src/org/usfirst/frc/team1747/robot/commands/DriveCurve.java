@@ -1,5 +1,6 @@
 package org.usfirst.frc.team1747.robot.commands;
 
+import org.usfirst.frc.team1747.robot.RobotMap;
 import org.usfirst.frc.team1747.robot.subsystems.DriveSubsystem;
 
 import com.tigerhuang.gambezi.dashboard.GambeziDashboard;
@@ -26,7 +27,7 @@ public class DriveCurve extends Command {
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	double[][][] profiles = HBRSubsystem.generateSkidSteerPseudoProfile(distance, angle, Parameters.I_SAMPLE_LENGTH, 14, 20, 26, Parameters.W_WIDTH, Parameters.DT, true, true);
+    	double[][][] profiles = HBRSubsystem.generateSkidSteerPseudoProfile(distance, angle, Parameters.I_SAMPLE_LENGTH, 14, 20, 26, Parameters.W_WIDTH, RobotMap.DT, true, true);
     	double linearOffset = drive.getAveragePosition();
     	double angularOffset = (2 * Math.PI) * ((-drive.getGyro().getAngle()) / 360);
     	for(int i = 0;i < profiles[0].length;i++) {

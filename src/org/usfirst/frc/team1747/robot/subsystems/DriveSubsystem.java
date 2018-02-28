@@ -31,6 +31,7 @@ public class DriveSubsystem extends HBRSubsystem<DriveSubsystem.Follower> {
 	}
 	
 	private DriveSubsystem() {
+		super(RobotMap.DT);
 		thermistor = new AnalogInput(RobotMap.FUSE_THERMISTOR);
 		gyro = new AHRS(SPI.Port.kMXP);
 		left = new DriveSide(RobotMap.LEFT_MOTOR_PORTS,RobotMap.LEFT_MOTOR_INVERSION, RobotMap.LEFT_ENCODER_INVERSION, RobotMap.LEFT_ENCODER_A, RobotMap.LEFT_ENCODER_B);

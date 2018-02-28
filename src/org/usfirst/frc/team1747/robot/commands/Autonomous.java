@@ -23,12 +23,13 @@ public class Autonomous extends CommandGroup {
     	switch (robotPosition) {
     		case LEFT:
     			if(scoringPositions[1] == 'L'){
+    				addParallel(new WristVertical());
     				addSequential(new DriveProfile("/home/lvuser/left_to_left_scale.csv"));
-    				addSequential(new WristVertical());
+    				addSequential(new AutonStopMotors());
     				addSequential(new SetElevatorPosition(ElevatorSubsystem.ElevatorPositions.TOP));
     				addSequential(new WristOverTop());
-    				addSequential(new Delay(500));
-    				addSequential(new AutonOutake());
+    				//addSequential(new Delay(100));
+    				addParallel(new AutonOutake());
     				addSequential(new WristVertical());
 //    				
     				addSequential(new SetElevatorPosition(ElevatorSubsystem.ElevatorPositions.BOTTOM));
@@ -38,12 +39,14 @@ public class Autonomous extends CommandGroup {
         				if(choice == AutonChoice.SCALE_SWITCH){
 	        				addSequential(new WristBottom());
 	        				addParallel(new Intake());
-	        				addParallel(new OpenClaw());
+//	        				addParallel(new AutonOpenClaw());
 	        				addSequential(new DriveProfile("/home/lvuser/left_to_left_switch.csv"));
+	        				addSequential(new CloseClaw());
+	        				addSequential(new AutonStopMotors());
 	        				addSequential(new SetElevatorPosition(ElevatorSubsystem.ElevatorPositions.SWITCH));
 	        				addSequential(new WristBottom());
-	        				addSequential(new Delay(500));
-	        				addSequential(new DriveCurve(1.4, 20));
+	        				//addSequential(new Delay(200));
+	        				addSequential(new DriveCurve(0.8, -15));
 	        				addSequential(new AutonOutake());
 	        				
         				}else if(choice == AutonChoice.SCALE_SCALE){
@@ -204,5 +207,9 @@ public class Autonomous extends CommandGroup {
         			}
     			}
     	}
+    	
+    	addParallel(new WristTop());
+    	addSequential(new DriveCurve(-1,0));
+    	addSequential(new SetElevatorPosition(ElevatorSubsystem.ElevatorPositions.BOTTOM));
     }
 }

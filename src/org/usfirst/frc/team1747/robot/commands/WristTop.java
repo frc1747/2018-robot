@@ -24,7 +24,7 @@ public class WristTop extends Command {
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	if(!(intake.ifCubeCompletelyHeld())){
+    	if(!(intake.ifCubePartiallyHeld())){
         	elevator.setWristStage(elevator.getWristStages().length - 1);
     	}else{
     		elevator.setWristStage(elevator.getWristStages().length - 2);

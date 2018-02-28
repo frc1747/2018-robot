@@ -58,10 +58,11 @@ public class AutoIntake extends Command {
 	
 	@Override
 	protected void execute(){
-		System.out.println(OI.getInstance().getDriver().getButton(Logitech.LT).get());
+		//System.out.println(OI.getInstance().getDriver().getButton(Logitech.LT).get());
 		if(!intake.ifCubeCompletelyHeld() && Math.abs(elevator.getWristPosition() - elevator.getWristStages()[0]) < Math.PI/12){
 			if(intake.ifCubePartiallyHeld()){
 				claw.setSolenoid(false);
+				intake.setLED(true);
 			}else{
 				claw.setSolenoid(true);
 			}
@@ -69,13 +70,13 @@ public class AutoIntake extends Command {
 		}else{
 			intake.setPower(0.0);
 			claw.setSolenoid(false);
-			intake.setLED(true);
+			intake.setLED(false);
 		}
 	}
 	
 	@Override
 	protected void end(){
-		if(intake.ifCubeCompletelyHeld()){
+		if(intake.ifCubePartiallyHeld()){
 			elevator.setWristStage(elevator.getWristStages().length - 2);
 		}else{
 			intake.setPower(0.0);
@@ -84,7 +85,7 @@ public class AutoIntake extends Command {
 		}
 		elevator.setSetpoint(ElevatorSubsystem.Follower.WRIST, elevator.getWristStages()[elevator.getWristStage()]);
 		elevator.setSetpoint(ElevatorSubsystem.Follower.ELEVATOR, elevator.getElevatorStages()[elevator.getElevatorStage()]);
-		intake.setLED(false);
+		intake.setLED(true);
 	}
 	
 	@Override

@@ -25,6 +25,7 @@ public class IntakeSubsystem extends HBRSubsystem<IntakeSubsystem.Follower> {
 	}
 	
 	public IntakeSubsystem() {
+		super(RobotMap.DT);
 		leftIntakeMotor = new HBRTalon(RobotMap.LEFT_INTAKE_PORT);
 		rightIntakeMotor = new HBRTalon(RobotMap.RIGHT_INTAKE_PORT);
 		leftIntakeMotor.setInverted(RobotMap.INTAKE_MOTOR_INVERSIONS[0]);

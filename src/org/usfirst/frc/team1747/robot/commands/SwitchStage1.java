@@ -4,10 +4,11 @@ import org.usfirst.frc.team1747.robot.subsystems.ElevatorSubsystem;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
-public class ScaleForwardStage1 extends CommandGroup {
-	
-	ScaleForwardStage1(){
-		addSequential(new SetElevatorPosition(ElevatorSubsystem.ElevatorPositions.TOP));
+public class SwitchStage1 extends CommandGroup {
+
+	public SwitchStage1(){
+		addSequential(new SetElevatorPosition(ElevatorSubsystem.ElevatorPositions.SWITCH));
+		addSequential(new WristDown());
 		addSequential(new WristDown());
 	}
 }

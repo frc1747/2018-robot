@@ -1,6 +1,7 @@
 package org.usfirst.frc.team1747.robot.commands;
 
 import org.usfirst.frc.team1747.robot.OI;
+import org.usfirst.frc.team1747.robot.RobotMap;
 import org.usfirst.frc.team1747.robot.subsystems.DriveSubsystem;
 import org.usfirst.frc.team1747.robot.subsystems.ElevatorSubsystem;
 
@@ -38,7 +39,7 @@ public class SetElevatorPosition extends Command {
     protected void initialize() {
     	double currentPosition = elevator.getElevatorPosition();
     	distance = position - currentPosition;
-    	double[][][] profiles = HBRSubsystem.generateSkidSteerPseudoProfile(distance, 0, Parameters.I_SAMPLE_LENGTH * 12, 120, 150, 9000.1, Parameters.W_WIDTH, Parameters.DT, true, true);
+    	double[][][] profiles = HBRSubsystem.generateSkidSteerPseudoProfile(distance, 0, Parameters.I_SAMPLE_LENGTH * 12, 120, 200, 9000.1, Parameters.W_WIDTH, RobotMap.DT, true, true);
     	for(int i = 0; i < profiles[0].length; i++){
     		profiles[0][i][0] += currentPosition;
     	}

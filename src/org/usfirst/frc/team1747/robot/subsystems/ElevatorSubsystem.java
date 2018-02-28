@@ -38,6 +38,7 @@ public class ElevatorSubsystem extends HBRSubsystem<ElevatorSubsystem.Follower> 
 	}
 	
 	public ElevatorSubsystem() {
+		super(RobotMap.DT);
 		
 		//		constants are now in Robot.java to fix bad issues
 		
