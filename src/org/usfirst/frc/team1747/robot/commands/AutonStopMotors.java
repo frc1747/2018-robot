@@ -28,7 +28,7 @@ public class AutonStopMotors extends Command {
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return System.currentTimeMillis() - startTime >= 100;
+        return System.currentTimeMillis() - startTime >= 10;
     }
 
     // Called once after isFinished returns true

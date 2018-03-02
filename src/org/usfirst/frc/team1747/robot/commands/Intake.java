@@ -17,7 +17,6 @@ public class Intake extends Command {
 	public Intake() {
 		intake = IntakeSubsystem.getInstance();
 		elevator = ElevatorSubsystem.getInstance();
-		requires (elevator);
 		requires (intake);
     	//GambeziDashboard.set_double("Intake/InPower", 0.8);
 	}
