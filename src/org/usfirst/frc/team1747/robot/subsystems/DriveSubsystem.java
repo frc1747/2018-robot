@@ -26,6 +26,8 @@ public class DriveSubsystem extends HBRSubsystem<DriveSubsystem.Follower> {
 	
 	private AHRS gyro;
 	
+	private int counter;
+	
 	public enum Follower {
 		DISTANCE, ANGLE
 	}
@@ -192,8 +194,8 @@ public class DriveSubsystem extends HBRSubsystem<DriveSubsystem.Follower> {
 
 	@Override
 	public void pidWrite(double[] output) {
-		GambeziDashboard.set_double("Drive/output[0]", output[0]);
-		GambeziDashboard.set_double("Drive/output[1]", output[1]);
+		//GambeziDashboard.set_double("Drive/output[0]", output[0]);
+		//GambeziDashboard.set_double("Drive/output[1]", output[1]);
 		driveArcadeMode(output[0], -output[1]);
 	}
 
@@ -203,5 +205,7 @@ public class DriveSubsystem extends HBRSubsystem<DriveSubsystem.Follower> {
 		GambeziDashboard.set_double("Drive/Distance/Actual", output[1]);
 		GambeziDashboard.set_double("Drive/Angle/Profile", output[2]);
 		GambeziDashboard.set_double("Drive/Angle/Actual", output[3]);
+		GambeziDashboard.set_double("Drive/counter", counter++);
+//		System.out.println(output[1]);
 	}
 }

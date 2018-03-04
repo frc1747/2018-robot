@@ -72,16 +72,13 @@ public class OI {
 		DriveProfile s_curve_left = new DriveProfile("/home/lvuser/S-Curve-Left.csv");
 		DriveProfile s_curve_right = new DriveProfile("/home/lvuser/S-Curve-Right.csv");
 		
-		System.out.println("HI");
 		GambeziDashboard.listen_button("Commands2/No", new OnUpdateListener() {
 			@Override
 			public void on_update(Object arg0) {
 				Scheduler.getInstance().add(drive10ft);
 			}
 		});
-		System.out.println("HI");
 		
-		System.out.println("HI");
 		GambeziDashboard.set_boolean("Commands2/DriveForward", false);
 		GambeziDashboard.listen_button("Commands2/DriveForward", new OnUpdateListener() {
 			@Override
@@ -89,7 +86,6 @@ public class OI {
 				Scheduler.getInstance().add(drive10ft);
 			}
 		});
-		System.out.println("HI");
 
 		GambeziDashboard.set_boolean("Commands2/CurveLeft", false);
 		GambeziDashboard.listen_button("Commands2/CurveLeft", new OnUpdateListener() {
