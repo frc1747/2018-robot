@@ -16,7 +16,7 @@ import lib.frc1747.subsytems.HBRSubsystem;
 public class Drive2Cube extends Command {
 	
 	private DriveSubsystem drive;
-	double angle, distance;
+	double angle, distance, d, x;
 	
     public Drive2Cube(double distance, double angle) {
     	requires(drive = DriveSubsystem.getInstance());
@@ -38,7 +38,7 @@ public class Drive2Cube extends Command {
     		if (boxIndex > -1) {
     			double newY2 = GambeziDashboard.get_double("pi_vision/y2/" + i);
     			double oldY2 = GambeziDashboard.get_double("pi_vision/y2/" + boxIndex);
-    			if (newY2 < oldY2) {
+    			if (newY2 > oldY2) {
     				boxIndex = i;
     			}
 			} else {
@@ -59,15 +59,15 @@ public class Drive2Cube extends Command {
 			double centerXPx = centerX;
 			double centerYPx = centerY;
 			
-			double vh, vd, vx, d, x, h, viewAngleY, viewAngleX, phi, theta;
+			double vh, vd, vx, h, viewAngleY, viewAngleX, phi, theta;
 			h = 46.5 - 9; // In Inches
 			viewAngleY = 1.085595; // 62.2 Degrees in Radians
 			viewAngleX = 0.8517207; // 48.8 Degrees in Radians
 			theta = 0.296706; // 17 Degrees in Radians
 			vh = -(camPxHeight/2 - centerYPx); // Displacement Y in Px
 			vd = (camPxHeight/2)/Math.tan(viewAngleY/2);
-			phi = Math.atan(vh/vd);
-			d = h / Math.tan(phi+theta); // Distance from the robot forward/back
+			phi = Math.atan2(vh, vd);
+			d = h / Math.tan(phi+theta) - 24; // Distance from the robot forward/back
 			
 			vx = -(542 - centerXPx);
 			x = (vx / vd) * d; // Distance from robot horizontally
@@ -77,10 +77,14 @@ public class Drive2Cube extends Command {
 			
 		}
 		
+		if (Double.isNaN(x)) {
+			x = 0;
+			d = 0;
+		}
 		
-		
-		angle = 0;
-		distance = .1;
+		angle = -Math.atan2(x, d)*1.5;
+		System.out.println("angle: " + angle);
+		distance = Math.sqrt((d*d + x*x)) / 12;
     	
     	double[][][] profiles = HBRSubsystem.generateSkidSteerPseudoProfile(distance, angle, Parameters.I_SAMPLE_LENGTH, 14, 20, 26, Parameters.W_WIDTH, RobotMap.DT, true, true);
     	double linearOffset = drive.getAveragePosition();
