@@ -42,10 +42,11 @@ public class ArcadeDrive extends Command {
 		logger.putDouble("Left Speed", drivetrain.getLeftSpeed());
 		logger.putDouble("Right Speed", drivetrain.getRightSpeed());*/
 		
+		/*
 		GambeziDashboard.set_double("Drive/Temp", drivetrain.getTempF());
 		GambeziDashboard.set_double("Drive/Left_Speed", drivetrain.getLeftSpeed());
 		GambeziDashboard.set_double("Drive/Right_Speed", drivetrain.getRightSpeed());
-
+*/
 		
 		
 	}

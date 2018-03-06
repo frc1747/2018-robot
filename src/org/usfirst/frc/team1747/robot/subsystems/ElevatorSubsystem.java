@@ -152,41 +152,45 @@ public class ElevatorSubsystem extends HBRSubsystem<ElevatorSubsystem.Follower> 
 
 	@Override
 	public void pidWrite(double[] output) {
+		
 		//Sets motor power to 0 if we are not changing the stage and wrist is all the way down/up
 		if(((getWristStage() == 0) && (Math.abs(getWristPosition() - getWristStages()[0]) < Math.PI/12)) ){
-			if(output[1] + Math.sin(getWristPosition()) * GambeziDashboard.get_double("Wrist/kF") > 0){
-				setWristPower(output[1] + Math.sin(getWristPosition()) * GambeziDashboard.get_double("Wrist/kF"));
+			if(output[1] + Math.sin(getWristPosition()) * 0.07 /*GambeziDashboard.get_double("Wrist/kF")*/ > 0){
+				setWristPower(output[1] + Math.sin(getWristPosition()) * 0.07 /*GambeziDashboard.get_double("Wrist/kF")*/);
 			}else{
 				setWristPower(0);	
 			}
 			
 		}else if(((getWristStage() == (getWristStages().length - 1))	&& (Math.abs(getWristPosition() - getWristStages()[getWristStages().length - 1]) < Math.PI/12))){
-			if(output[1] + Math.sin(getWristPosition()) * GambeziDashboard.get_double("Wrist/kF") < 0){
-				setWristPower(output[1] + Math.sin(getWristPosition()) * GambeziDashboard.get_double("Wrist/kF"));
+			if(output[1] + Math.sin(getWristPosition()) * 0.07 /*GambeziDashboard.get_double("Wrist/kF")*/ < 0){
+				setWristPower(output[1] + Math.sin(getWristPosition()) * 0.07 /*GambeziDashboard.get_double("Wrist/kF")*/);
 			}else{
 				setWristPower(0);	
 			}
 		}else{
-			setWristPower(output[1] + Math.sin(getWristPosition()) * GambeziDashboard.get_double("Wrist/kF"));
+			setWristPower(output[1] + Math.sin(getWristPosition()) * 0.07 /*GambeziDashboard.get_double("Wrist/kF")*/);
 
 		}
 		
 		if((getElevatorStage() == 0) && (Math.abs(getElevatorPosition() - getElevatorStages()[0]) < 3)){
-			if(output[0] + GambeziDashboard.get_double("Elevator/kF") < 0){
-				setElevatorPower(output[0] + GambeziDashboard.get_double("Elevator/kF"));
+			if(output[0] + 0.04 /*GambeziDashboard.get_double("Elevator/kF")*/ < 0){
+				setElevatorPower(output[0] + 0.04 /*GambeziDashboard.get_double("Elevator/kF")*/);
 			}else{
 				setElevatorPower(0);	
 			}
 			setElevatorPower(0);
 			
 		}else{
-			setElevatorPower(output[0] + GambeziDashboard.get_double("Elevator/kF"));
+			setElevatorPower(output[0] + 0.04 /*GambeziDashboard.get_double("Elevator/kF")*/);
 		}
+		
+		/*
 		GambeziDashboard.set_double("Wrist/PIDOutput", output[1]);
 		GambeziDashboard.set_double("Elevator/PIDOutput", output[0]);
 		GambeziDashboard.set_double("Wrist/Angle", getWristPosition());
 		GambeziDashboard.set_double("Wrist/Setpoint", wristPositions[wristIndex]);
 		GambeziDashboard.set_double("Elevator/Position", getElevatorPosition());
+		*/
 	}
 	
 	public void resetEncoder() {

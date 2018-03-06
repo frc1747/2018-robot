@@ -62,9 +62,30 @@ public class Robot extends TimedRobot {
 	int index2;
 	AutonChoice [] states;
 	
+	public class Interval implements Runnable {
+		int counter2 = 0;
+		
+		@Override
+		public void run() {
+			for(;;) {
+				try {
+					Thread.sleep(20);
+				}
+				catch(InterruptedException ex) {
+					ex.printStackTrace();
+				}
+				//GambeziDashboard.set_double("Robot/Counter2", counter2++);
+				//System.out.println("Counter2: " + counter2++);
+			}
+		}
+	}
+	
 	@Override
 	public void robotInit() {
 		initSubsystems();
+		
+		Thread thread = new Thread(new Interval());
+		thread.start();
 		
 		aButtonState = false;
 		bButtonState = false;
@@ -183,6 +204,20 @@ public class Robot extends TimedRobot {
 	}
 	
 	public void initSubsystems(){
+		try { GambeziDashboard.get_instance(); } catch(Exception ex) {}
+		try { GambeziDashboard.get_instance(); } catch(Exception ex) {}
+		try { GambeziDashboard.get_instance(); } catch(Exception ex) {}
+		try { GambeziDashboard.get_instance(); } catch(Exception ex) {}
+		try { GambeziDashboard.get_instance(); } catch(Exception ex) {}
+
+    	// NO! Do not do this anywhere else
+		try {
+			Thread.sleep(100);
+		}
+		catch(InterruptedException ex) {
+			ex.printStackTrace();
+		}
+		
     	GambeziDashboard.set_double("Intake/OutPower", -0.8);
 		GambeziDashboard.set_double("Elevator/kF", 0.04); //0.04
 		GambeziDashboard.set_double("Elevator/kV", 0.0068); //0.0066
@@ -211,7 +246,7 @@ public class Robot extends TimedRobot {
     	
     	// NO! Do not do this anywhere else
 		try {
-			Thread.sleep(1000);
+			Thread.sleep(100);
 		}
 		catch(InterruptedException ex) {
 			ex.printStackTrace();
