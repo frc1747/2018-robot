@@ -96,7 +96,6 @@ public class Autonomous extends CommandGroup {
         				if(choice == AutonChoice.SCALE_SWITCH){
 	        				addSequential(new WristBottom());
 	        				addParallel(new Intake());
-	        				addParallel(new OpenClaw());
 	        				addSequential(new DriveProfile("/home/lvuser/right_to_left_switch.csv"));
 	        				addSequential(new WristBottom());
 	        				addParallel(new Intake());  
@@ -112,8 +111,11 @@ public class Autonomous extends CommandGroup {
         			else if(scoringPositions[0] == 'R'){
         				addSequential(new WristBottom());
         				addParallel(new Intake());
-        				addParallel(new OpenClaw());
         				addSequential(new DriveProfile("/home/lvuser/right_to_right_switch.csv"));
+        				
+        				addSequential(new CloseClaw());
+        				addParallel(new Intake());
+        				addSequential(new Delay(400));
         				addSequential(new WristBottom());
         				addParallel(new Intake());  
         				addSequential(new WristVertical());
