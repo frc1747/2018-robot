@@ -13,6 +13,7 @@ import org.usfirst.frc.team1747.robot.commands.AutoIntake;
 import org.usfirst.frc.team1747.robot.commands.AutonOutake;
 import org.usfirst.frc.team1747.robot.commands.ClimbDown;
 import org.usfirst.frc.team1747.robot.commands.ClimbUp;
+import org.usfirst.frc.team1747.robot.commands.Drive2Cube;
 import org.usfirst.frc.team1747.robot.commands.DriveCurve;
 import org.usfirst.frc.team1747.robot.commands.DriveProfile;
 import org.usfirst.frc.team1747.robot.commands.ElevateDown;
@@ -137,7 +138,7 @@ public class OI {
 		driver.getButton(Logitech.A).whenPressed(new ResetIndex(new SetElevatorPosition(ElevatorSubsystem.ElevatorPositions.SWITCH)));
 		driver.getButton(Logitech.B).whenPressed(new ResetIndex(new SetElevatorPosition(ElevatorSubsystem.ElevatorPositions.LOW_SCALE)));
 		driver.getButton(Logitech.Y).whenPressed(new ResetIndex(new SetElevatorPosition(ElevatorSubsystem.ElevatorPositions.TOP)));
-		driver.getButton(Logitech.START).whenPressed(new DriveProfile("/home/lvuser/S-Curve-Left.csv"));
+		driver.getButton(Logitech.START).whenPressed(new Drive2Cube(.1, 0));
 //		driver.getButton(Logitech.Y).whenPressed(new WristTop());
 //		driver.getButton(Logitech.A).whenPressed(new WristDown());
 		driver.getButton(Logitech.LT).whenPressed(new ResetIndex(new AutoIntake()));
