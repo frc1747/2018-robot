@@ -75,25 +75,43 @@ public class Autonomous extends CommandGroup {
         			}
     			}
     			else if(scoringPositions[1] == 'R'){
-    				addSequential(new MakeParallel(
-        					new MakeSequential(
-        						new WristVertical(),
-        						new Delay(2500)
-//        						new SetElevatorPosition(ElevatorSubsystem.ElevatorPositions.TOP)
-        					),
-        					new DriveProfile("/home/lvuser/left_to_right_scale.csv")
-        				));
-        				
-        				addSequential(new WristOverTop());
-        				addSequential(new AutonOutake());
-        				
-        				addParallel(new MakeSequential(
-        	    			new WristBottom()
-//        	    			new SetElevatorPosition(ElevatorSubsystem.ElevatorPositions.BOTTOM)
-        				));
     				
         			if(scoringPositions[0] == 'L'){
         				if(choice == AutonChoice.SCALE_SWITCH){
+        					addSequential(new MakeParallel(
+        	    					new MakeSequential(
+        	    						new WristVertical(),
+        	    						new Delay(1250),
+        	    						new WristBottom(),
+        	    						new SetElevatorPosition(ElevatorSubsystem.ElevatorPositions.SWITCH)
+        	    					),
+        	    					new DriveProfile("/home/lvuser/left_to_left_switch_special.csv")
+        	    				));
+        					addSequential(new AutonStopMotors());
+        					
+        					addSequential(new MakeParallel(
+        	    					new MakeSequential(
+        	    						new Delay(800),
+        	    						new AutonOutake()
+        	    					),
+        	    							new DriveCurve(0, 180)
+        	    				));
+        					addSequential(new AutonStopMotors());
+        					
+        					
+        					addSequential(new MakeParallel(
+            	    					new MakeSequential(
+            	    							new WristVertical(),
+            	    							new SetElevatorPosition(ElevatorSubsystem.ElevatorPositions.BOTTOM),
+                	    						new Delay(1000),
+                	    						new WristDown(),
+                	    						new Intake()
+                	    					),
+                	    					new DriveProfile("/home/lvuser/left_to_right_switch_special.csv")
+                	    				));
+        					addSequential(new AutonStopMotors());
+        					
+        					/*
 	        				addSequential(new WristBottom());
 	        				addParallel(new Intake());
 	        				addSequential(new DriveProfile("/home/lvuser/right_to_left_switch.csv"));
@@ -104,11 +122,29 @@ public class Autonomous extends CommandGroup {
 	        				addSequential(new WristVertical());
 	        				addSequential(new Delay(500));
 	        				addSequential(new AutonOutake());
+	        				*/
         					}else if(choice == AutonChoice.SCALE_SCALE){
         						
         					}
         				}
         			else if(scoringPositions[0] == 'R'){
+        				addSequential(new MakeParallel(
+            					new MakeSequential(
+            						new WristVertical(),
+            						new Delay(2500)
+//            						new SetElevatorPosition(ElevatorSubsystem.ElevatorPositions.TOP)
+            					),
+            					new DriveProfile("/home/lvuser/left_to_right_scale.csv")
+            				));
+            				
+            				addSequential(new WristOverTop());
+            				addSequential(new AutonOutake());
+            				
+            				addParallel(new MakeSequential(
+            	    			new WristBottom()
+//            	    			new SetElevatorPosition(ElevatorSubsystem.ElevatorPositions.BOTTOM)
+            				));
+            				
         				addSequential(new WristBottom());
         				addParallel(new Intake());
         				addSequential(new DriveProfile("/home/lvuser/right_to_right_switch.csv"));
