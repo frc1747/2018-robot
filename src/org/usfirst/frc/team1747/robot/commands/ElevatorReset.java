@@ -5,8 +5,7 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 
 public class ElevatorReset extends CommandGroup {
 	
-	@Override
-	protected void initialize() {
+	public ElevatorReset() {
 		addSequential(new WristTop());
 		addSequential(new SetElevatorPosition(ElevatorSubsystem.ElevatorPositions.BOTTOM));
 	}

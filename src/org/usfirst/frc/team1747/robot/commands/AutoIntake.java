@@ -80,10 +80,12 @@ public class AutoIntake extends Command {
 		if(intake.ifCubePartiallyHeld()){
 			elevator.setWristStage(elevator.getWristStages().length - 2);
 		}else{
-			intake.setPower(0.0);
+
 			claw.setSolenoid(false);
 			elevator.setWristStage(elevator.getWristStages().length - 1);
 		}
+		
+		intake.setPower(0.0);
 		elevator.setSetpoint(ElevatorSubsystem.Follower.WRIST, elevator.getWristStages()[elevator.getWristStage()]);
 		elevator.setSetpoint(ElevatorSubsystem.Follower.ELEVATOR, elevator.getElevatorStages()[elevator.getElevatorStage()]);
 		intake.setLED(false);
