@@ -15,11 +15,10 @@ public class TeleopSwitch extends Command {
 		switch (OI.getInstance().index){
 			case 0: Scheduler.getInstance().add(new SwitchStage1()); break;
 			case 1: Scheduler.getInstance().add(new SwitchStage2()); break;
-			case 2: Scheduler.getInstance().add(new SwitchStage3()); break;
 		}
 		
 		OI.getInstance().index++;
-		OI.getInstance().index %= 3;
+		OI.getInstance().index %= 2;
 		
 	}
 	
