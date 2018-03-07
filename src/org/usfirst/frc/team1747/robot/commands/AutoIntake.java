@@ -54,6 +54,7 @@ public class AutoIntake extends Command {
 		GambeziDashboard.set_double("Wrist/Index", elevator.getWristStage());
 		
 		claw.setSolenoid(true);
+		intake.setLED(false);
 	}
 	
 	@Override
@@ -70,7 +71,7 @@ public class AutoIntake extends Command {
 		}else{
 			intake.setPower(0.0);
 			claw.setSolenoid(false);
-			intake.setLED(false);
+			intake.setLED(true);
 		}
 	}
 	
@@ -85,7 +86,7 @@ public class AutoIntake extends Command {
 		}
 		elevator.setSetpoint(ElevatorSubsystem.Follower.WRIST, elevator.getWristStages()[elevator.getWristStage()]);
 		elevator.setSetpoint(ElevatorSubsystem.Follower.ELEVATOR, elevator.getElevatorStages()[elevator.getElevatorStage()]);
-		intake.setLED(true);
+		intake.setLED(false);
 	}
 	
 	@Override

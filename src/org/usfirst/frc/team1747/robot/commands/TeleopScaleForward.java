@@ -13,10 +13,9 @@ public class TeleopScaleForward extends Command {
 		switch (OI.getInstance().index){
 			case 0: Scheduler.getInstance().add(new ScaleForwardStage1()); break;
 			case 1: Scheduler.getInstance().add(new ScaleForwardStage2()); break;
-			case 2: Scheduler.getInstance().add(new ScaleForwardStage3()); break;
 		}
 		OI.getInstance().index++;
-		OI.getInstance().index %= 3;
+		OI.getInstance().index %= 2;
 	}
 	
 	@Override

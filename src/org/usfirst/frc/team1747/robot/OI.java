@@ -18,6 +18,7 @@ import org.usfirst.frc.team1747.robot.commands.DriveCurve;
 import org.usfirst.frc.team1747.robot.commands.DriveProfile;
 import org.usfirst.frc.team1747.robot.commands.ElevateDown;
 import org.usfirst.frc.team1747.robot.commands.ElevateUp;
+import org.usfirst.frc.team1747.robot.commands.ElevatorReset;
 import org.usfirst.frc.team1747.robot.commands.ElevatorDown;
 import org.usfirst.frc.team1747.robot.commands.ElevatorUp;
 import org.usfirst.frc.team1747.robot.commands.Intake;
@@ -130,24 +131,33 @@ public class OI {
 	}
 	
 	public void createDriver() {
-		driver.getButton(Logitech.X).whenPressed(new ResetIndex(new SetElevatorPosition(ElevatorSubsystem.ElevatorPositions.BOTTOM)));
-		driver.getButton(Logitech.A).whenPressed(new ResetIndex(new SetElevatorPosition(ElevatorSubsystem.ElevatorPositions.SWITCH)));
-		driver.getButton(Logitech.B).whenPressed(new ResetIndex(new SetElevatorPosition(ElevatorSubsystem.ElevatorPositions.LOW_SCALE)));
-		driver.getButton(Logitech.Y).whenPressed(new ResetIndex(new SetElevatorPosition(ElevatorSubsystem.ElevatorPositions.TOP)));
-		driver.getButton(Logitech.START).whenPressed(new Drive2Cube(.1, 0));
-//		driver.getButton(Logitech.Y).whenPressed(new WristTop());
-//		driver.getButton(Logitech.A).whenPressed(new WristDown());
 		driver.getButton(Logitech.LT).whenPressed(new ResetIndex(new AutoIntake()));
-//		driver.getButton(Logitech.UP).whileHeld(new ClimbUp());
-//		driver.getButton(Logitech.DOWN).whileHeld(new ClimbDown());
-		driver.getButton(Logitech.RB).whileHeld(new ResetIndex(new Intake()));
+		driver.getButton(Logitech.LB).whileHeld(new OpenClaw());	
 		driver.getButton(Logitech.RT).whileHeld(new ResetIndex(new Outtake()));
-		driver.getButton(Logitech.LB).whileHeld(new ResetIndex(new OpenClaw()));		
-//		driver.getButton(Logitech.RT).whenPressed(new DriveProfile("/home/lvuser/curve_test_right.csv"));
+		driver.getButton(Logitech.RB).whileHeld(new ResetIndex(new Intake()));
+		
+		driver.getDPad(Logitech.UP).whenPressed(new WristUp());
+		driver.getDPad(Logitech.DOWN).whenPressed(new WristDown());
+		
+		driver.getButton(Logitech.X).whenPressed(new ResetIndex(new ElevatorReset()));
+		driver.getButton(Logitech.A).whenPressed(new SetElevatorPosition(ElevatorSubsystem.ElevatorPositions.LOW_SCALE));
+		driver.getButton(Logitech.Y).whenPressed(new SetElevatorPosition(ElevatorSubsystem.ElevatorPositions.TOP));
+		
 		driver.getDPad(Logitech.LEFT).whenPressed(new TeleopScaleForward());
 		driver.getDPad(Logitech.RIGHT).whenPressed(new TeleopSwitch());
-		driver.getDPad(Logitech.UP).whenPressed(new ResetIndex(new WristTop()));
-		driver.getDPad(Logitech.DOWN).whenPressed(new ResetIndex(new WristDown()));
+		
+		driver.getButton(Logitech.START).whenPressed(new Drive2Cube(.1, 0));
+		
+		
+		//Old Controls
+//		driver.getButton(Logitech.A).whenPressed(new ResetIndex(new SetElevatorPosition(ElevatorSubsystem.ElevatorPositions.SWITCH)));
+		
+//		driver.getButton(Logitech.Y).whenPressed(new WristTop());
+//		driver.getButton(Logitech.A).whenPressed(new WristDown());
+//		driver.getButton(Logitech.UP).whileHeld(new ClimbUp());
+//		driver.getButton(Logitech.DOWN).whileHeld(new ClimbDown());
+		
+//		driver.getButton(Logitech.RT).whenPressed(new DriveProfile("/home/lvuser/curve_test_right.csv"));
 		//Test Commands for wrist and elevator without PID loops
 //		driver.getButton(Logitech.Y).whileHeld(new TestUp());
 //		driver.getButton(Logitech.A).whileHeld(new TestDown());

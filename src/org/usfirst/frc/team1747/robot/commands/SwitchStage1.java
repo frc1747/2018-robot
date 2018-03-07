@@ -8,7 +8,6 @@ public class SwitchStage1 extends CommandGroup {
 
 	public SwitchStage1(){
 		addSequential(new SetElevatorPosition(ElevatorSubsystem.ElevatorPositions.SWITCH));
-		addSequential(new WristDown());
-		addSequential(new WristDown());
+		addSequential(new WristBottom());
 	}
 }
