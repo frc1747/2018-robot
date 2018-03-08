@@ -33,7 +33,9 @@ public class Intake extends Command {
 		protected void execute() {
 	    	//System.out.println("Intake Periodic");
 			if(!intake.ifCubeCompletelyHeld() && Math.abs(elevator.getWristPosition() - elevator.getWristStages()[0]) < Math.PI/12){
-				intake.setPower(/*GambeziDashboard.get_double("Intake/InPower")*/ 0.6);
+				//intake.setPower(/*GambeziDashboard.get_double("Intake/InPower")*/ 0.6);
+				intake.setLeftPower(0.6);
+				intake.setRightPower(0.55);
 			}
 		}
 		

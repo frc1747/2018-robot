@@ -67,7 +67,9 @@ public class AutoIntake extends Command {
 			}else{
 				claw.setSolenoid(true);
 			}
-			intake.setPower(/*GambeziDashboard.get_double("Intake/InPower")*/ 0.8);
+			//intake.setPower(/*GambeziDashboard.get_double("Intake/InPower")*/ 0.8);
+			intake.setLeftPower(0.6);
+			intake.setRightPower(0.55);
 		}else{
 			intake.setPower(0.0);
 			claw.setSolenoid(false);

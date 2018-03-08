@@ -13,16 +13,21 @@ public class Outtake extends Command {
 
 	public IntakeSubsystem intake;
 	long startTime;
+	double power;
 	
-    public Outtake() {
+    public Outtake(double power) {
     	intake = IntakeSubsystem.getInstance();
 		requires (intake);
+		if(power == 0){this.power = 0.8;}
+		else{this.power = power;}
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
     	startTime = System.currentTimeMillis();
-    	intake.setPower(GambeziDashboard.get_double("Intake/OutPower"));
+    	intake.setPower(-power);
+    	//intake.setPower(-0.8);
+    	//intake.setPower(GambeziDashboard.get_double("Intake/OutPower"));
     }
 
     // Called repeatedly when this Command is scheduled to run
