@@ -133,7 +133,7 @@ public class OI {
 	public void createDriver() {
 		driver.getButton(Logitech.LT).whenPressed(new ResetIndex(new AutoIntake()));
 		driver.getButton(Logitech.LB).whileHeld(new OpenClaw());	
-		driver.getButton(Logitech.RT).whileHeld(new ResetIndex(new Outtake()));
+		driver.getButton(Logitech.RT).whileHeld(new ResetIndex(new Outtake(0)));
 		driver.getButton(Logitech.RB).whileHeld(new ResetIndex(new Intake()));
 		
 		driver.getDPad(Logitech.UP).whenPressed(new WristUp());
@@ -142,6 +142,7 @@ public class OI {
 		driver.getButton(Logitech.X).whenPressed(new ResetIndex(new ElevatorReset()));
 		driver.getButton(Logitech.A).whenPressed(new SetElevatorPosition(ElevatorSubsystem.ElevatorPositions.LOW_SCALE));
 		driver.getButton(Logitech.Y).whenPressed(new SetElevatorPosition(ElevatorSubsystem.ElevatorPositions.TOP));
+		driver.getButton(Logitech.B).whileHeld(new ResetIndex(new Outtake(0.3)));
 		
 		driver.getDPad(Logitech.LEFT).whenPressed(new TeleopScaleForward());
 		driver.getDPad(Logitech.RIGHT).whenPressed(new TeleopSwitch());
