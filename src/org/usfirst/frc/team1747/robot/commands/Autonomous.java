@@ -3,6 +3,7 @@ package org.usfirst.frc.team1747.robot.commands;
 import org.usfirst.frc.team1747.robot.Robot.AutonChoice;
 import org.usfirst.frc.team1747.robot.Robot.AutonRobotPosition;
 import org.usfirst.frc.team1747.robot.subsystems.ElevatorSubsystem;
+import org.usfirst.frc.team1747.robot.subsystems.ElevatorSubsystem.ElevatorPositions;
 
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.command.Command;
@@ -26,8 +27,8 @@ public class Autonomous extends CommandGroup {
     				addSequential(new MakeParallel(
     					new MakeSequential(
     						new WristVertical(),
-    						new Delay(2500)
-//    						new SetElevatorPosition(ElevatorSubsystem.ElevatorPositions.TOP)
+    						new Delay(2500),
+    						new SetElevatorPosition(ElevatorSubsystem.ElevatorPositions.TOP)
     					),
     					new DriveProfile("/home/lvuser/left_to_left_scale.csv")
     				));
@@ -36,8 +37,8 @@ public class Autonomous extends CommandGroup {
     				addSequential(new AutonOutake());
     				
     				addParallel(new MakeSequential(
-    	    			new WristBottom()
-//    	    			new SetElevatorPosition(ElevatorSubsystem.ElevatorPositions.BOTTOM)
+    	    			new WristBottom(),
+    	    			new SetElevatorPosition(ElevatorSubsystem.ElevatorPositions.BOTTOM)
     				));
         			if(scoringPositions[0] == 'L') {
         				if(choice == AutonChoice.SCALE_SWITCH){
@@ -46,10 +47,13 @@ public class Autonomous extends CommandGroup {
 	        				addSequential(new DriveProfile("/home/lvuser/left_to_left_switch.csv"));
 	        				addSequential(new CloseClaw());
 	        				addSequential(new AutonStopMotors());
-//	        				addSequential(new SetElevatorPosition(ElevatorSubsystem.ElevatorPositions.SWITCH));
+	        				addSequential(new SetElevatorPosition(ElevatorSubsystem.ElevatorPositions.SWITCH));
 	        				addSequential(new WristBottom());
 	        				addSequential(new DriveCurve(0.8, -15));
 	        				addSequential(new AutonOutake());
+	        				
+	        				addParallel(new WristTop());
+	        		    	addSequential(new DriveCurve(-1,0));
 	        				
         				}else if(choice == AutonChoice.SCALE_SCALE){
         					
@@ -67,6 +71,9 @@ public class Autonomous extends CommandGroup {
 	        				addSequential(new WristBottom());
 	        				addSequential(new DriveCurve(0.8, -15));
 	        				addSequential(new AutonOutake());
+	        				
+	        				addParallel(new WristTop());
+	        		    	addSequential(new DriveCurve(-1,0));
 	        					
 
         				}else if(choice == AutonChoice.SCALE_SCALE){
@@ -81,7 +88,7 @@ public class Autonomous extends CommandGroup {
         					addSequential(new MakeParallel(
         	    					new MakeSequential(
         	    						new WristVertical(),
-        	    						new Delay(1250),
+        	    						new Delay(750),
         	    						new WristBottom(),
         	    						new SetElevatorPosition(ElevatorSubsystem.ElevatorPositions.SWITCH)
         	    					),
@@ -104,12 +111,25 @@ public class Autonomous extends CommandGroup {
             	    							new WristVertical(),
             	    							new SetElevatorPosition(ElevatorSubsystem.ElevatorPositions.BOTTOM),
                 	    						new Delay(1000),
-                	    						new WristDown(),
+                	    						new WristBottom(),
                 	    						new Intake()
                 	    					),
                 	    					new DriveProfile("/home/lvuser/left_to_right_switch_special.csv")
                 	    				));
         					addSequential(new AutonStopMotors());
+        					
+        					addSequential(new MakeParallel(
+        	    					new MakeSequential(
+        	    							new WristVertical(),
+        	    							new Delay(1000),
+        	    							new SetElevatorPosition(ElevatorSubsystem.ElevatorPositions.TOP),
+            	    						new WristOverTop(),
+            	    						new AutonOutake()
+            	    					),
+            	    					new DriveProfile("/home/lvuser/right_switch_to_right_scale_special.csv")
+            	    				));
+    					addSequential(new AutonStopMotors());
+    					addSequential(new SetElevatorPosition(ElevatorSubsystem.ElevatorPositions.BOTTOM));
         					
         					/*
 	        				addSequential(new WristBottom());
@@ -159,6 +179,9 @@ public class Autonomous extends CommandGroup {
         				addSequential(new WristVertical());
         				addSequential(new Delay(500));
         				addSequential(new AutonOutake());
+        				
+        				addParallel(new WristTop());
+        		    	addSequential(new DriveCurve(-1,0));
         			}
     			}
     			break;
@@ -196,6 +219,9 @@ public class Autonomous extends CommandGroup {
         				addSequential(new WristVertical());
         				addSequential(new Delay(500));
         				addSequential(new AutonOutake());
+        				
+        				addParallel(new WristTop());
+        		    	addSequential(new DriveCurve(-1,0));
         			}
         			else if(scoringPositions[0] == 'R'){
         				addSequential(new WristBottom());
@@ -209,6 +235,9 @@ public class Autonomous extends CommandGroup {
         				addSequential(new WristVertical());
         				addSequential(new Delay(500));
         				addSequential(new AutonOutake());
+        				
+        				addParallel(new WristTop());
+        		    	addSequential(new DriveCurve(-1,0));
         			}
     			}
     			else if(scoringPositions[1] == 'R'){
@@ -237,6 +266,9 @@ public class Autonomous extends CommandGroup {
         				addSequential(new WristVertical());
         				addSequential(new Delay(500));
         				addSequential(new AutonOutake());
+        				
+        				addParallel(new WristTop());
+        		    	addSequential(new DriveCurve(-1,0));
         			}
         			else if(scoringPositions[0] == 'R'){
         				addSequential(new WristBottom());
@@ -249,12 +281,14 @@ public class Autonomous extends CommandGroup {
         				addSequential(new WristBottom());
         				addSequential(new Delay(500));
         				addSequential(new AutonOutake());
+        				
+        				addParallel(new WristTop());
+        		    	addSequential(new DriveCurve(-1,0));
         			}
     			}
     	}
     	
-    	addParallel(new WristTop());
-    	addSequential(new DriveCurve(-1,0));
+    	
 //    	addSequential(new SetElevatorPosition(ElevatorSubsystem.ElevatorPositions.BOTTOM));
     }
 }
