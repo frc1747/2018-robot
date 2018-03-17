@@ -20,8 +20,7 @@ public class AutonOutake extends Command {
     // Called just before this Command runs the first time
     protected void initialize() {
     	startTime = System.currentTimeMillis();
-    	intake.setLeftPower(-0.8);
-    	intake.setRightPower(-0.8);
+    	intake.setPower(-0.8);
     }
 
     // Called repeatedly when this Command is scheduled to run

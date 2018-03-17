@@ -4,6 +4,7 @@ import lib.frc1747.speed_controller.HBRTalon;
 import lib.frc1747.subsytems.HBRSubsystem;
 
 import org.usfirst.frc.team1747.robot.RobotMap;
+import org.usfirst.frc.team1747.robot.RobotType;
 import org.usfirst.frc.team1747.robot.commands.ArcadeDrive;
 import org.usfirst.frc.team1747.robot.commands.DriveWithJoysticks;
 
@@ -38,8 +39,14 @@ public class DriveSubsystem extends HBRSubsystem<DriveSubsystem.Follower> {
 		gyro = new AHRS(SPI.Port.kMXP);
 		left = new DriveSide(RobotMap.LEFT_MOTOR_PORTS,RobotMap.LEFT_MOTOR_INVERSION, RobotMap.LEFT_ENCODER_INVERSION, RobotMap.LEFT_ENCODER_A, RobotMap.LEFT_ENCODER_B);
 		right = new DriveSide(RobotMap.RIGHT_MOTOR_PORTS,RobotMap.RIGHT_MOTOR_INVERSION, RobotMap.RIGHT_ENCODER_INVERSION, RobotMap.RIGHT_ENCODER_A, RobotMap.RIGHT_ENCODER_B);
-		left.setScaling(RobotMap.LEFT_SCALING);
-		right.setScaling(RobotMap.RIGHT_SCALING);		
+		if(!RobotType.getInstance().getJumper().get()){
+			left.setScaling(RobotMap.LEFT_SCALING);
+			right.setScaling(RobotMap.RIGHT_SCALING);
+    	}else{
+    		left.setScaling(RobotMap.LEFT_PRACTICE_SCALING);
+    		right.setScaling(RobotMap.RIGHT_PRACTICE_SCALING);
+    	}
+				
 	}
 	
 	public static DriveSubsystem getInstance() {

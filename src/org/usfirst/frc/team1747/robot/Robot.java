@@ -7,6 +7,7 @@
 
 package org.usfirst.frc.team1747.robot;
 
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.PowerDistributionPanel;
 import edu.wpi.first.wpilibj.RobotController;
@@ -51,6 +52,7 @@ public class Robot extends TimedRobot {
 	IntakeSubsystem intake;
 	ElevatorSubsystem elevator;
 	ClimberSubsystem climber;
+	RobotType botType;
 	Command auton;
 	int counter = 0;
 	boolean aButtonState, bButtonState;
@@ -252,6 +254,7 @@ public class Robot extends TimedRobot {
 			ex.printStackTrace();
 		}
 		
+		botType = RobotType.getInstance();
 		drive = DriveSubsystem.getInstance();
 		intake = IntakeSubsystem.getInstance();
 		elevator = ElevatorSubsystem.getInstance();
@@ -260,7 +263,7 @@ public class Robot extends TimedRobot {
 	}
 	
 	public enum AutonRobotPosition{
-		LEFT, CENTER, RIGHT;
+		CENTER, LEFT, RIGHT;
 	}
 	
 	public enum AutonChoice{

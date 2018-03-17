@@ -33,10 +33,12 @@ public class DriveWithJoysticks extends Command {
 	
 	double speedSetpoint;
 	double angleSetpoint;
+//	boolean operator;
 
     public DriveWithJoysticks() {
     	requires(drivetrain = DriveSubsystem.getInstance());
     	setInterruptible(true);
+//    	this.operator = operator;
     	/*logger.registerDouble("Left Speed", true, true);
 		logger.registerDouble("Right Speed", true, true);
 	  	logger.registerDouble("Left Position", true, true);
@@ -69,9 +71,12 @@ public class DriveWithJoysticks extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	speedSetpoint = s_v_max * OI.getInstance().getDriver().getAxis(Logitech.LEFT_VERTICAL);
-       	angleSetpoint = -a_v_max * OI.getInstance().getDriver().getAxis(Logitech.RIGHT_HORIZONTAL);
+    	//speedSetpoint = s_v_max * OI.getInstance().getDriver().getAxis(Logitech.LEFT_VERTICAL);
+       	//angleSetpoint = -a_v_max * OI.getInstance().getDriver().getAxis(Logitech.RIGHT_HORIZONTAL);
     	
+    	speedSetpoint = s_v_max * Math.max(-1.0, Math.min(1.0, OI.getInstance().getDriver().getAxis(Logitech.LEFT_VERTICAL) + 0.5 * OI.getInstance().getOperator().getAxis(Logitech.LEFT_VERTICAL)));
+    	angleSetpoint = -a_v_max * Math.max(-1.0, Math.min(1.0, OI.getInstance().getDriver().getAxis(Logitech.RIGHT_HORIZONTAL) + 0.5 * OI.getInstance().getOperator().getAxis(Logitech.RIGHT_HORIZONTAL)));
+       	
        	//Limits robot speed when elevator is up
     	if (elevator.getElevatorPosition() > RobotMap.ELEVATOR_SPEED_LIMIT_POSITION)  {
     		drivetrain.setFeedforward(DriveSubsystem.Follower.DISTANCE, 0, 1 / s_v_max, 0);
@@ -89,7 +94,7 @@ public class DriveWithJoysticks extends Command {
         	drivetrain.setFeedforward(DriveSubsystem.Follower.ANGLE, 0, 1 / a_v_max, 0);
         	drivetrain.setFeedback(DriveSubsystem.Follower.ANGLE, a_kp, 0, 0);
         	
-        	angleSetpoint = angleSetpoint * 0.55;
+        	angleSetpoint = angleSetpoint * (0.55 + 0.45/20 * Math.abs(drivetrain.getAverageSpeed()));
     	}
     	
     	
@@ -99,7 +104,9 @@ public class DriveWithJoysticks extends Command {
     	GambeziDashboard.set_double("Drive/Encoder Average", drivetrain.getAveragePosition());
     	
     	GambeziDashboard.set_double("Drive/angleSetpoint", angleSetpoint);
-    	
+//    	if(operator){
+    		
+//    	}
     	drivetrain.setSetpoint(DriveSubsystem.Follower.DISTANCE, speedSetpoint);
     	drivetrain.setSetpoint(DriveSubsystem.Follower.ANGLE, angleSetpoint);
     	

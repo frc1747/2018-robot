@@ -9,26 +9,41 @@ import edu.wpi.first.wpilibj.command.Command;
 public class EjectCube extends Command {
 
 	private IntakeSubsystem intake;
+	double power;
+	long time;
+	boolean cubeGone;
 	
     public EjectCube() {
     	intake = IntakeSubsystem.getInstance();
 		requires (intake);
-    	GambeziDashboard.set_double("Intake/OutPower", -0.8);
+    	power = -0.8;
 
+    }
+    
+    public EjectCube(double power){
+    	this.power = - power;
+    	intake = IntakeSubsystem.getInstance();
+		requires (intake);
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	intake.setPower(GambeziDashboard.get_double("Intake/OutPower"));
+    		cubeGone = false;
+    		intake.setPower(power);
+    	
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
+    	if(cubeGone == false && !intake.ifCubePartiallyHeld()){
+    		cubeGone = true;
+    		time = System.currentTimeMillis();
+    	}
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-    	return !intake.ifCubePartiallyHeld();
+    	return cubeGone && System.currentTimeMillis() - time > 0;
     }
 
     // Called once after isFinished returns true

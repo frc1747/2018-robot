@@ -4,6 +4,7 @@ import org.usfirst.frc.team1747.robot.OI;
 import org.usfirst.frc.team1747.robot.RobotMap;
 import org.usfirst.frc.team1747.robot.subsystems.DriveSubsystem;
 import org.usfirst.frc.team1747.robot.subsystems.ElevatorSubsystem;
+import org.usfirst.frc.team1747.robot.subsystems.IntakeSubsystem;
 
 import com.tigerhuang.gambezi.dashboard.GambeziDashboard;
 
@@ -25,11 +26,13 @@ public class SetElevatorPosition extends Command {
 	double elevatorSetpoint;
 	double distance;
 	ElevatorSubsystem.ElevatorPositions stage;
+	IntakeSubsystem intake;
 
 	public final double position;
 	
     public SetElevatorPosition(ElevatorSubsystem.ElevatorPositions stage) {
     	requires(elevator = ElevatorSubsystem.getInstance());
+    	intake = IntakeSubsystem.getInstance();
     	position = elevator.getElevatorStages()[stage.ordinal()];
     	setInterruptible(false);
     	this.stage = stage;
@@ -65,7 +68,9 @@ public class SetElevatorPosition extends Command {
 		elevator.setEnabled(true);
 			
 		elevator.setElevatorStage(stage.ordinal());
-		elevator.setSetpoint(ElevatorSubsystem.Follower.WRIST, elevator.getWristStages()[elevator.getWristStage()]);
+		if(!((elevator.getWristStage() == elevator.getWristStages().length - 1) && intake.ifCubeCompletelyHeld() && stage.ordinal() > 0)){
+			elevator.setSetpoint(ElevatorSubsystem.Follower.WRIST, elevator.getWristStages()[elevator.getWristStage()]);
+		}
 		
 		GambeziDashboard.set_double("Elevator/Index", elevator.getElevatorStage());
 		GambeziDashboard.set_double("Wrist/Index", elevator.getWristStage());

@@ -147,7 +147,8 @@ public class OI {
 		driver.getDPad(Logitech.LEFT).whenPressed(new TeleopScaleForward());
 		driver.getDPad(Logitech.RIGHT).whenPressed(new TeleopSwitch());
 		
-		driver.getButton(Logitech.START).whenPressed(new Drive2Cube(.1, 0));
+		//driver.getButton(Logitech.START).whenPressed(new Drive2Cube(.1, 0));
+		driver.getButton(Logitech.START).whenPressed(new TeleopScaleBackward());
 		
 		
 		//Old Controls
@@ -169,7 +170,16 @@ public class OI {
 	}
 	
 	public void createOperator(){
-		
+		operator.getButton(Logitech.A).whenPressed(new SetElevatorPosition(ElevatorSubsystem.ElevatorPositions.SWITCH));
+		operator.getButton(Logitech.B).whenPressed(new SetElevatorPosition(ElevatorSubsystem.ElevatorPositions.LOW_SCALE));
+		operator.getButton(Logitech.Y).whenPressed(new SetElevatorPosition(ElevatorSubsystem.ElevatorPositions.TOP));
+		operator.getButton(Logitech.X).whenPressed(new SetElevatorPosition(ElevatorSubsystem.ElevatorPositions.BOTTOM));
+		operator.getButton(Logitech.RB).whileHeld(new ResetIndex(new Intake()));
+		operator.getButton(Logitech.RT).whileHeld(new ResetIndex(new Outtake(0)));
+		operator.getButton(Logitech.LB).whenPressed(new WristUp());
+		operator.getButton(Logitech.LT).whenPressed(new WristDown());
+
+
 	}
 	
 	public Logitech getDriver() {

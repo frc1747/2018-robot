@@ -1,6 +1,7 @@
 package org.usfirst.frc.team1747.robot.subsystems;
 
 import org.usfirst.frc.team1747.robot.RobotMap;
+import org.usfirst.frc.team1747.robot.RobotType;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.tigerhuang.gambezi.dashboard.GambeziDashboard;
@@ -25,7 +26,6 @@ public class ElevatorSubsystem extends HBRSubsystem<ElevatorSubsystem.Follower> 
 	double[] elevatorPositions = {0, 24, 60, 70};
 	double[] wristPositions = {Math.PI / 2, 3 * Math.PI / 4, Math.PI, 3.8};
 	double wristOffset;
-	DigitalInput jumper;
 	
 	private static ElevatorSubsystem elevator;
 	
@@ -52,13 +52,12 @@ public class ElevatorSubsystem extends HBRSubsystem<ElevatorSubsystem.Follower> 
 		elevatorIndex = 0;
 		
 		limitSwitch = new DigitalInput(RobotMap.ELEVATOR_LIMIT_SWITCH);
-		jumper = new DigitalInput(RobotMap.JUMPER_DIGITAL_INPUT);
 				
 		elevatorEncoder = new Encoder(RobotMap.ELEVATOR_ENCODER_A, RobotMap.ELEVATOR_ENCODER_B, RobotMap.ELEVATOR_ENCODER_INVERSION);
 		
 		scaling = RobotMap.ELEVATOR_SCALING;
     	
-    	if(!jumper.get()){
+    	if(!RobotType.getInstance().getJumper().get()){
     		wristOffset = RobotMap.WRIST_OFFSET_COMP;
     	}else{
     		wristOffset = RobotMap.WRIST_OFFSET_PRACTICE;

@@ -8,6 +8,6 @@ public class ScaleBackwardStage1 extends CommandGroup {
 
 	ScaleBackwardStage1(){
 		addSequential(new SetElevatorPosition(ElevatorSubsystem.ElevatorPositions.TOP));
-		addSequential(new WristTop());
+		addSequential(new WristOverTop());
 	}
 }
