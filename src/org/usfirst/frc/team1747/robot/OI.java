@@ -8,45 +8,25 @@
 
 package org.usfirst.frc.team1747.robot;
 
-import org.usfirst.frc.team1747.robot.commands.ArcadeDrive;
 import org.usfirst.frc.team1747.robot.commands.AutoIntake;
-import org.usfirst.frc.team1747.robot.commands.AutonOutake;
-import org.usfirst.frc.team1747.robot.commands.ClimbDown;
-import org.usfirst.frc.team1747.robot.commands.ClimbUp;
-import org.usfirst.frc.team1747.robot.commands.Drive2Cube;
-import org.usfirst.frc.team1747.robot.commands.DriveCurve;
-import org.usfirst.frc.team1747.robot.commands.DriveProfile;
-import org.usfirst.frc.team1747.robot.commands.ElevateDown;
-import org.usfirst.frc.team1747.robot.commands.ElevateUp;
 import org.usfirst.frc.team1747.robot.commands.ElevatorReset;
-import org.usfirst.frc.team1747.robot.commands.ElevatorDown;
-import org.usfirst.frc.team1747.robot.commands.ElevatorUp;
 import org.usfirst.frc.team1747.robot.commands.Intake;
 //import org.usfirst.frc.team1747.robot.commands.TeleopScaleForward;
 import org.usfirst.frc.team1747.robot.commands.OpenClaw;
 import org.usfirst.frc.team1747.robot.commands.Outtake;
-import org.usfirst.frc.team1747.robot.commands.ResetIndex;
-import org.usfirst.frc.team1747.robot.commands.ScaleBackward;
-import org.usfirst.frc.team1747.robot.commands.ScaleForward;
 import org.usfirst.frc.team1747.robot.commands.SetElevatorPosition;
-import org.usfirst.frc.team1747.robot.commands.SwitchForward;
-import org.usfirst.frc.team1747.robot.commands.TeleopScaleBackward;
-import org.usfirst.frc.team1747.robot.commands.TeleopScaleForward;
-import org.usfirst.frc.team1747.robot.commands.TeleopSwitch;
-import org.usfirst.frc.team1747.robot.commands.TestDown;
-import org.usfirst.frc.team1747.robot.commands.TestUp;
 import org.usfirst.frc.team1747.robot.commands.WristDown;
-import org.usfirst.frc.team1747.robot.commands.WristTop;
 import org.usfirst.frc.team1747.robot.commands.WristUp;
-import org.usfirst.frc.team1747.robot.commands.WristVertical;
-import org.usfirst.frc.team1747.robot.commands.ZeroedSensorDriveCurve;
-import org.usfirst.frc.team1747.robot.subsystems.DriveSubsystem;
+import org.usfirst.frc.team1747.robot.commands.drive.DriveProfile;
+import org.usfirst.frc.team1747.robot.commands.macro.TeleopScaleBackward;
+import org.usfirst.frc.team1747.robot.commands.macro.TeleopScaleForward;
+import org.usfirst.frc.team1747.robot.commands.macro.TeleopSwitch;
+import org.usfirst.frc.team1747.robot.commands.reset.ResetIndex;
 import org.usfirst.frc.team1747.robot.subsystems.ElevatorSubsystem;
 
 import com.tigerhuang.gambezi.OnUpdateListener;
 import com.tigerhuang.gambezi.dashboard.GambeziDashboard;
 
-import edu.wpi.first.wpilibj.command.CommandGroup;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import lib.frc1747.controller.Logitech;
 

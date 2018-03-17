@@ -21,6 +21,7 @@ import lib.frc1747.controller.Logitech;
 import java.util.logging.Level;
 
 import org.usfirst.frc.team1747.robot.commands.Autonomous;
+import org.usfirst.frc.team1747.robot.commands.Autonomous2;
 
 //import java.util.logging.Level;
 
@@ -156,7 +157,7 @@ public class Robot extends TimedRobot {
 		elevator.setElevatorStage(0);
 //		GambeziDashboard.get_double("auton/start_pos", );
 		//(auton = new Autonomous(AutonRobotPosition.RIGHT)).start();
-		(auton = new Autonomous(modes[index], states[index2])).start();
+		(auton = new Autonomous2(modes[index], states[index2])).start();
 //		(autonChoice = new Autonomous(states[index2])).start();
 	}
 

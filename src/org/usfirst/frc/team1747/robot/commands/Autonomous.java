@@ -2,12 +2,19 @@ package org.usfirst.frc.team1747.robot.commands;
 
 import org.usfirst.frc.team1747.robot.Robot.AutonChoice;
 import org.usfirst.frc.team1747.robot.Robot.AutonRobotPosition;
+import org.usfirst.frc.team1747.robot.commands.drive.DriveCurve;
+import org.usfirst.frc.team1747.robot.commands.drive.DriveProfile;
+import org.usfirst.frc.team1747.robot.commands.reset.AutonStopMotors;
+import org.usfirst.frc.team1747.robot.commands.reset.ZeroElevatorEncoder;
+import org.usfirst.frc.team1747.robot.commands.reset.ZeroSensors;
 import org.usfirst.frc.team1747.robot.subsystems.ElevatorSubsystem;
 import org.usfirst.frc.team1747.robot.subsystems.ElevatorSubsystem.ElevatorPositions;
 
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.CommandGroup;
+import lib.frc1747.commands.MakeParallel;
+import lib.frc1747.commands.MakeSequential;
 
 /**
  *

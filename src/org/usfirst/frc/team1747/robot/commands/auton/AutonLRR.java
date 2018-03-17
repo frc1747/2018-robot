@@ -3,19 +3,19 @@ package org.usfirst.frc.team1747.robot.commands.auton;
 import org.usfirst.frc.team1747.robot.commands.AutonOutake;
 import org.usfirst.frc.team1747.robot.commands.CloseClaw;
 import org.usfirst.frc.team1747.robot.commands.Delay;
-import org.usfirst.frc.team1747.robot.commands.DriveCurve;
-import org.usfirst.frc.team1747.robot.commands.DriveProfile;
 import org.usfirst.frc.team1747.robot.commands.Intake;
-import org.usfirst.frc.team1747.robot.commands.MakeParallel;
-import org.usfirst.frc.team1747.robot.commands.MakeSequential;
 import org.usfirst.frc.team1747.robot.commands.SetElevatorPosition;
 import org.usfirst.frc.team1747.robot.commands.WristBottom;
 import org.usfirst.frc.team1747.robot.commands.WristOverTop;
 import org.usfirst.frc.team1747.robot.commands.WristTop;
 import org.usfirst.frc.team1747.robot.commands.WristVertical;
+import org.usfirst.frc.team1747.robot.commands.drive.DriveCurve;
+import org.usfirst.frc.team1747.robot.commands.drive.DriveProfile;
 import org.usfirst.frc.team1747.robot.subsystems.ElevatorSubsystem;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
+import lib.frc1747.commands.MakeParallel;
+import lib.frc1747.commands.MakeSequential;
 
 /**
  *

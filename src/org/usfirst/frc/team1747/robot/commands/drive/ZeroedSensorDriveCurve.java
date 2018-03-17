@@ -1,4 +1,6 @@
-package org.usfirst.frc.team1747.robot.commands;
+package org.usfirst.frc.team1747.robot.commands.drive;
+
+import org.usfirst.frc.team1747.robot.commands.reset.ZeroSensors;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
 

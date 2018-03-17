@@ -1,4 +1,4 @@
-package org.usfirst.frc.team1747.robot.commands;
+package org.usfirst.frc.team1747.robot.commands.reset;
 
 import org.usfirst.frc.team1747.robot.subsystems.DriveSubsystem;
 import org.usfirst.frc.team1747.robot.subsystems.ElevatorSubsystem;

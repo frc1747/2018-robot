@@ -5,8 +5,8 @@ import lib.frc1747.subsytems.HBRSubsystem;
 
 import org.usfirst.frc.team1747.robot.RobotMap;
 import org.usfirst.frc.team1747.robot.RobotType;
-import org.usfirst.frc.team1747.robot.commands.ArcadeDrive;
-import org.usfirst.frc.team1747.robot.commands.DriveWithJoysticks;
+import org.usfirst.frc.team1747.robot.commands.drive.ArcadeDrive;
+import org.usfirst.frc.team1747.robot.commands.drive.DriveWithJoysticks;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.VictorSPX;

@@ -1,29 +1,36 @@
-package org.usfirst.frc.team1747.robot.commands;
-
+package org.usfirst.frc.team1747.robot.commands.reset;
 
 import org.usfirst.frc.team1747.robot.subsystems.DriveSubsystem;
+import org.usfirst.frc.team1747.robot.subsystems.ElevatorSubsystem;
 
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.command.Scheduler;
 
-public class AutonStopMotors extends Command {
+/**
+ *
+ */
+public class ZeroElevatorEncoder extends Command {
 	
-	DriveSubsystem drive;
+	ElevatorSubsystem elevator;
+	
 	long startTime;
 
-    public AutonStopMotors() {
-        requires(drive = DriveSubsystem.getInstance());
-        setInterruptible(true);
+    public ZeroElevatorEncoder() {
+        requires(elevator = ElevatorSubsystem.getInstance());
+        setInterruptible(false);
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
     	startTime = System.currentTimeMillis();
+    	elevator.resetEncoder();
+ 
+    	
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	drive.setLeftPower(0.0);
-    	drive.setRightPower(0.0);
+    	elevator.setElevatorPower(0.0);
     }
 
     // Make this return true when this Command no longer needs to run execute()

@@ -8,6 +8,8 @@ import org.usfirst.frc.team1747.robot.commands.auton.AutonLLR;
 import org.usfirst.frc.team1747.robot.commands.auton.AutonLR;
 import org.usfirst.frc.team1747.robot.commands.auton.AutonLRL;
 import org.usfirst.frc.team1747.robot.commands.auton.AutonLRR;
+import org.usfirst.frc.team1747.robot.commands.reset.ZeroElevatorEncoder;
+import org.usfirst.frc.team1747.robot.commands.reset.ZeroSensors;
 import org.usfirst.frc.team1747.robot.subsystems.ElevatorSubsystem;
 
 import edu.wpi.first.wpilibj.DriverStation;
