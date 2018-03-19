@@ -46,7 +46,7 @@ public class RobotMap {
 	public static final double ELEVATOR_SPEED_LIMIT_POSITION = 24;
 	
 	//wrist offset should be between 0 and 5
-	public static final double WRIST_OFFSET_PRACTICE  = 0.376;					//used to set wrist to "0"
+	public static final double WRIST_OFFSET_PRACTICE  = 0.546;					//used to set wrist to "0"
 	public static final double WRIST_ENCODER_GEAR = 60. / 84;
 	public static final double WRIST_OFFSET_COMP  = 3.64-6.40;					//used to set wrist to "0"
 

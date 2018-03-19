@@ -158,8 +158,9 @@ public class OI {
 		operator.getButton(Logitech.RT).whileHeld(new ResetIndex(new Outtake(0)));
 		operator.getButton(Logitech.LB).whenPressed(new WristUp());
 		operator.getButton(Logitech.LT).whenPressed(new WristDown());
-
-
+		operator.getDPad(Logitech.RIGHT).whenPressed(new TeleopSwitch());
+		operator.getDPad(Logitech.LEFT).whenPressed(new TeleopScaleForward());
+		operator.getDPad(Logitech.UP).whenPressed(new TeleopScaleBackward());
 	}
 	
 	public Logitech getDriver() {
