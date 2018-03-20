@@ -70,7 +70,7 @@ public class AutoIntake extends Command {
 			}
 			//intake.setPower(/*GambeziDashboard.get_double("Intake/InPower")*/ 0.8);
 			intake.setLeftPower(0.5);
-			intake.setRightPower(0.6);
+			intake.setRightPower(0.6);			//TODO: Why are these different values?
 		}else{
 			intake.setPower(0.0);
 			claw.setSolenoid(false);

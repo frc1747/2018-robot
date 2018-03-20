@@ -107,7 +107,7 @@ public class DriveWithJoysticks extends Command {
        	drivetrain.setFeedback(DriveSubsystem.Follower.ANGLE, a_kp, 0, 0);
        	
        	speedSetpoint *= (mult * (6. / 7)) + (1. / 7);
-        angleSetpoint *= (0.55 + 0.45 / 20 * Math.abs(drivetrain.getAverageSpeed())) * ((mult * (2. / 3)) + (1. / 3));
+        angleSetpoint *= (0.55 + 0.45 / 20 * Math.abs(drivetrain.getAverageSpeed())) * ((mult * (1. / 2)) + (1. / 2));
     	/*} else {
     		drivetrain.setFeedforward(DriveSubsystem.Follower.DISTANCE, 0, 1 / s_v_max, 0);
         	drivetrain.setFeedback(DriveSubsystem.Follower.DISTANCE, lowFilter, 0, 0);
