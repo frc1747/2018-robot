@@ -62,7 +62,7 @@ public class WristTop extends Command {
     	if(!(intake.ifCubeCompletelyHeld())){
     		return Math.abs(elevator.getWristPosition() - elevator.getWristStages()[elevator.getWristStages().length - 1]) < Math.PI/18;
     	}else{
-    		return Math.abs(elevator.getWristPosition() - elevator.getWristStages()[elevator.getWristStages().length - 1]) < Math.PI/18;
+    		return Math.abs(elevator.getWristPosition() - elevator.getWristStages()[elevator.getWristStages().length - 2]) < Math.PI/18;
     	}
     }
 

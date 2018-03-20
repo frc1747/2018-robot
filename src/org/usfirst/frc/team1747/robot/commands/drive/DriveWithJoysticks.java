@@ -97,18 +97,18 @@ public class DriveWithJoysticks extends Command {
         	angleSetpoint = angleSetpoint * (0.55 + 0.45/20 * Math.abs(drivetrain.getAverageSpeed()));
     	}*/
     	
-    	if(elevator.getElevatorPosition() > 24.5) {
+//    	if(elevator.getElevatorPosition() > 24.5) {
     		//scale up based on height
-    		double mult = (elevator.getElevatorPosition() - 24.5) / 45.5;
-    		drivetrain.setFeedforward(DriveSubsystem.Follower.DISTANCE, 0, 1 / s_v_max, 0);
-        	drivetrain.setFeedback(DriveSubsystem.Follower.DISTANCE, lowFilter, 0, 0);
-        	
-        	drivetrain.setFeedforward(DriveSubsystem.Follower.ANGLE, 0, 1 / a_v_max, 0);
-        	drivetrain.setFeedback(DriveSubsystem.Follower.ANGLE, a_kp, 0, 0);
-        	
-        	speedSetpoint *= mult / 7;
-        	angleSetpoint *= mult * (0.55 + 0.45/20 * Math.abs(drivetrain.getAverageSpeed())) / 3;
-    	} else {
+   		double mult = 1 - elevator.getElevatorPosition() / 70;
+   		drivetrain.setFeedforward(DriveSubsystem.Follower.DISTANCE, 0, 1 / s_v_max, 0);
+       	drivetrain.setFeedback(DriveSubsystem.Follower.DISTANCE, lowFilter, 0, 0);
+       	
+       	drivetrain.setFeedforward(DriveSubsystem.Follower.ANGLE, 0, 1 / a_v_max, 0);
+       	drivetrain.setFeedback(DriveSubsystem.Follower.ANGLE, a_kp, 0, 0);
+       	
+       	speedSetpoint *= (mult * (6. / 7)) + (1. / 7);
+        angleSetpoint *= (0.55 + 0.45 / 20 * Math.abs(drivetrain.getAverageSpeed())) * ((mult * (2. / 3)) + (1. / 3));
+    	/*} else {
     		drivetrain.setFeedforward(DriveSubsystem.Follower.DISTANCE, 0, 1 / s_v_max, 0);
         	drivetrain.setFeedback(DriveSubsystem.Follower.DISTANCE, lowFilter, 0, 0);
         	
@@ -116,7 +116,7 @@ public class DriveWithJoysticks extends Command {
         	drivetrain.setFeedback(DriveSubsystem.Follower.ANGLE, a_kp, 0, 0);
         	
         	angleSetpoint = angleSetpoint * (0.55 + 0.45/20 * Math.abs(drivetrain.getAverageSpeed()));
-    	}
+    	}*/
     	
     	
     	GambeziDashboard.set_double("Drive/Left Encoder", drivetrain.getLeftPosition());
