@@ -130,7 +130,6 @@ public class OI {
 		//driver.getButton(Logitech.START).whenPressed(new Drive2Cube(.1, 0));
 		driver.getButton(Logitech.START).whenPressed(new TeleopScaleBackward());
 		
-		
 		//Old Controls
 //		driver.getButton(Logitech.A).whenPressed(new ResetIndex(new SetElevatorPosition(ElevatorSubsystem.ElevatorPositions.SWITCH)));
 		
