@@ -45,11 +45,13 @@ public class AutonLR extends CommandGroup {
 		//drive back to scale and place another cube
 		addSequential(new MakeParallel(
 				new MakeSequential(
+						new AutonOutake(0.7),
+						new Delay(250),
 						new WristVertical(),
-						new Delay(1000),
+						new Delay(500),
 						new SetElevatorPosition(ElevatorSubsystem.ElevatorPositions.TOP),
 						new WristOverTop(),
-						new AutonOutake(),
+						new AutonOutake(-0.65),
 						new SetElevatorPosition(ElevatorSubsystem.ElevatorPositions.BOTTOM)
 					),
 					new DriveProfile("/home/lvuser/LR2.csv")

@@ -1,5 +1,6 @@
 package org.usfirst.frc.team1747.robot.subsystems;
 
+import org.usfirst.frc.team1747.robot.Robot;
 import org.usfirst.frc.team1747.robot.RobotMap;
 import org.usfirst.frc.team1747.robot.RobotType;
 
@@ -8,6 +9,7 @@ import com.tigerhuang.gambezi.dashboard.GambeziDashboard;
 
 import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Encoder;
 import lib.frc1747.speed_controller.HBRTalon;
 import lib.frc1747.subsytems.HBRSubsystem;
@@ -23,7 +25,7 @@ public class ElevatorSubsystem extends HBRSubsystem<ElevatorSubsystem.Follower> 
 	double scaling;
 	int elevatorIndex = 0;
 	int wristIndex =  3;
-	double[] elevatorPositions = {0, 24, 60, 70};
+	double[] elevatorPositions = {0, 24, 60, 72};
 	double[] wristPositions = {Math.PI / 2, 3 * Math.PI / 4, Math.PI, 3.8};
 	double wristOffset;
 	
@@ -209,5 +211,17 @@ public class ElevatorSubsystem extends HBRSubsystem<ElevatorSubsystem.Follower> 
 		GambeziDashboard.set_double("Elevator/Actual_Position", output[1]);
 		GambeziDashboard.set_double("Wrist/Position_Setpoint", output[2]);
 		GambeziDashboard.set_double("Wrist/Actual_Position", output[3]);
+	}
+
+
+	@Override
+	public void errorsWrite(double[] error) {
+		if(DriverStation.getInstance().isAutonomous()) {
+			if(Math.abs(error[0]) >= RobotMap.ELEVATOR_MAX_ERROR_POWER) {
+				Robot.fatalError("Elevator encoder fault>>"
+						+ " Encoder: " + getElevatorPosition()
+						+ " Error: " + error[0]);
+			}
+		}
 	}
 }

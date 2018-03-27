@@ -66,4 +66,10 @@ public class ClimberSubsystem extends HBRSubsystem {
 		// TODO Auto-generated method stub
 		
 	}
+
+	@Override
+	public void errorsWrite(double[] error) {
+		// TODO Auto-generated method stub
+		
+	}
 }

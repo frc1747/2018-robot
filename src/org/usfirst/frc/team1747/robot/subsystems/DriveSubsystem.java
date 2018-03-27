@@ -3,6 +3,7 @@ package org.usfirst.frc.team1747.robot.subsystems;
 import lib.frc1747.speed_controller.HBRTalon;
 import lib.frc1747.subsytems.HBRSubsystem;
 
+import org.usfirst.frc.team1747.robot.Robot;
 import org.usfirst.frc.team1747.robot.RobotMap;
 import org.usfirst.frc.team1747.robot.RobotType;
 import org.usfirst.frc.team1747.robot.commands.drive.ArcadeDrive;
@@ -13,7 +14,9 @@ import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 import com.kauailabs.navx.frc.AHRS;
 import com.tigerhuang.gambezi.dashboard.GambeziDashboard;
 
+import edu.wpi.first.wpilibj.ADXRS450_Gyro;
 import edu.wpi.first.wpilibj.AnalogInput;
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.SPI;
 
@@ -27,6 +30,8 @@ public class DriveSubsystem extends HBRSubsystem<DriveSubsystem.Follower> {
 	
 	private AHRS gyro;
 	
+	private ADXRS450_Gyro gyro2;
+	
 	private int counter;
 	
 	public enum Follower {
@@ -37,6 +42,7 @@ public class DriveSubsystem extends HBRSubsystem<DriveSubsystem.Follower> {
 		super(RobotMap.DT);
 		thermistor = new AnalogInput(RobotMap.FUSE_THERMISTOR);
 		gyro = new AHRS(SPI.Port.kMXP);
+		gyro2 = new ADXRS450_Gyro();
 		left = new DriveSide(RobotMap.LEFT_MOTOR_PORTS,RobotMap.LEFT_MOTOR_INVERSION, RobotMap.LEFT_ENCODER_INVERSION, RobotMap.LEFT_ENCODER_A, RobotMap.LEFT_ENCODER_B);
 		right = new DriveSide(RobotMap.RIGHT_MOTOR_PORTS,RobotMap.RIGHT_MOTOR_INVERSION, RobotMap.RIGHT_ENCODER_INVERSION, RobotMap.RIGHT_ENCODER_A, RobotMap.RIGHT_ENCODER_B);
 		if(!RobotType.getInstance().getJumper().get()){
@@ -66,6 +72,9 @@ public class DriveSubsystem extends HBRSubsystem<DriveSubsystem.Follower> {
 	}
 	public AHRS getGyro(){
 		return gyro;
+	}
+	public ADXRS450_Gyro  getGyro2(){
+		return gyro2;
 	}
 	//in degrees C
 	public double getTempC(){
@@ -214,5 +223,21 @@ public class DriveSubsystem extends HBRSubsystem<DriveSubsystem.Follower> {
 		GambeziDashboard.set_double("Drive/Angle/Actual", output[3]);
 		GambeziDashboard.set_double("Drive/counter", counter++);
 //		System.out.println(output[1]);
+	}
+
+	@Override
+	public void errorsWrite(double[] error) {
+		if(DriverStation.getInstance().isAutonomous()) {
+			if(Math.abs(error[0]) >= RobotMap.DRIVE_LINEAR_MAX_ERROR_POWER) {
+				Robot.fatalError("Linear drive encoder fault>>"
+						+ " Left Encoder: " + getLeftPosition() + " Right Encoder: " + getRightPosition()
+						+ " Error: " + error[0]);
+			}
+			if(Math.abs(error[1]) >= RobotMap.DRIVE_ANGULAR_MAX_ERROR_POWER) {
+				Robot.fatalError("Angular drive gyro fault>>"
+						+ " Gyro Angle: " + (2 * Math.PI) * ((-getGyro().getAngle()) / 360)
+						+ " Error: " + error[1]);
+			}
+		}
 	}
 }

@@ -7,10 +7,12 @@
 
 package org.usfirst.frc.team1747.robot;
 
+import edu.wpi.first.wpilibj.ADXRS450_Gyro;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.PowerDistributionPanel;
 import edu.wpi.first.wpilibj.RobotController;
+import edu.wpi.first.wpilibj.SPI.Port;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
@@ -293,5 +295,11 @@ public class Robot extends TimedRobot {
     	
     	index2--;
     	if(index2 < 0) index2 += states.length;
+    }
+    
+    public static void fatalError(String message) {
+    	Scheduler.getInstance().removeAll();
+    	System.out.println("FATAL ERROR: " + message);
+    	GambeziDashboard.log_string("FATAL ERROR: " + message);
     }
 }

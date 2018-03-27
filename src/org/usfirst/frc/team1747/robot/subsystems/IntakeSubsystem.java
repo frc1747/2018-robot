@@ -129,6 +129,12 @@ public class IntakeSubsystem extends HBRSubsystem<IntakeSubsystem.Follower> {
 		// TODO Auto-generated method stub
 		
 	}
+
+	@Override
+	public void errorsWrite(double[] error) {
+		// TODO Auto-generated method stub
+		
+	}
 }
 
 

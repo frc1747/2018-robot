@@ -11,8 +11,13 @@ public class AutonOutake extends Command {
 
 	public IntakeSubsystem intake;
 	long startTime;
+	double power;
 	
-    public AutonOutake() {
+	public AutonOutake() {
+		this(-0.8);
+	}
+    public AutonOutake(double power) {
+    	this.power = power;
     	intake = IntakeSubsystem.getInstance();
 		requires (intake);
     }
@@ -20,7 +25,7 @@ public class AutonOutake extends Command {
     // Called just before this Command runs the first time
     protected void initialize() {
     	startTime = System.currentTimeMillis();
-    	intake.setPower(-0.8);
+    	intake.setPower(power);
     }
 
     // Called repeatedly when this Command is scheduled to run

@@ -22,7 +22,7 @@ public class AutonLL extends CommandGroup {
 		addSequential(new MakeParallel(
 			new MakeSequential(
 				new WristVertical(),
-				new Delay(1500),
+				new Delay(2000),
 				new SetElevatorPosition(ElevatorSubsystem.ElevatorPositions.TOP),
 				new WristOverTop(),
 				new AutonOutake()
@@ -30,7 +30,6 @@ public class AutonLL extends CommandGroup {
 			new DriveProfile("/home/lvuser/LL0.csv")
 		));
 		addSequential(new AutonStopMotors());
-		
 		
 		// Bring elevator to bottom then grab another cube
 		addSequential(new WristBottom());
@@ -44,14 +43,24 @@ public class AutonLL extends CommandGroup {
 		// Go back and place another cube in scale
 		addSequential(new MakeParallel(
 			new MakeSequential(
+				new AutonOutake(0.7),
+				new Delay(250),
 				new WristVertical(),
 				//new Delay(500),
 				new SetElevatorPosition(ElevatorSubsystem.ElevatorPositions.TOP),
 				new WristOverTop(),
-				new AutonOutake(),
-				new SetElevatorPosition(ElevatorSubsystem.ElevatorPositions.BOTTOM)
+				new AutonOutake(-0.7)
 			),
 			new DriveProfile("/home/lvuser/LL2.csv")
+		));
+		addSequential(new AutonStopMotors());
+
+		// Bring elevator to bottom then grab another cube
+		addSequential(new WristBottom());
+		addSequential(new MakeParallel(
+				new SetElevatorPosition(ElevatorSubsystem.ElevatorPositions.BOTTOM),
+				new Intake(),
+				new DriveProfile("/home/lvuser/LL3.csv")
 		));
 		addSequential(new AutonStopMotors());
 	}

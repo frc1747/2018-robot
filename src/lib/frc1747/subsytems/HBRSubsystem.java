@@ -467,6 +467,13 @@ public abstract class HBRSubsystem<E extends Enum<E>> extends Subsystem {
 	public abstract void internalVariablesWrite(double[] output);
 	
 	/**
+	 * An abstract emthod that needs to be implemented in order to receive the error power
+	 * @param error - the error output of each of te PID/followers<br>
+	 * The index of each profile can be determined with getFollowerIndex
+	 */
+	public abstract void errorsWrite(double[] error);
+	
+	/**
 	 * Attempts to read a motion profile from a file.
 	 * @param filename - the file to read the profile from
 	 * @return an array containing the profile, or null if there was an error reading the file
@@ -618,6 +625,7 @@ public abstract class HBRSubsystem<E extends Enum<E>> extends Subsystem {
 			double[][] pv_raw = internalPidRead();
 			double[] pv = new double[n_followers];
 			double[] setPoints = new double[n_followers];
+			double[] errors = new double[n_followers];
 			
 			// Calculate delta time
 			long time = System.nanoTime();
@@ -627,6 +635,7 @@ public abstract class HBRSubsystem<E extends Enum<E>> extends Subsystem {
 			// Process data
 			for(int i = 0;i < n_followers;i++) {
 				output[i] = 0;
+				errors[i] = 0;
 
 				// Calculate feedforward
 				output[i] += kf_x[i] * profile[i][index[i]][0];
@@ -659,9 +668,10 @@ public abstract class HBRSubsystem<E extends Enum<E>> extends Subsystem {
 				}
 				
 				// Calculate feedback
-				output[i] += kp[i] * ep[i];
-				output[i] += ki[i] * ei[i];
-				output[i] += kd[i] * ed[i];
+				errors[i] += kp[i] * ep[i];
+				errors[i] += ki[i] * ei[i];
+				errors[i] += kd[i] * ed[i];
+				output[i] += errors[i];
 				
 				// Limit output
 				if(lim_q[i] > 0) {
@@ -694,6 +704,9 @@ public abstract class HBRSubsystem<E extends Enum<E>> extends Subsystem {
 				internalVariables[2*i+1] = pv[i];
 			}
 			internalVariablesWrite(internalVariables);
+			
+			// Write out error
+			errorsWrite(errors);
 		}
 	}
 

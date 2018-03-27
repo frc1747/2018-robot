@@ -9,7 +9,7 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 public class SwitchStage2 extends CommandGroup {
 
 	public SwitchStage2(){
-		addSequential(new EjectCube());
+		addSequential(new EjectCube(0.5));
 		addSequential(new ElevatorReset());
 	}
 }

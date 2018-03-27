@@ -9,15 +9,19 @@
 package org.usfirst.frc.team1747.robot;
 
 import org.usfirst.frc.team1747.robot.commands.AutoIntake;
+import org.usfirst.frc.team1747.robot.commands.ElevateDown;
 import org.usfirst.frc.team1747.robot.commands.ElevatorReset;
 import org.usfirst.frc.team1747.robot.commands.Intake;
 //import org.usfirst.frc.team1747.robot.commands.TeleopScaleForward;
 import org.usfirst.frc.team1747.robot.commands.OpenClaw;
 import org.usfirst.frc.team1747.robot.commands.Outtake;
+import org.usfirst.frc.team1747.robot.commands.ResetElevatorEncoder;
+import org.usfirst.frc.team1747.robot.commands.ScaleDrop2;
 import org.usfirst.frc.team1747.robot.commands.SetElevatorPosition;
 import org.usfirst.frc.team1747.robot.commands.WristDown;
 import org.usfirst.frc.team1747.robot.commands.WristUp;
 import org.usfirst.frc.team1747.robot.commands.drive.DriveProfile;
+import org.usfirst.frc.team1747.robot.commands.macro.ScaleDrop;
 import org.usfirst.frc.team1747.robot.commands.macro.TeleopScaleBackward;
 import org.usfirst.frc.team1747.robot.commands.macro.TeleopScaleForward;
 import org.usfirst.frc.team1747.robot.commands.macro.TeleopSwitch;
@@ -111,10 +115,10 @@ public class OI {
 	}
 	
 	public void createDriver() {
-		driver.getButton(Logitech.LT).whenPressed(new ResetIndex(new AutoIntake()));
+		driver.getButton(Logitech.LT).whenPressed(new AutoIntake());
 		driver.getButton(Logitech.LB).whileHeld(new OpenClaw());	
-		driver.getButton(Logitech.RT).whileHeld(new ResetIndex(new Outtake(0)));
-		driver.getButton(Logitech.RB).whileHeld(new ResetIndex(new Intake()));
+		driver.getButton(Logitech.RT).whileHeld(new Outtake(0));
+		driver.getButton(Logitech.RB).whileHeld(new Intake());
 		
 		driver.getDPad(Logitech.UP).whenPressed(new WristUp());
 		driver.getDPad(Logitech.DOWN).whenPressed(new WristDown());
@@ -122,13 +126,14 @@ public class OI {
 		driver.getButton(Logitech.X).whenPressed(new ResetIndex(new ElevatorReset()));
 		driver.getButton(Logitech.A).whenPressed(new SetElevatorPosition(ElevatorSubsystem.ElevatorPositions.LOW_SCALE));
 		driver.getButton(Logitech.Y).whenPressed(new SetElevatorPosition(ElevatorSubsystem.ElevatorPositions.TOP));
-		driver.getButton(Logitech.B).whileHeld(new ResetIndex(new Outtake(0.3)));
+		driver.getButton(Logitech.B).whileHeld(new Outtake(0.3));
 		
 		driver.getDPad(Logitech.LEFT).whenPressed(new TeleopScaleForward());
 		driver.getDPad(Logitech.RIGHT).whenPressed(new TeleopSwitch());
 		
 		//driver.getButton(Logitech.START).whenPressed(new Drive2Cube(.1, 0));
 		driver.getButton(Logitech.START).whenPressed(new TeleopScaleBackward());
+		driver.getButton(Logitech.BACK).whileHeld(new ScaleDrop2());
 		
 		//Old Controls
 //		driver.getButton(Logitech.A).whenPressed(new ResetIndex(new SetElevatorPosition(ElevatorSubsystem.ElevatorPositions.SWITCH)));
@@ -152,11 +157,13 @@ public class OI {
 		operator.getButton(Logitech.A).whenPressed(new SetElevatorPosition(ElevatorSubsystem.ElevatorPositions.SWITCH));
 		operator.getButton(Logitech.B).whenPressed(new SetElevatorPosition(ElevatorSubsystem.ElevatorPositions.LOW_SCALE));
 		operator.getButton(Logitech.Y).whenPressed(new SetElevatorPosition(ElevatorSubsystem.ElevatorPositions.TOP));
-		operator.getButton(Logitech.X).whenPressed(new SetElevatorPosition(ElevatorSubsystem.ElevatorPositions.BOTTOM));
-		operator.getButton(Logitech.RB).whileHeld(new ResetIndex(new Intake()));
-		operator.getButton(Logitech.RT).whileHeld(new ResetIndex(new Outtake(0)));
+		operator.getButton(Logitech.X).whenPressed(new ResetIndex(new SetElevatorPosition(ElevatorSubsystem.ElevatorPositions.BOTTOM)));
+		operator.getButton(Logitech.RB).whileHeld(new Intake());
+		operator.getButton(Logitech.RT).whileHeld(new Outtake(0));
 		operator.getButton(Logitech.LB).whenPressed(new WristUp());
 		operator.getButton(Logitech.LT).whenPressed(new WristDown());
+		operator.getButton(Logitech.START).whileHeld(new ElevateDown());
+//		operator.getButton(Logitech.BACK).whenPressed(new ResetElevatorEncoder());
 		operator.getDPad(Logitech.RIGHT).whenPressed(new TeleopSwitch());
 		operator.getDPad(Logitech.LEFT).whenPressed(new TeleopScaleForward());
 		operator.getDPad(Logitech.UP).whenPressed(new TeleopScaleBackward());
