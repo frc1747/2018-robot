@@ -1,7 +1,6 @@
 package org.usfirst.frc.team1747.robot.commands;
 
 import org.usfirst.frc.team1747.robot.subsystems.ClawSubsystem;
-import org.usfirst.frc.team1747.robot.subsystems.ElevatorSubsystem;
 import org.usfirst.frc.team1747.robot.subsystems.IntakeSubsystem;
 
 import edu.wpi.first.wpilibj.command.Command;
@@ -25,11 +24,10 @@ public class ScaleDrop2 extends Command{
 	}
 	
 	protected void execute(){
-		if(System.currentTimeMillis() - startTime > 200){
+		if(System.currentTimeMillis() - startTime > 100){
 			intake.setPower(0);
 			claw.setSolenoid(true);
 		}	
-		
 	}
 	@Override
 	protected boolean isFinished() {

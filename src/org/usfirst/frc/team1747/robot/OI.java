@@ -10,6 +10,7 @@ package org.usfirst.frc.team1747.robot;
 
 import org.usfirst.frc.team1747.robot.commands.AutoIntake;
 import org.usfirst.frc.team1747.robot.commands.ElevateDown;
+import org.usfirst.frc.team1747.robot.commands.ElevateUp;
 import org.usfirst.frc.team1747.robot.commands.ElevatorReset;
 import org.usfirst.frc.team1747.robot.commands.Intake;
 //import org.usfirst.frc.team1747.robot.commands.TeleopScaleForward;
@@ -116,7 +117,7 @@ public class OI {
 	
 	public void createDriver() {
 		driver.getButton(Logitech.LT).whenPressed(new AutoIntake());
-		driver.getButton(Logitech.LB).whileHeld(new OpenClaw());	
+		driver.getButton(Logitech.LB).whileHeld(new ScaleDrop2());	
 		driver.getButton(Logitech.RT).whileHeld(new Outtake(0));
 		driver.getButton(Logitech.RB).whileHeld(new Intake());
 		
@@ -167,6 +168,7 @@ public class OI {
 		operator.getDPad(Logitech.RIGHT).whenPressed(new TeleopSwitch());
 		operator.getDPad(Logitech.LEFT).whenPressed(new TeleopScaleForward());
 		operator.getDPad(Logitech.UP).whenPressed(new TeleopScaleBackward());
+		operator.getButton(Logitech.BACK).whileHeld(new ElevateUp());
 	}
 	
 	public Logitech getDriver() {

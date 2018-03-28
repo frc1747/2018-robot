@@ -16,16 +16,16 @@ public class ElevateUp extends Command {
     public ElevateUp() {
     	requires(elevator = ElevatorSubsystem.getInstance());
     	setInterruptible(true);
-    	GambeziDashboard.set_double("Elevator/UpPower", 0.7);
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	elevator.setElevatorPower(GambeziDashboard.get_double("Elevator/UpPower"));
+    	elevator.setEnabled(false);
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
+    	elevator.setElevatorPower(0.35);
     }
 
     // Make this return true when this Command no longer needs to run execute()
@@ -36,6 +36,8 @@ public class ElevateUp extends Command {
     // Called once after isFinished returns true
     protected void end() {
     	elevator.setElevatorPower(0);
+//    	elevator.resetEncoder();
+//    	elevator.setElevatorStage(0);
     }
 
     // Called when another command which requires one or more of the same
