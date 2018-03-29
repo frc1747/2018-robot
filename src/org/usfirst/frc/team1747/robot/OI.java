@@ -28,6 +28,7 @@ import org.usfirst.frc.team1747.robot.commands.macro.TeleopScaleForward;
 import org.usfirst.frc.team1747.robot.commands.macro.TeleopSwitch;
 import org.usfirst.frc.team1747.robot.commands.reset.ResetIndex;
 import org.usfirst.frc.team1747.robot.subsystems.ElevatorSubsystem;
+import org.usfirst.frc.team1747.robot.subsystems.IntakeSubsystem;
 
 import com.tigerhuang.gambezi.OnUpdateListener;
 import com.tigerhuang.gambezi.dashboard.GambeziDashboard;
@@ -58,6 +59,15 @@ public class OI {
 		DriveProfile curve_right = new DriveProfile("/home/lvuser/curve_right.csv");
 		DriveProfile s_curve_left = new DriveProfile("/home/lvuser/S-Curve-Left.csv");
 		DriveProfile s_curve_right = new DriveProfile("/home/lvuser/S-Curve-Right.csv");
+		
+		GambeziDashboard.set_boolean("AutonStop", false);
+		GambeziDashboard.listen_button("AutonStop", new OnUpdateListener() {
+			@Override
+			public void on_update(Object arg0) {
+				Robot.fatalError("Auton is now dead");
+				IntakeSubsystem.getInstance().setLED(true);
+			}
+		});
 		
 		GambeziDashboard.listen_button("Commands2/No", new OnUpdateListener() {
 			@Override

@@ -33,31 +33,25 @@ public class AutonLRL extends CommandGroup {
 				new SetElevatorPosition(ElevatorSubsystem.ElevatorPositions.TOP)
 			),
 			new DriveProfile("/home/lvuser/LLL0.csv")
-//			new DriveProfile("/home/lvuser/left_to_left_scale.csv")
 		));
 		addSequential(new AutonStopMotors());
 		addSequential(new WristOverTop());
 		addSequential(new AutonOutake());
+		
 		//drive to right switch and get new cube
-		addParallel(new MakeSequential(
-			new WristBottom(),
-			new SetElevatorPosition(ElevatorSubsystem.ElevatorPositions.BOTTOM)
-		));
-//		addSequential(new WristBottom());
-		addParallel(new Intake());
-		addParallel(new OpenClaw());
-		addSequential(new DriveProfile("/home/lvuser/LRL1.csv"));
-//		addSequential(new DriveProfile("/home/lvuser/left_to_right_switch.csv"));
-		//place cube in right switch
+		addSequential(new MakeParallel(new MakeSequential(new WristBottom(), new SetElevatorPosition(ElevatorSubsystem.ElevatorPositions.BOTTOM)), new Intake(), new OpenClaw(), new DriveProfile("/home/lvuser/LRL1.csv")));
+		addSequential(new AutonStopMotors());
 		addSequential(new CloseClaw());
 		addSequential(new AutonStopMotors());
+		
+		//raise elevator and eject cube
 		addSequential(new SetElevatorPosition(ElevatorSubsystem.ElevatorPositions.SWITCH));
 		addSequential(new WristBottom());
 		addSequential(new DriveCurve(0.8, -15));
 		addSequential(new AutonOutake());
 		
-		addParallel(new WristTop());
-    	addSequential(new DriveCurve(-1,0));
+		//back away from scwitch
+    	addSequential(new MakeParallel(new WristTop(), new DriveCurve(-1, 0)));
     	addSequential(new SetElevatorPosition(ElevatorSubsystem.ElevatorPositions.BOTTOM));
 
     }

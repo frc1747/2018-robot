@@ -1,7 +1,6 @@
 package org.usfirst.frc.team1747.robot.commands.auton;
 
 import org.usfirst.frc.team1747.robot.commands.AutonOutake;
-import org.usfirst.frc.team1747.robot.commands.CloseClaw;
 import org.usfirst.frc.team1747.robot.commands.Delay;
 import org.usfirst.frc.team1747.robot.commands.Intake;
 import org.usfirst.frc.team1747.robot.commands.SetElevatorPosition;
@@ -11,56 +10,51 @@ import org.usfirst.frc.team1747.robot.commands.WristTop;
 import org.usfirst.frc.team1747.robot.commands.WristVertical;
 import org.usfirst.frc.team1747.robot.commands.drive.DriveCurve;
 import org.usfirst.frc.team1747.robot.commands.drive.DriveProfile;
+import org.usfirst.frc.team1747.robot.commands.reset.AutonStopMotors;
 import org.usfirst.frc.team1747.robot.subsystems.ElevatorSubsystem;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
 import lib.frc1747.commands.MakeParallel;
 import lib.frc1747.commands.MakeSequential;
 
-/**
- *
- */
 public class AutonLRR extends CommandGroup {
 
     public AutonLRR() {
-    	//drive to right scale and place cube
+    	// Drive to right scale and place cube
     	addSequential(new MakeParallel(
-				new MakeSequential(
-					new WristVertical(),
-					new Delay(4750),
-					new SetElevatorPosition(ElevatorSubsystem.ElevatorPositions.TOP)
-				),
-				new DriveProfile("/home/lvuser/LRR0.csv")
-//				new DriveProfile("/home/lvuser/left_to_right_scale.csv")
-			));
-			
-			addSequential(new WristOverTop());
-			addSequential(new AutonOutake());
-			//lower elevator and pick up cube at switch
-			addParallel(new MakeSequential(
-    			new WristBottom(),
-    			new SetElevatorPosition(ElevatorSubsystem.ElevatorPositions.BOTTOM)
-			));
-			
-//		addSequential(new WristBottom());
-		addParallel(new Intake());
-		addSequential(new DriveProfile("/home/lvuser/LRR1.csv"));
-//		addSequential(new DriveProfile("/home/lvuser/right_to_right_switch.csv"));
-		//place cube in switch
-		addSequential(new CloseClaw());
-		addParallel(new Intake());
-		addSequential(new Delay(400));
+			new MakeSequential(
+				new WristVertical(),
+				new Delay(4750),
+				new SetElevatorPosition(ElevatorSubsystem.ElevatorPositions.TOP),
+				new WristOverTop(),
+				new AutonOutake()
+			),
+			new DriveProfile("/home/lvuser/LRR0.csv")
+		));
+		addSequential(new AutonStopMotors());
+		
+		// Bring elevator to bottom then grab another cube
 		addSequential(new WristBottom());
-		addParallel(new Intake());  
-		addSequential(new WristVertical());
+		addSequential(new MakeParallel(
+		   	new SetElevatorPosition(ElevatorSubsystem.ElevatorPositions.BOTTOM),
+			new Intake(),
+			new DriveProfile("/home/lvuser/LRR1.csv")
+		));
+		addSequential(new AutonStopMotors());
+		
+		// Place cube in switch
 		addSequential(new SetElevatorPosition(ElevatorSubsystem.ElevatorPositions.SWITCH));
-		addSequential(new WristVertical());
-		addSequential(new Delay(500));
+		addSequential(new WristBottom());
+		addSequential(new DriveCurve(0.8, 15));
+		addSequential(new AutonStopMotors());
 		addSequential(new AutonOutake());
 		
-		addParallel(new WristTop());
-    	addSequential(new DriveCurve(-1,0));
-    	addSequential(new SetElevatorPosition(ElevatorSubsystem.ElevatorPositions.BOTTOM));
-
+		// Back away from switch
+		addSequential(new WristTop());
+		addSequential(new MakeParallel(
+			new SetElevatorPosition(ElevatorSubsystem.ElevatorPositions.BOTTOM),
+	    	new DriveCurve(-1,0)
+		));
+		addSequential(new AutonStopMotors());
     }
 }

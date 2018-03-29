@@ -36,8 +36,8 @@ public class RobotMap {
 	
 	public static final double LEFT_PRACTICE_SCALING = 1266.5;
 	public static final double RIGHT_PRACTICE_SCALING = 1264.8;
-	public static final double LEFT_SCALING = 1266.5 * 10.1/10.27 * 10.4/10.25;
-	public static final double RIGHT_SCALING = 1264.8 * 10.12/10.27 * 10.4/10.25;
+	public static final double LEFT_SCALING = 1266.5 * 10.1/10.27 * 10.4/10.25 * 10.1/10.25;
+	public static final double RIGHT_SCALING = 1264.8 * 10.12/10.27 * 10.4/10.25 * 10.1/10.25;
 	
 	public static final int FUSE_THERMISTOR = 0;
 	

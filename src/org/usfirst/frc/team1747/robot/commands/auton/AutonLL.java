@@ -1,7 +1,6 @@
 package org.usfirst.frc.team1747.robot.commands.auton;
 
 import org.usfirst.frc.team1747.robot.commands.AutonOutake;
-import org.usfirst.frc.team1747.robot.commands.CloseClaw;
 import org.usfirst.frc.team1747.robot.commands.Delay;
 import org.usfirst.frc.team1747.robot.commands.Intake;
 import org.usfirst.frc.team1747.robot.commands.SetElevatorPosition;
@@ -17,7 +16,8 @@ import lib.frc1747.commands.MakeParallel;
 import lib.frc1747.commands.MakeSequential;
 
 public class AutonLL extends CommandGroup {
-	public AutonLL(){
+	
+	public AutonLL() {
 		// Drive and put cube in scale
 		addSequential(new MakeParallel(
 			new MakeSequential(

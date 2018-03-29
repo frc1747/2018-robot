@@ -35,10 +35,12 @@ public class AutonLR extends CommandGroup {
 		//bring elevator down and drive to get cube
 		addSequential(new WristBottom());
 		addSequential(new SetElevatorPosition(ElevatorSubsystem.ElevatorPositions.BOTTOM));
-
+		
+//		addSequential(new MakeParallel(new Intake(), new DriveProfile("/home/lvuser/LR1.csv")));
 		addParallel(new Intake());
-//		addParallel(new OpenClaw());
+////		addParallel(new OpenClaw());
 		addSequential(new DriveProfile("/home/lvuser/LR1.csv"));
+		
 //		addSequential(new DriveProfile("/home/lvuser/right_to_right_switch.csv"));
 //		addSequential(new CloseClaw());
 		addSequential(new AutonStopMotors());

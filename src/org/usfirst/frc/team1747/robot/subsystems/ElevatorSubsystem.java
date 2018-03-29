@@ -216,12 +216,12 @@ public class ElevatorSubsystem extends HBRSubsystem<ElevatorSubsystem.Follower> 
 
 	@Override
 	public void errorsWrite(double[] error) {
-		if(DriverStation.getInstance().isAutonomous()) {
-			if(Math.abs(error[0]) >= RobotMap.ELEVATOR_MAX_ERROR_POWER) {
-				Robot.fatalError("Elevator encoder fault>>"
-						+ " Encoder: " + getElevatorPosition()
-						+ " Error: " + error[0]);
-			}
-		}
+//		if(DriverStation.getInstance().isAutonomous()) {
+//			if(Math.abs(error[0]) >= RobotMap.ELEVATOR_MAX_ERROR_POWER) {
+//				Robot.fatalError("Elevator encoder fault>>"
+//						+ " Encoder: " + getElevatorPosition()
+//						+ " Error: " + error[0]);
+//			}
+//		}
 	}
 }
