@@ -227,7 +227,7 @@ public class DriveSubsystem extends HBRSubsystem<DriveSubsystem.Follower> {
 
 	@Override
 	public void errorsWrite(double[] error) {
-		if(DriverStation.getInstance().isAutonomous()) {
+		if(DriverStation.getInstance().isAutonomous() && RobotMap.ENABLE_AUTON_ERROR_DETECTION) {
 			if(Math.abs(error[0]) >= RobotMap.DRIVE_LINEAR_MAX_ERROR_POWER) {
 				Robot.fatalError("Linear drive encoder fault>>"
 						+ " Left Encoder: " + getLeftPosition() + " Right Encoder: " + getRightPosition()

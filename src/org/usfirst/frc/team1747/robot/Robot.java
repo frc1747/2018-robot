@@ -103,6 +103,8 @@ public class Robot extends TimedRobot {
 		index = 1;
 		states = AutonChoice.class.getEnumConstants();
 		index2 = 1;
+		
+		DriveSubsystem.getInstance().getGyro2().calibrate();
 	}
 
 	/**
@@ -142,6 +144,20 @@ public class Robot extends TimedRobot {
 		GambeziDashboard.set_string("auton/choice", states[index2].toString());
 		GambeziDashboard.set_double("Robot/thermistor", drive.getTempF());
 		GambeziDashboard.set_double("Robot/Brownout", RobotController.isBrownedOut() ? 1 : 0);
+		GambeziDashboard.set_double("Robot/wristPosition", elevator.getWristPosition());
+
+		GambeziDashboard.set_double("navx/yaw", DriveSubsystem.getInstance().getGyro().getYaw());
+		GambeziDashboard.set_double("navx/rawgyroz", DriveSubsystem.getInstance().getGyro().getRawGyroZ());
+		GambeziDashboard.set_double("navx/rate", DriveSubsystem.getInstance().getGyro().getRate());
+		GambeziDashboard.set_double("navx/angle", DriveSubsystem.getInstance().getGyro().getAngle());
+		GambeziDashboard.set_boolean("navx/connected", DriveSubsystem.getInstance().getGyro().isConnected());
+		GambeziDashboard.set_double("gyro2/angle", DriveSubsystem.getInstance().getGyro2().getAngle());
+		GambeziDashboard.set_double("gyro2/rate", DriveSubsystem.getInstance().getGyro2().getRate());
+
+		GambeziDashboard.set_double("Robot/voltage5v", RobotController.getVoltage5V());
+		GambeziDashboard.set_double("Robot/current5v", RobotController.getCurrent5V());
+		GambeziDashboard.set_double("Robot/voltage3v3", RobotController.getVoltage3V3());
+		GambeziDashboard.set_double("Robot/current3v3", RobotController.getCurrent3V3());
 	}
 
 	/**
@@ -174,6 +190,13 @@ public class Robot extends TimedRobot {
 		GambeziDashboard.set_double("Robot/Counter", counter++);
 		GambeziDashboard.set_double("Robot/thermistor", drive.getTempF());
 		GambeziDashboard.set_double("Robot/Brownout", RobotController.isBrownedOut() ? 1 : 0);
+
+		GambeziDashboard.set_double("navx/yaw", DriveSubsystem.getInstance().getGyro().getYaw());
+		GambeziDashboard.set_double("navx/rawgyroz", DriveSubsystem.getInstance().getGyro().getRawGyroZ());
+		GambeziDashboard.set_double("navx/rate", DriveSubsystem.getInstance().getGyro().getRate());
+		GambeziDashboard.set_double("navx/angle", DriveSubsystem.getInstance().getGyro().getAngle());
+		GambeziDashboard.set_double("gyro2/angle", DriveSubsystem.getInstance().getGyro2().getAngle());
+		GambeziDashboard.set_double("gyro2/rate", DriveSubsystem.getInstance().getGyro2().getRate());
 	}
 
 	@Override
@@ -198,6 +221,13 @@ public class Robot extends TimedRobot {
 		GambeziDashboard.set_double("Robot/wristPosition", elevator.getWristPosition());
 		GambeziDashboard.set_double("Robot/thermistor", drive.getTempF());
 		GambeziDashboard.set_double("Robot/Brownout", RobotController.isBrownedOut() ? 1 : 0);
+
+		GambeziDashboard.set_double("navx/yaw", DriveSubsystem.getInstance().getGyro().getYaw());
+		GambeziDashboard.set_double("navx/rawgyroz", DriveSubsystem.getInstance().getGyro().getRawGyroZ());
+		GambeziDashboard.set_double("navx/rate", DriveSubsystem.getInstance().getGyro().getRate());
+		GambeziDashboard.set_double("navx/angle", DriveSubsystem.getInstance().getGyro().getAngle());
+		GambeziDashboard.set_double("gyro2/angle", DriveSubsystem.getInstance().getGyro2().getAngle());
+		GambeziDashboard.set_double("gyro2/rate", DriveSubsystem.getInstance().getGyro2().getRate());
 	}
 	
 	/**

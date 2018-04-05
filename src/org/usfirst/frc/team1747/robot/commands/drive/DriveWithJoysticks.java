@@ -139,14 +139,6 @@ public class DriveWithJoysticks extends Command {
     	GambeziDashboard.set_double("Drive/Left_Acceleration", drivetrain.getLeftAcceleration());
     	GambeziDashboard.set_double("Drive/Right_Acceleration", drivetrain.getRightAcceleration());
     	GambeziDashboard.set_double("Drive/Drive_Angle", drivetrain.getGyro().getAngle());
-
-
-		GambeziDashboard.set_double("navx/yaw", drivetrain.getGyro().getYaw());
-		GambeziDashboard.set_double("navx/rawgyroz", drivetrain.getGyro().getRawGyroZ());
-		GambeziDashboard.set_double("navx/rate", drivetrain.getGyro().getRate());
-		GambeziDashboard.set_double("navx/angle", drivetrain.getGyro().getAngle());
-		GambeziDashboard.set_double("gyro2/angle", drivetrain.getGyro2().getAngle());
-		GambeziDashboard.set_double("gyro2/rate", drivetrain.getGyro2().getRate());
 		
     }
 

@@ -8,10 +8,10 @@ import org.usfirst.frc.team1747.robot.subsystems.ElevatorSubsystem;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
-public class TeleopSwitch extends CommandGroup {
+public class TeleopSwitchHigh extends CommandGroup {
 
-	public TeleopSwitch(){
-		addSequential(new SetElevatorPosition(ElevatorSubsystem.ElevatorPositions.SWITCH));
+	public TeleopSwitchHigh(){
+		addSequential(new SetElevatorPosition(ElevatorSubsystem.ElevatorPositions.HIGH_SWITCH));
 		addSequential(new WristBottom());
 		addSequential(new EjectCube(0.5));
 		addSequential(new ElevatorReset());

@@ -19,17 +19,15 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 import lib.frc1747.commands.MakeParallel;
 import lib.frc1747.commands.MakeSequential;
 
-/**
- *
- */
 public class AutonLRL extends CommandGroup {
 
     public AutonLRL() {
-    	//go to left scale and place cube
+    	// Go to left scale and place cube
     	addSequential(new MakeParallel(
 			new MakeSequential(
 				new WristVertical(),
-				new Delay(2500),
+				new Delay(2250),
+				new AutonOutake(0.7),
 				new SetElevatorPosition(ElevatorSubsystem.ElevatorPositions.TOP)
 			),
 			new DriveProfile("/home/lvuser/LLL0.csv")
@@ -38,21 +36,28 @@ public class AutonLRL extends CommandGroup {
 		addSequential(new WristOverTop());
 		addSequential(new AutonOutake());
 		
-		//drive to right switch and get new cube
-		addSequential(new MakeParallel(new MakeSequential(new WristBottom(), new SetElevatorPosition(ElevatorSubsystem.ElevatorPositions.BOTTOM)), new Intake(), new OpenClaw(), new DriveProfile("/home/lvuser/LRL1.csv")));
+		// Drive to right switch and get new cube
+		addSequential(new MakeParallel(
+			new MakeSequential(
+				new SetElevatorPosition(ElevatorSubsystem.ElevatorPositions.BOTTOM),
+				new WristBottom()),
+			new Intake(),
+			new DriveProfile("/home/lvuser/LRL1.csv")
+		));
 		addSequential(new AutonStopMotors());
-		addSequential(new CloseClaw());
-		addSequential(new AutonStopMotors());
-		
-		//raise elevator and eject cube
+		//backup to get cube
+		addSequential(new MakeParallel(new Intake(), new DriveCurve(-0.5, 0.0)));
+		// Raise elevator and eject cube
 		addSequential(new SetElevatorPosition(ElevatorSubsystem.ElevatorPositions.SWITCH));
 		addSequential(new WristBottom());
-		addSequential(new DriveCurve(0.8, -15));
+		addSequential(new DriveCurve(0.8, -50));
 		addSequential(new AutonOutake());
 		
-		//back away from scwitch
-    	addSequential(new MakeParallel(new WristTop(), new DriveCurve(-1, 0)));
+		// Back away from switch
+    	addSequential(new MakeParallel(
+    		new WristTop(),
+    		new DriveCurve(-1, 0)
+    	));
     	addSequential(new SetElevatorPosition(ElevatorSubsystem.ElevatorPositions.BOTTOM));
-
     }
 }

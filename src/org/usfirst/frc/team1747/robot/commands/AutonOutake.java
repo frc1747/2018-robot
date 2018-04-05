@@ -12,14 +12,20 @@ public class AutonOutake extends Command {
 	public IntakeSubsystem intake;
 	long startTime;
 	double power;
+	long time;
 	
 	public AutonOutake() {
 		this(-0.8);
 	}
     public AutonOutake(double power) {
+    	this(power, 250);
+    }
+    
+    public AutonOutake(double power, long timeMillis){
     	this.power = power;
+    	this.time = timeMillis;
     	intake = IntakeSubsystem.getInstance();
-		requires (intake);
+    	requires(intake);
     }
 
     // Called just before this Command runs the first time
@@ -34,7 +40,7 @@ public class AutonOutake extends Command {
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return (System.currentTimeMillis() - startTime) >= 250;
+        return (System.currentTimeMillis() - startTime) >= time;
     	//return false;
     }
 

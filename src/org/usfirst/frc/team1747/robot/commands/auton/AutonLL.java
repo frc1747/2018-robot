@@ -22,7 +22,8 @@ public class AutonLL extends CommandGroup {
 		addSequential(new MakeParallel(
 			new MakeSequential(
 				new WristVertical(),
-				new Delay(2000),
+				new Delay(1750),
+				new AutonOutake(0.7),
 				new SetElevatorPosition(ElevatorSubsystem.ElevatorPositions.TOP),
 				new WristOverTop(),
 				new AutonOutake()
@@ -49,7 +50,7 @@ public class AutonLL extends CommandGroup {
 				//new Delay(500),
 				new SetElevatorPosition(ElevatorSubsystem.ElevatorPositions.TOP),
 				new WristOverTop(),
-				new AutonOutake(-0.7)
+				new AutonOutake(-0.50, 500)
 			),
 			new DriveProfile("/home/lvuser/LL2.csv")
 		));

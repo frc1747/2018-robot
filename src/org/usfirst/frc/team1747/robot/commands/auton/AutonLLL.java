@@ -24,7 +24,8 @@ public class AutonLLL extends CommandGroup {
     	addSequential(new MakeParallel(
     		new MakeSequential(
 				new WristVertical(),
-				new Delay(2000),
+				new Delay(1750),
+				new AutonOutake(0.7),
 				new SetElevatorPosition(ElevatorSubsystem.ElevatorPositions.TOP),
 				new WristOverTop(),
 				new AutonOutake()

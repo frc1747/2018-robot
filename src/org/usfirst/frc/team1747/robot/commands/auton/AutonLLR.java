@@ -16,60 +16,59 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 import lib.frc1747.commands.MakeParallel;
 import lib.frc1747.commands.MakeSequential;
 
-/**
- *
- */
 public class AutonLLR extends CommandGroup {
 
     public AutonLLR() {
-    	//place cube in close switch by doing 180
+    	// Drive to switch side position
     	addSequential(new MakeParallel(
-				new MakeSequential(
-					new WristVertical(),
-					new Delay(750),
-					new WristBottom(),
-					new SetElevatorPosition(ElevatorSubsystem.ElevatorPositions.SWITCH)
-				),
-				new DriveProfile("/home/lvuser/LLR0.csv")
-//				new DriveProfile("/home/lvuser/left_to_left_switch_special.csv")
-			));
+			new MakeSequential(
+				new WristVertical(),
+				new Delay(750),
+				new WristBottom(),
+				new SetElevatorPosition(ElevatorSubsystem.ElevatorPositions.SWITCH)
+			),
+			new DriveProfile("/home/lvuser/LLR0.csv")
+		));
+		addSequential(new AutonStopMotors());
+
+		// Do a 180 and drop the cube
+		addSequential(new MakeParallel(
+			new MakeSequential(
+				new Delay(800),
+				new AutonOutake()
+			),
+			new DriveCurve(0, 180)
+		));
+		addSequential(new AutonStopMotors());
+
+		// Drive to other side of the switch and pickup a cube
+		addSequential(new MakeParallel(
+			new MakeSequential(
+				new WristVertical(),
+				new SetElevatorPosition(ElevatorSubsystem.ElevatorPositions.BOTTOM),
+				new Delay(1000),
+				new WristBottom(),
+				new Intake()
+			),            	    					
+			new DriveProfile("/home/lvuser/LLR1.csv")
+		));
+		addSequential(new AutonStopMotors());
+
+		// Drive back to scale and place cube
+		addSequential(new MakeParallel(
+			new MakeSequential(
+				new AutonOutake(0.7),
+				new WristVertical(),
+				new Delay(750),
+				new SetElevatorPosition(ElevatorSubsystem.ElevatorPositions.TOP),
+				new WristOverTop(),
+				new AutonOutake()
+			),
+			new DriveProfile("/home/lvuser/LLR2.csv")
+		));
 		addSequential(new AutonStopMotors());
 		
-		addSequential(new MakeParallel(
-				new MakeSequential(
-					new Delay(800),
-					new AutonOutake()
-				),
-						new DriveCurve(0, 180)
-			));
-		addSequential(new AutonStopMotors());
-		//drive to other side of the switch and pickup cube
-		
-		addSequential(new MakeParallel(
-					new MakeSequential(
-							new WristVertical(),
-							new SetElevatorPosition(ElevatorSubsystem.ElevatorPositions.BOTTOM),
-    						new Delay(1000),
-    						new WristBottom(),
-    						new Intake()
-    					),            	    					
-					new DriveProfile("/home/lvuser/LLR1.csv")
-//    					new DriveProfile("/home/lvuser/left_to_right_switch_special.csv")
-    				));
-		addSequential(new AutonStopMotors());
-		//drive back to scale and place cube
-		addSequential(new MakeParallel(
-				new MakeSequential(
-						new WristVertical(),
-						new Delay(1000),
-						new SetElevatorPosition(ElevatorSubsystem.ElevatorPositions.TOP),
-						new WristOverTop(),
-						new AutonOutake()
-					),
-					new DriveProfile("/home/lvuser/LLR2.csv")
-//					new DriveProfile("/home/lvuser/right_switch_to_right_scale_special.csv")
-				));
-	addSequential(new AutonStopMotors());
-	addSequential(new SetElevatorPosition(ElevatorSubsystem.ElevatorPositions.BOTTOM));
+		// Put elevator back down
+		addSequential(new SetElevatorPosition(ElevatorSubsystem.ElevatorPositions.BOTTOM));
     }
 }

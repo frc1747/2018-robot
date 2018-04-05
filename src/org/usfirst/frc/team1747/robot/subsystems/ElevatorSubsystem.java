@@ -25,14 +25,14 @@ public class ElevatorSubsystem extends HBRSubsystem<ElevatorSubsystem.Follower> 
 	double scaling;
 	int elevatorIndex = 0;
 	int wristIndex =  3;
-	double[] elevatorPositions = {0, 24, 60, 72};
+	double[] elevatorPositions = {0, 24, 36, 60, 72};
 	double[] wristPositions = {Math.PI / 2, 3 * Math.PI / 4, Math.PI, 3.8};
 	double wristOffset;
 	
 	private static ElevatorSubsystem elevator;
 	
 	public enum ElevatorPositions{
-		BOTTOM, SWITCH, LOW_SCALE, TOP;
+		BOTTOM, SWITCH, HIGH_SWITCH, LOW_SCALE, TOP;
 	}
 	
 	public enum Follower{
