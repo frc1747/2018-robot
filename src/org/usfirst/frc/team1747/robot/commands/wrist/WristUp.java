@@ -1,4 +1,4 @@
-package org.usfirst.frc.team1747.robot.commands;
+package org.usfirst.frc.team1747.robot.commands.wrist;
 
 import org.usfirst.frc.team1747.robot.OI;
 import org.usfirst.frc.team1747.robot.subsystems.DriveSubsystem;
@@ -17,32 +17,27 @@ import lib.frc1747.subsytems.HBRSubsystem;
 /**
  *
  */
-public class WristDown extends Command {
+public class WristUp extends Command {
 	private ElevatorSubsystem elevator;
 	
-	private final double s_v_max = 18;
-	private final double a_v_max = 17.28;
-	private final double[] elevatorPositions = {0, 24, 48};
+	
+	//private final double[] elevatorPositions = {0, 24, 48};
 	private final double[] wristPositions = {0, 90, 135};
 	private final double wristScaling = 5/360;
-	
 	
 
 	
 	double elevatorSetpoint;
 	double wristSetpoint;
 
-    public WristDown() {
+    public WristUp() {
     	requires(elevator = ElevatorSubsystem.getInstance());
-    	setInterruptible(true); 	
+    	setInterruptible(true);
+    	
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	if (elevator.getWristStage() > 0) {
-			elevator.setWristStage(elevator.getWristStage() - 1);
-		}
-		
     	//setup elevator PID
     	elevator.setMode(ElevatorSubsystem.Follower.ELEVATOR, HBRSubsystem.Mode.PID);
     	elevator.setPIDMode(ElevatorSubsystem.Follower.ELEVATOR, HBRSubsystem.PIDMode.POSITION);
@@ -55,13 +50,30 @@ public class WristDown extends Command {
     	elevator.setILimit(ElevatorSubsystem.Follower.WRIST, 0);
     	elevator.setFeedforward(ElevatorSubsystem.Follower.WRIST, 0, GambeziDashboard.get_double("Wrist/kV"), GambeziDashboard.get_double("Wrist/kA"));
     	elevator.setFeedback(ElevatorSubsystem.Follower.WRIST, GambeziDashboard.get_double("Wrist/kP"), GambeziDashboard.get_double("Wrist/kI"), GambeziDashboard.get_double("Wrist/kD"));
-    	elevator.resetIntegrator(ElevatorSubsystem.Follower.WRIST);
+		elevator.resetIntegrator(ElevatorSubsystem.Follower.WRIST);
 		
 		elevator.setEnabled(true);
-	
+
+		/*
+		if(elevator.getElevatorStage() != 2){	
+			if((elevator.getWristStage() + 1) == 2){
+				
+			}else if (elevator.getElevatorPosition() > 48){
+				elevator.setSetpoint(ElevatorSubsystem.Follower.WRIST, (wristPositions[elevator.getWristStage()] + 1) * wristScaling);
+				elevator.setElevatorStage(elevator.getElevatorStage() + 1);
+			}
+		}else{
+			elevator.setSetpoint(ElevatorSubsystem.Follower.WRIST, (wristPositions[elevator.getElevatorStage()] + 1) * wristScaling);
+			elevator.setWristStage(elevator.getWristStage() + 1);
+		}
+		*/
+		
+		if (elevator.getWristStage() < elevator.getWristStages().length - 1) {
+			elevator.setWristStage(elevator.getWristStage() + 1);
+		}
 		elevator.setSetpoint(ElevatorSubsystem.Follower.WRIST, elevator.getWristStages()[elevator.getWristStage()]);
 		elevator.setSetpoint(ElevatorSubsystem.Follower.ELEVATOR, (elevator.getElevatorStages()[elevator.getElevatorStage()]));
-
+		
 		GambeziDashboard.set_double("Elevator/Index", elevator.getElevatorStage());
 		GambeziDashboard.set_double("Wrist/Index", elevator.getWristStage());
     }

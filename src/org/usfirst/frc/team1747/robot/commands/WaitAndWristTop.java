@@ -1,5 +1,7 @@
 package org.usfirst.frc.team1747.robot.commands;
 
+import org.usfirst.frc.team1747.robot.commands.wrist.WristVertical;
+
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
 public class WaitAndWristTop extends CommandGroup {

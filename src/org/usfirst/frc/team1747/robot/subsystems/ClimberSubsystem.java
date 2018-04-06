@@ -14,7 +14,7 @@ public class ClimberSubsystem extends HBRSubsystem {
 	
 	HBRTalon motor1;
 	HBRTalon motor2;
-	private Solenoid solenoid;
+	private Solenoid latch;
 	
 	public ClimberSubsystem() {
 		super(RobotMap.DT);
@@ -24,7 +24,7 @@ public class ClimberSubsystem extends HBRSubsystem {
 		motor1.setInverted(RobotMap.CLIMB_1_INVERT);
 		motor2.setInverted(RobotMap.CLIMB_2_INVERT);
 		
-		solenoid = new Solenoid(RobotMap.CLIMBER_SOLENOID);
+		latch = new Solenoid(RobotMap.CLIMBER_SOLENOID);
 	}
 	
 	@Override
@@ -52,6 +52,14 @@ public class ClimberSubsystem extends HBRSubsystem {
 	
 	public double getSpeed() {
 		return motor1.getSpeed(0);
+	}
+	
+	public void releaseBuddyClimb(){
+		latch.set(true);
+	}
+	
+	public void resetBuddyClimbLatch(){
+		latch.set(false);
 	}
 	
 	public static ClimberSubsystem getInstance() {

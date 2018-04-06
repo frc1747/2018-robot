@@ -7,6 +7,10 @@ import org.usfirst.frc.team1747.robot.commands.drive.DriveProfile;
 import org.usfirst.frc.team1747.robot.commands.reset.AutonStopMotors;
 import org.usfirst.frc.team1747.robot.commands.reset.ZeroElevatorEncoder;
 import org.usfirst.frc.team1747.robot.commands.reset.ZeroSensors;
+import org.usfirst.frc.team1747.robot.commands.wrist.WristBottom;
+import org.usfirst.frc.team1747.robot.commands.wrist.WristOverTop;
+import org.usfirst.frc.team1747.robot.commands.wrist.WristTop;
+import org.usfirst.frc.team1747.robot.commands.wrist.WristVertical;
 import org.usfirst.frc.team1747.robot.subsystems.ElevatorSubsystem;
 import org.usfirst.frc.team1747.robot.subsystems.ElevatorSubsystem.ElevatorPositions;
 

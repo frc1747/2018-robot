@@ -1,31 +1,37 @@
-package org.usfirst.frc.team1747.robot.commands;
+package org.usfirst.frc.team1747.robot.commands.wrist;
 
 import org.usfirst.frc.team1747.robot.subsystems.ElevatorSubsystem;
-import org.usfirst.frc.team1747.robot.subsystems.IntakeSubsystem;
 
 import com.tigerhuang.gambezi.dashboard.GambeziDashboard;
 
 import edu.wpi.first.wpilibj.command.Command;
 import lib.frc1747.subsytems.HBRSubsystem;
 
-public class WristOverTop extends Command {
 
-	private ElevatorSubsystem elevator;
-	private IntakeSubsystem intake;
+public class WristBottom extends Command {
+private ElevatorSubsystem elevator;
+	
+	private final double s_v_max = 18;
+	private final double a_v_max = 17.28;
+	private final double[] elevatorPositions = {0, 24, 48};
+	private final double[] wristPositions = {0, 90, 135};
+	private final double wristScaling = 5/360;
+	
+	
 
+	
 	double elevatorSetpoint;
 	double wristSetpoint;
 
-    public WristOverTop() {
+    public WristBottom() {
     	requires(elevator = ElevatorSubsystem.getInstance());
     	setInterruptible(true); 	
-    	intake = IntakeSubsystem.getInstance();
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
-        elevator.setWristStage(elevator.getWristStages().length - 1);
-    	
+    	System.out.println("Wrist Bottom");
+    	elevator.setWristStage(0);
     	
     	//setup elevator PID
     	elevator.setMode(ElevatorSubsystem.Follower.ELEVATOR, HBRSubsystem.Mode.PID);
@@ -56,11 +62,7 @@ public class WristOverTop extends Command {
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-    	if(!(intake.ifCubeCompletelyHeld())){
-    		return Math.abs(elevator.getWristPosition() - elevator.getWristStages()[elevator.getWristStages().length - 1]) < Math.PI/18;
-    	}else{
-    		return Math.abs(elevator.getWristPosition() - elevator.getWristStages()[elevator.getWristStages().length - 1]) < Math.PI/18;
-    	}
+        return Math.abs(elevator.getWristPosition() - elevator.getWristStages()[0]) < Math.PI/18;
     }
 
     // Called once after isFinished returns true
