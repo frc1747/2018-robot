@@ -15,27 +15,18 @@ public class ClimberSubsystem extends HBRSubsystem {
 	
 	static ClimberSubsystem climber;
 	
-	HBRTalon pracmotor1;
-	HBRTalon pracmotor2;
 	HBRTalon motor1, motor2;
 	private Solenoid latch;
 	private RobotType bottype;
 	
 	public ClimberSubsystem() {
 		super(RobotMap.DT);
-		bottype = RobotType.getInstance();
-		if(bottype.isCompBot()){
-			motor1 = new HBRTalon(RobotMap.CLIMB_MOTOR_1);
-			motor2 = new HBRTalon(RobotMap.CLIMB_MOTOR_2);
-			
-			motor1.setInverted(RobotMap.CLIMB_1_INVERT);
-			motor2.setInverted(RobotMap.CLIMB_2_INVERT);
-		} else {
-			pracmotor1 = new HBRTalon(RobotMap.CLIMB_MOTOR_1);
-			pracmotor2 = new HBRTalon(RobotMap.CLIMB_MOTOR_2);
-			
-			pracmotor1.setInverted(RobotMap.CLIMB_1_INVERT);
-			pracmotor2.setInverted(RobotMap.CLIMB_2_INVERT);
+
+		motor1 = new HBRTalon(RobotMap.CLIMB_MOTOR_1);
+		motor2 = new HBRTalon(RobotMap.CLIMB_MOTOR_2);
+		
+		motor1.setInverted(RobotMap.CLIMB_1_INVERT);
+		motor2.setInverted(RobotMap.CLIMB_2_INVERT);
 		}
 		
 		latch = new Solenoid(RobotMap.CLIMBER_SOLENOID);
@@ -59,13 +50,8 @@ public class ClimberSubsystem extends HBRSubsystem {
 	}
 	
 	public void setPower(double power) {
-		if(bottype.isCompBot()){
-			motor1.set(ControlMode.PercentOutput, power);
-			motor2.set(ControlMode.PercentOutput, power);
-		} else {
-			pracmotor1.set(ControlMode.PercentOutput, power);
-			pracmotor2.set(ControlMode.PercentOutput, power);
-		}
+		motor1.set(ControlMode.PercentOutput, power);
+		motor2.set(ControlMode.PercentOutput, power);
 	}
 	
 	public void releaseBuddyClimb(){
