@@ -27,7 +27,6 @@ public class ClimberSubsystem extends HBRSubsystem {
 		
 		motor1.setInverted(RobotMap.CLIMB_1_INVERT);
 		motor2.setInverted(RobotMap.CLIMB_2_INVERT);
-		}
 		
 		latch = new Solenoid(RobotMap.CLIMBER_SOLENOID);
 	}
