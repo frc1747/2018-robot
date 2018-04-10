@@ -9,16 +9,7 @@ import lib.frc1747.subsytems.HBRSubsystem;
 
 
 public class WristBottom extends Command {
-private ElevatorSubsystem elevator;
-	
-	private final double s_v_max = 18;
-	private final double a_v_max = 17.28;
-	private final double[] elevatorPositions = {0, 24, 48};
-	private final double[] wristPositions = {0, 90, 135};
-	private final double wristScaling = 5/360;
-	
-	
-
+	private ElevatorSubsystem elevator;
 	
 	double elevatorSetpoint;
 	double wristSetpoint;

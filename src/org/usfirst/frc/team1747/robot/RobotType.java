@@ -16,6 +16,10 @@ public class RobotType extends Subsystem {
 		return jumper;
 	}
 	
+	public boolean isCompBot(){
+		return !jumper.get();
+	}
+	
 	public static RobotType getInstance(){
 		if(instance == null){
 			instance = new RobotType();

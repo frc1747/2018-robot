@@ -75,7 +75,7 @@ public class DriveWithJoysticks extends Command {
        	//angleSetpoint = -a_v_max * OI.getInstance().getDriver().getAxis(Logitech.RIGHT_HORIZONTAL);
     	
     	speedSetpoint = s_v_max * Math.max(-1.0, Math.min(1.0, OI.getInstance().getDriver().getAxis(Logitech.LEFT_VERTICAL) + 0.5 * OI.getInstance().getOperator().getAxis(Logitech.LEFT_VERTICAL)));
-    	angleSetpoint = -a_v_max * Math.max(-1.0, Math.min(1.0, OI.getInstance().getDriver().getAxis(Logitech.RIGHT_HORIZONTAL) + 0.5 * OI.getInstance().getOperator().getAxis(Logitech.RIGHT_HORIZONTAL)));
+    	angleSetpoint = -a_v_max * Math.max(-1.0, Math.min(1.0, OI.getInstance().getDriver().getAxis(Logitech.RIGHT_HORIZONTAL))); // + 0.5 * OI.getInstance().getOperator().getAxis(Logitech.RIGHT_HORIZONTAL)
        	
        	//Limits robot speed when elevator is up
     	/*if (elevator.getElevatorPosition() > RobotMap.ELEVATOR_SPEED_LIMIT_POSITION)  {

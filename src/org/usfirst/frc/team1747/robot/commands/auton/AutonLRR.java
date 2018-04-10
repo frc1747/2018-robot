@@ -25,7 +25,7 @@ public class AutonLRR extends CommandGroup {
 			new MakeSequential(
 				new WristVertical(),
 				new Delay(4750),
-				new SetElevatorPosition(ElevatorSubsystem.ElevatorPositions.TOP),
+//				new SetElevatorPosition(ElevatorSubsystem.ElevatorPositions.TOP),
 				new WristOverTop(),
 				new AutonOutake()
 			),
@@ -36,14 +36,14 @@ public class AutonLRR extends CommandGroup {
 		// Bring elevator to bottom then grab another cube
 		addSequential(new WristBottom());
 		addSequential(new MakeParallel(
-		   	new SetElevatorPosition(ElevatorSubsystem.ElevatorPositions.BOTTOM),
+//		   	new SetElevatorPosition(ElevatorSubsystem.ElevatorPositions.BOTTOM),
 			new Intake(),
 			new DriveProfile("/home/lvuser/LRR1.csv")
 		));
 		addSequential(new AutonStopMotors());
 		
 		// Place cube in switch
-		addSequential(new SetElevatorPosition(ElevatorSubsystem.ElevatorPositions.SWITCH));
+//		addSequential(new SetElevatorPosition(ElevatorSubsystem.ElevatorPositions.SWITCH));
 		addSequential(new WristBottom());
 		addSequential(new DriveCurve(0.8, 15));
 		addSequential(new AutonStopMotors());
@@ -52,7 +52,7 @@ public class AutonLRR extends CommandGroup {
 		// Back away from switch
 		addSequential(new WristTop());
 		addSequential(new MakeParallel(
-			new SetElevatorPosition(ElevatorSubsystem.ElevatorPositions.BOTTOM),
+//			new SetElevatorPosition(ElevatorSubsystem.ElevatorPositions.BOTTOM),
 	    	new DriveCurve(-1,0)
 		));
 		addSequential(new AutonStopMotors());

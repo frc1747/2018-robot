@@ -15,6 +15,7 @@ import org.usfirst.frc.team1747.robot.commands.ElevatorReset;
 import org.usfirst.frc.team1747.robot.commands.Intake;
 //import org.usfirst.frc.team1747.robot.commands.TeleopScaleForward;
 import org.usfirst.frc.team1747.robot.commands.OpenClaw;
+import org.usfirst.frc.team1747.robot.commands.ReleaseBuddyClimb;
 import org.usfirst.frc.team1747.robot.commands.ScaleDrop2;
 import org.usfirst.frc.team1747.robot.commands.SetElevatorPosition;
 import org.usfirst.frc.team1747.robot.commands.drive.DriveProfile;
@@ -181,6 +182,7 @@ public class OI {
 		operator.getDPad(Logitech.UP).whenPressed(new TeleopScaleBackward());
 		operator.getButton(Logitech.BACK).whileHeld(new ElevateUp());
 		operator.getDPad(Logitech.UP).whenPressed(new TeleopSwitchHigh());
+		operator.getDPad(Logitech.DOWN).whileHeld(new ReleaseBuddyClimb());
 	}
 	
 	public Logitech getDriver() {
