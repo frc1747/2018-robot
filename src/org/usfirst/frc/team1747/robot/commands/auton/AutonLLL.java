@@ -21,12 +21,13 @@ public class AutonLLL extends CommandGroup {
 
     public AutonLLL() {
 		// Drive and put cube in scale
+    	System.out.println("This Auton Running");
     	addSequential(new MakeParallel(
     		new MakeSequential(
 				new WristVertical(),
 				new Delay(1750),
 				new AutonOutake(0.7),
-//				new SetElevatorPosition(ElevatorSubsystem.ElevatorPositions.TOP),
+				new SetElevatorPosition(ElevatorSubsystem.ElevatorPositions.TOP),
 				new WristOverTop(),
 				new AutonOutake()
 			),
@@ -37,23 +38,23 @@ public class AutonLLL extends CommandGroup {
 		// Bring elevator to bottom then grab another cube
 		addSequential(new WristBottom());
 		addSequential(new MakeParallel(
-//			new SetElevatorPosition(ElevatorSubsystem.ElevatorPositions.BOTTOM),
+			new SetElevatorPosition(ElevatorSubsystem.ElevatorPositions.BOTTOM),
 			new Intake(),
 			new DriveProfile("/home/lvuser/LLL1.csv")
 		));
 		addSequential(new AutonStopMotors());
 		
 		// Place cube in switch
-//		addSequential(new SetElevatorPosition(ElevatorSubsystem.ElevatorPositions.SWITCH));
+		addSequential(new SetElevatorPosition(ElevatorSubsystem.ElevatorPositions.SWITCH));
 		addSequential(new WristBottom());
-		addSequential(new DriveCurve(0.8, -15));
+		addSequential(new DriveCurve(0.8, -30));
 		addSequential(new AutonStopMotors());
-		addSequential(new AutonOutake());
+		addSequential(new AutonOutake(-0.5));
 		
 		// Back away from switch
 		addSequential(new WristTop());
 		addSequential(new MakeParallel(
-//			new SetElevatorPosition(ElevatorSubsystem.ElevatorPositions.BOTTOM),
+			new SetElevatorPosition(ElevatorSubsystem.ElevatorPositions.BOTTOM),
 	    	new DriveCurve(-1,0)
 		));
 		addSequential(new AutonStopMotors());

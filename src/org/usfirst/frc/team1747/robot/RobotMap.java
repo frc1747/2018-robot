@@ -36,10 +36,10 @@ public class RobotMap {
 	public static final int[] LEFT_MOTOR_PORTS = {01, 02, 03, 04};
 	public static final int[] RIGHT_MOTOR_PORTS = {11, 12, 13, 14};
 	
-	public static final double LEFT_PRACTICE_SCALING = 1266.5;
-	public static final double RIGHT_PRACTICE_SCALING = 1264.8;
-	public static final double LEFT_SCALING = 1266.5 * 10.1/10.27 * 10.4/10.25 * 10.1/10.25 * 10.33/10.25;
-	public static final double RIGHT_SCALING = 1264.8 * 10.12/10.27 * 10.4/10.25 * 10.1/10.25 * 10.4/10.25;
+	public static final double LEFT_PRACTICE_SCALING = 1266.5 * 10.38/10.25;
+	public static final double RIGHT_PRACTICE_SCALING = 1264.8 * 10.38/10.25;
+	public static final double LEFT_SCALING = 1266.5 * 10.1/10.27 * 10.4/10.25 * 10.1/10.25 * 10.33/10.25 * 10.4/10.25 * 10.11/10.25 * 10.35/10.25 * 10.37/10.25;
+	public static final double RIGHT_SCALING = 1264.8 * 10.12/10.27 * 10.4/10.25 * 10.1/10.25 * 10.4/10.25 * 10.4/10.25 * 10.05/10.25 * 10.33/10.25 * 10.33/10.25;
 	
 	public static final int FUSE_THERMISTOR = 0;
 	
@@ -52,7 +52,7 @@ public class RobotMap {
 	public static final double ELEVATOR_SPEED_LIMIT_POSITION = 24;
 	
 	//wrist offset should be between 0 and 5
-	public static final double WRIST_OFFSET_PRACTICE  = 0.546 - 0.62;					//used to set wrist to "0"
+	public static final double WRIST_OFFSET_PRACTICE  = 0.546 - 0.62 - 0.54;					//used to set wrist to "0"
 	public static final double WRIST_ENCODER_GEAR = 60. / 84;
 	public static final double WRIST_OFFSET_COMP  = -3.7 - 0.12 + 0.04;					//used to set wrist to "0"
 

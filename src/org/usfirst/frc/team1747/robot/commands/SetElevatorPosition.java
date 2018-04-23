@@ -52,8 +52,11 @@ public class SetElevatorPosition extends Command {
 	    	elevator.setMode(ElevatorSubsystem.Follower.ELEVATOR, HBRSubsystem.Mode.FOLLOWER);
 	    	elevator.setPIDMode(ElevatorSubsystem.Follower.ELEVATOR, HBRSubsystem.PIDMode.POSITION);
 	    	elevator.setILimit(ElevatorSubsystem.Follower.ELEVATOR, 0);
-	    	elevator.setFeedforward(ElevatorSubsystem.Follower.ELEVATOR, 0, GambeziDashboard.get_double("Elevator/kV"), GambeziDashboard.get_double("Elevator/kA"));
-	    	elevator.setFeedback(ElevatorSubsystem.Follower.ELEVATOR, GambeziDashboard.get_double("Elevator/kP"), GambeziDashboard.get_double("Elevator/kI"), GambeziDashboard.get_double("Elevator/kD"));
+//	    	elevator.setFeedforward(ElevatorSubsystem.Follower.ELEVATOR, 0, GambeziDashboard.get_double("Elevator/kV"), GambeziDashboard.get_double("Elevator/kA"));
+//	    	elevator.setFeedback(ElevatorSubsystem.Follower.ELEVATOR, GambeziDashboard.get_double("Elevator/kP"), GambeziDashboard.get_double("Elevator/kI"), GambeziDashboard.get_double("Elevator/kD"));
+	    	elevator.setFeedforward(ElevatorSubsystem.Follower.ELEVATOR, 0, 0.0068, 0.0009);
+	    	elevator.setFeedback(ElevatorSubsystem.Follower.ELEVATOR, 0.18, 0., 0.);
+	    	
 	    	elevator.resetIntegrator(ElevatorSubsystem.Follower.ELEVATOR);
 	    	elevator.setProfile(ElevatorSubsystem.Follower.ELEVATOR, profiles[0]);
 	    	

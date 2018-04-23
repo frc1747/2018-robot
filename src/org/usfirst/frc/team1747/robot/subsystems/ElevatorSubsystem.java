@@ -3,6 +3,7 @@ package org.usfirst.frc.team1747.robot.subsystems;
 import org.usfirst.frc.team1747.robot.Robot;
 import org.usfirst.frc.team1747.robot.RobotMap;
 import org.usfirst.frc.team1747.robot.RobotType;
+import org.usfirst.frc.team1747.robot.commands.ManualElevator;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.tigerhuang.gambezi.dashboard.GambeziDashboard;
@@ -25,14 +26,14 @@ public class ElevatorSubsystem extends HBRSubsystem<ElevatorSubsystem.Follower> 
 	double scaling;
 	int elevatorIndex = 0;
 	int wristIndex =  3;
-	double[] elevatorPositions = {0, 24, 36, 60, 70};
+	double[] elevatorPositions = {0, 24, 36, 51, 60, 72};
 	double[] wristPositions = {Math.PI / 2, 3 * Math.PI / 4, Math.PI, 3.8};
 	double wristOffset;
 	
 	private static ElevatorSubsystem elevator;
 	
 	public enum ElevatorPositions{
-		BOTTOM, SWITCH, HIGH_SWITCH, LOW_SCALE, TOP;
+		BOTTOM, SWITCH, HIGH_SWITCH, LOWEST_SCALE, LOW_SCALE, TOP;
 	}
 	
 	public enum Follower{
@@ -201,7 +202,7 @@ public class ElevatorSubsystem extends HBRSubsystem<ElevatorSubsystem.Follower> 
 	
 	@Override
 	protected void initDefaultCommand() {
-		// TODO Auto-generated method stub
+		setDefaultCommand(new ManualElevator());
 	}
 
 	@Override

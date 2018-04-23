@@ -17,8 +17,8 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 import lib.frc1747.commands.MakeParallel;
 import lib.frc1747.commands.MakeSequential;
 
-public class AutonLR extends CommandGroup {
-	public AutonLR(){
+public class AutonRL extends CommandGroup {
+	public AutonRL(){
 		
 		//drive to right scale and place cube
 		addSequential(new MakeParallel(
@@ -27,7 +27,7 @@ public class AutonLR extends CommandGroup {
 					new Delay(4500),
 					new SetElevatorPosition(ElevatorSubsystem.ElevatorPositions.TOP)
 				),
-				new DriveProfile("/home/lvuser/LR0.csv")
+				new DriveProfile("/home/lvuser/RL0.csv")
 //				new DriveProfile("/home/lvuser/left_to_right_scale.csv")
 			));
 		addSequential(new WristOverTop());
@@ -39,7 +39,7 @@ public class AutonLR extends CommandGroup {
 //		addSequential(new MakeParallel(new Intake(), new DriveProfile("/home/lvuser/LR1.csv")));
 		addParallel(new Intake());
 ////		addParallel(new OpenClaw());
-		addSequential(new DriveProfile("/home/lvuser/LR1.csv"));
+		addSequential(new DriveProfile("/home/lvuser/RL1.csv"));
 		
 //		addSequential(new DriveProfile("/home/lvuser/right_to_right_switch.csv"));
 //		addSequential(new CloseClaw());
@@ -56,7 +56,7 @@ public class AutonLR extends CommandGroup {
 						new AutonOutake(-0.55, 500),
 						new SetElevatorPosition(ElevatorSubsystem.ElevatorPositions.BOTTOM)
 					),
-					new DriveProfile("/home/lvuser/LR2.csv")
+					new DriveProfile("/home/lvuser/RL2.csv")
 //					new DriveProfile("/home/lvuser/right_switch_to_right_scale_special.csv")
 				));
 	}

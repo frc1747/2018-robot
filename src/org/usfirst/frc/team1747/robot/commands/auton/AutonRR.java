@@ -15,9 +15,9 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 import lib.frc1747.commands.MakeParallel;
 import lib.frc1747.commands.MakeSequential;
 
-public class AutonLL extends CommandGroup {
+public class AutonRR extends CommandGroup {
 	
-	public AutonLL() {
+	public AutonRR() {
 		// Drive and put cube in scale
 		addSequential(new MakeParallel(
 			new MakeSequential(
@@ -28,7 +28,7 @@ public class AutonLL extends CommandGroup {
 				new WristOverTop(),
 				new AutonOutake(-0.7)
 			),
-			new DriveProfile("/home/lvuser/LL0.csv")
+			new DriveProfile("/home/lvuser/RR0.csv")
 		));
 		addSequential(new AutonStopMotors());
 		
@@ -37,7 +37,7 @@ public class AutonLL extends CommandGroup {
 		addSequential(new MakeParallel(
 			new SetElevatorPosition(ElevatorSubsystem.ElevatorPositions.BOTTOM),
 			new Intake(),
-			new DriveProfile("/home/lvuser/LL1.csv")
+			new DriveProfile("/home/lvuser/RR1.csv")
 		));
 		addSequential(new AutonStopMotors());
 		
@@ -51,7 +51,7 @@ public class AutonLL extends CommandGroup {
 				new WristOverTop(),
 				new AutonOutake(-0.50, 500)
 			),
-			new DriveProfile("/home/lvuser/LL2.csv")
+			new DriveProfile("/home/lvuser/RR2.csv")
 		));
 		addSequential(new AutonStopMotors());
 
@@ -60,7 +60,7 @@ public class AutonLL extends CommandGroup {
 		addSequential(new MakeParallel(
 				new SetElevatorPosition(ElevatorSubsystem.ElevatorPositions.BOTTOM),
 				new Intake(),
-				new DriveProfile("/home/lvuser/LL3.csv")
+				new DriveProfile("/home/lvuser/RR3.csv")
 		));
 		addSequential(new AutonStopMotors());
 	}

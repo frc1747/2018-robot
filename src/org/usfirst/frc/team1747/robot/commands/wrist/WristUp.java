@@ -48,9 +48,12 @@ public class WristUp extends Command {
     	elevator.setMode(ElevatorSubsystem.Follower.WRIST, HBRSubsystem.Mode.PID);
     	elevator.setPIDMode(ElevatorSubsystem.Follower.WRIST, HBRSubsystem.PIDMode.POSITION);
     	elevator.setILimit(ElevatorSubsystem.Follower.WRIST, 0);
-    	elevator.setFeedforward(ElevatorSubsystem.Follower.WRIST, 0, GambeziDashboard.get_double("Wrist/kV"), GambeziDashboard.get_double("Wrist/kA"));
-    	elevator.setFeedback(ElevatorSubsystem.Follower.WRIST, GambeziDashboard.get_double("Wrist/kP"), GambeziDashboard.get_double("Wrist/kI"), GambeziDashboard.get_double("Wrist/kD"));
-		elevator.resetIntegrator(ElevatorSubsystem.Follower.WRIST);
+//    	elevator.setFeedforward(ElevatorSubsystem.Follower.WRIST, 0, GambeziDashboard.get_double("Wrist/kV"), GambeziDashboard.get_double("Wrist/kA"));
+//    	elevator.setFeedback(ElevatorSubsystem.Follower.WRIST, GambeziDashboard.get_double("Wrist/kP"), GambeziDashboard.get_double("Wrist/kI"), GambeziDashboard.get_double("Wrist/kD"));
+    	elevator.setFeedforward(ElevatorSubsystem.Follower.WRIST, 0, 0, 0);
+    	elevator.setFeedback(ElevatorSubsystem.Follower.WRIST, 0.55, 0, 0);
+    	
+    	elevator.resetIntegrator(ElevatorSubsystem.Follower.WRIST);
 		
 		elevator.setEnabled(true);
 

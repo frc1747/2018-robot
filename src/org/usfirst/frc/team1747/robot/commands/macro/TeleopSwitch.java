@@ -1,5 +1,6 @@
 package org.usfirst.frc.team1747.robot.commands.macro;
 
+import org.usfirst.frc.team1747.robot.commands.AutonOutake;
 import org.usfirst.frc.team1747.robot.commands.ElevatorReset;
 import org.usfirst.frc.team1747.robot.commands.SetElevatorPosition;
 import org.usfirst.frc.team1747.robot.commands.WristAtElevatorPosition;
@@ -18,7 +19,7 @@ public class TeleopSwitch extends CommandGroup {
 		addSequential(new ElevatorReset());*/
 		addSequential(new WristAtElevatorPosition(ElevatorSubsystem.ElevatorPositions.SWITCH,
 													15, 0));
-		addSequential(new EjectCube(0.5));
+		addSequential(new AutonOutake(-0.5, 400));
 		addSequential(new WristAtElevatorPosition(ElevatorSubsystem.ElevatorPositions.BOTTOM, 9001,3));
 	}
 }

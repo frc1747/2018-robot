@@ -4,7 +4,9 @@ import org.usfirst.frc.team1747.robot.commands.AutonOutake;
 import org.usfirst.frc.team1747.robot.commands.Delay;
 import org.usfirst.frc.team1747.robot.commands.Intake;
 import org.usfirst.frc.team1747.robot.commands.SetElevatorPosition;
+import org.usfirst.frc.team1747.robot.commands.WristAtElevatorPosition;
 import org.usfirst.frc.team1747.robot.commands.drive.DriveProfile;
+import org.usfirst.frc.team1747.robot.commands.macro.TeleopSwitch;
 import org.usfirst.frc.team1747.robot.commands.reset.AutonStopMotors;
 import org.usfirst.frc.team1747.robot.commands.wrist.WristBottom;
 import org.usfirst.frc.team1747.robot.commands.wrist.WristOverTop;
@@ -15,30 +17,29 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 import lib.frc1747.commands.MakeParallel;
 import lib.frc1747.commands.MakeSequential;
 
-public class AutonLL extends CommandGroup {
+public class AutonCR extends CommandGroup {
 	
-	public AutonLL() {
+	public AutonCR() {
 		// Drive and put cube in scale
-		addSequential(new MakeParallel(
-			new MakeSequential(
-				new WristVertical(),
-				new Delay(1750),
-				new AutonOutake(1, 750),
-				new SetElevatorPosition(ElevatorSubsystem.ElevatorPositions.TOP),
-				new WristOverTop(),
-				new AutonOutake(-0.7)
-			),
-			new DriveProfile("/home/lvuser/LL0.csv")
+		addSequential(new MakeParallel(new MakeSequential(
+				new WristBottom(),
+				new WristAtElevatorPosition(ElevatorSubsystem.ElevatorPositions.BOTTOM, 9001, 0),
+				new Delay(2000),
+				new AutonOutake(-0.8, 750)
+				),
+			new DriveProfile("/home/lvuser/CR0.csv")
 		));
 		addSequential(new AutonStopMotors());
 		
 		// Bring elevator to bottom then grab another cube
-		addSequential(new WristBottom());
+		
+//		addSequential(new WristBottom());
 		addSequential(new MakeParallel(
+				new MakeSequential(
 			new SetElevatorPosition(ElevatorSubsystem.ElevatorPositions.BOTTOM),
 			new Intake(),
 			new DriveProfile("/home/lvuser/LL1.csv")
-		));
+		)));
 		addSequential(new AutonStopMotors());
 		
 		// Go back and place another cube in scale

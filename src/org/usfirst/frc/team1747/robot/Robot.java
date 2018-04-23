@@ -129,6 +129,7 @@ public class Robot extends TimedRobot {
 		bButtonState = OI.getInstance().getDriver().getButton(Logitech.B).get();
 		Scheduler.getInstance().run();
 		GambeziDashboard.set_string("auton/pos", modes[index].toString());
+		SmartDashboard.putString("AutonPos", modes[index].toString());
 		//for strategy choice
 		if(!xButtonState && OI.getInstance().getDriver().getButton(Logitech.X).get()){
 			nextChoice();
@@ -142,6 +143,7 @@ public class Robot extends TimedRobot {
 		GambeziDashboard.set_double("Robot/Battery_Voltage", RobotController.getBatteryVoltage());
 		GambeziDashboard.set_double("Robot/Counter", counter++);
 		GambeziDashboard.set_string("auton/choice", states[index2].toString());
+		SmartDashboard.putString("AutonChoice", states[index2].toString());
 		GambeziDashboard.set_double("Robot/thermistor", drive.getTempF());
 		GambeziDashboard.set_double("Robot/Brownout", RobotController.isBrownedOut() ? 1 : 0);
 		GambeziDashboard.set_double("Robot/wristPosition", elevator.getWristPosition());
@@ -277,7 +279,10 @@ public class Robot extends TimedRobot {
     	GambeziDashboard.set_double("Drive/Angle/kP", 1.7);
     	GambeziDashboard.set_double("Drive/Angle/kI", 0.0);
     	GambeziDashboard.set_double("Drive/Angle/kD", 0.07);
-    	GambeziDashboard.set_string("auton/start_pos", "RIGHT");
+//    	GambeziDashboard.set_string("auton/start_pos", "RIGHT");
+    	
+    	GambeziDashboard.set_string("auton/gamedata", "LLL");
+    	SmartDashboard.putString("AutonGameData", "LLL");
     	
     	// NO! Do not do this anywhere else
 		try {

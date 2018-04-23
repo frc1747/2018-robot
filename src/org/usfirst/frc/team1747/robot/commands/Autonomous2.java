@@ -3,17 +3,27 @@ package org.usfirst.frc.team1747.robot.commands;
 import org.usfirst.frc.team1747.robot.Robot.AutonChoice;
 import org.usfirst.frc.team1747.robot.Robot.AutonRobotPosition;
 import org.usfirst.frc.team1747.robot.commands.auton.AutonLL;
+import org.usfirst.frc.team1747.robot.commands.auton.AutonLL2;
 import org.usfirst.frc.team1747.robot.commands.auton.AutonLLL;
 import org.usfirst.frc.team1747.robot.commands.auton.AutonLLR;
 import org.usfirst.frc.team1747.robot.commands.auton.AutonLR;
 import org.usfirst.frc.team1747.robot.commands.auton.AutonLRL;
 import org.usfirst.frc.team1747.robot.commands.auton.AutonLRR;
+import org.usfirst.frc.team1747.robot.commands.auton.AutonRL;
+import org.usfirst.frc.team1747.robot.commands.auton.AutonRLL;
+import org.usfirst.frc.team1747.robot.commands.auton.AutonRLR;
+import org.usfirst.frc.team1747.robot.commands.auton.AutonRR;
+import org.usfirst.frc.team1747.robot.commands.auton.AutonRRL;
+import org.usfirst.frc.team1747.robot.commands.auton.AutonRRR;
 import org.usfirst.frc.team1747.robot.commands.reset.ZeroElevatorEncoder;
 import org.usfirst.frc.team1747.robot.commands.reset.ZeroSensors;
 import org.usfirst.frc.team1747.robot.subsystems.ElevatorSubsystem;
 
+import com.tigerhuang.gambezi.dashboard.GambeziDashboard;
+
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.command.CommandGroup;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  *
@@ -23,6 +33,8 @@ public class Autonomous2 extends CommandGroup {
     public Autonomous2(AutonRobotPosition robotPosition, AutonChoice choice) {
     	DriverStation ds = DriverStation.getInstance();
     	String gameMessage = ds.getGameSpecificMessage();
+//    	String gameMessage = "LLL";
+//    	String gameMessage = SmartDashboard.getString("AutonGameData", "LLL");
     	char[] scoringPositions = gameMessage.toCharArray();
     	
     	addSequential(new ZeroElevatorEncoder());
@@ -32,7 +44,7 @@ public class Autonomous2 extends CommandGroup {
     		case LEFT:
     			if(choice == AutonChoice.SCALE_SCALE){
     				if(scoringPositions[1] == 'L'){
-    					addSequential(new AutonLL());
+    					addSequential(new AutonLL2());
     				}else if(scoringPositions[1] == 'R'){
     					addSequential(new AutonLR());
     				}
@@ -57,8 +69,38 @@ public class Autonomous2 extends CommandGroup {
     			}
     			break;
     		case CENTER:
+    			if(scoringPositions[0] == 'L'){
+//    				addSequential(new AutonCL());
+    			}else if(scoringPositions[0] == 'R'){
+//    				addSequential(new AutonCR());
+    			}
     			break;
     		case RIGHT:
+    			if(choice == AutonChoice.SCALE_SCALE){
+    				if(scoringPositions[1] == 'L'){
+    					addSequential(new AutonRL());
+    				}else if(scoringPositions[1] == 'R'){
+    					addSequential(new AutonRR());
+    				}
+    			}else if(choice == AutonChoice.SCALE_SWITCH){
+    				if(scoringPositions[1] == 'L'){
+    					if(scoringPositions[0] == 'L'){
+    						addSequential(new AutonRLL());
+    					}
+    					if(scoringPositions[0] == 'R'){
+    						addSequential(new AutonRRL());
+    					}
+    				}
+    				
+    				if(scoringPositions[1] == 'R'){
+    					if(scoringPositions[0] == 'L'){
+    						addSequential(new AutonRLR());
+    					}
+    					if(scoringPositions[0] == 'R'){
+    						addSequential(new AutonRRR());
+    					}
+    				}
+    			}
     			break;
     	}
     }

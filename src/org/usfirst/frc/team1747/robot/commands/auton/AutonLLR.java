@@ -24,8 +24,8 @@ public class AutonLLR extends CommandGroup {
 			new MakeSequential(
 				new WristVertical(),
 				new Delay(750),
-				new WristBottom()//,
-//				new SetElevatorPosition(ElevatorSubsystem.ElevatorPositions.SWITCH)
+				new WristBottom(),
+				new SetElevatorPosition(ElevatorSubsystem.ElevatorPositions.SWITCH)
 			),
 			new DriveProfile("/home/lvuser/LLR0.csv")
 		));
@@ -45,7 +45,7 @@ public class AutonLLR extends CommandGroup {
 		addSequential(new MakeParallel(
 			new MakeSequential(
 				new WristVertical(),
-//				new SetElevatorPosition(ElevatorSubsystem.ElevatorPositions.BOTTOM),
+				new SetElevatorPosition(ElevatorSubsystem.ElevatorPositions.BOTTOM),
 				new Delay(1000),
 				new WristBottom(),
 				new Intake()
@@ -60,15 +60,15 @@ public class AutonLLR extends CommandGroup {
 				new AutonOutake(0.7),
 				new WristVertical(),
 				new Delay(750),
-//				new SetElevatorPosition(ElevatorSubsystem.ElevatorPositions.TOP),
+				new SetElevatorPosition(ElevatorSubsystem.ElevatorPositions.TOP),
 				new WristOverTop(),
-				new AutonOutake()
+				new AutonOutake(-0.65)
 			),
 			new DriveProfile("/home/lvuser/LLR2.csv")
 		));
 		addSequential(new AutonStopMotors());
 		
 		// Put elevator back down
-//		addSequential(new SetElevatorPosition(ElevatorSubsystem.ElevatorPositions.BOTTOM));
+		addSequential(new SetElevatorPosition(ElevatorSubsystem.ElevatorPositions.BOTTOM));
     }
 }
