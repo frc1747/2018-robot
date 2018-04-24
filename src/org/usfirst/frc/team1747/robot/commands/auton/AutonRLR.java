@@ -50,7 +50,7 @@ public class AutonRLR extends CommandGroup {
 		// Raise elevator and eject cube
 		addSequential(new SetElevatorPosition(ElevatorSubsystem.ElevatorPositions.SWITCH));
 		addSequential(new WristBottom());
-		addSequential(new DriveCurve(0.8, -50));
+		addSequential(new DriveCurve(0.8, 50));
 		addSequential(new AutonOutake(-0.5));
 		
 		// Back away from switch

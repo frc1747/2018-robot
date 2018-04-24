@@ -37,7 +37,7 @@ public class AutonRRL extends CommandGroup {
 				new Delay(800),
 				new AutonOutake()
 			),
-			new DriveCurve(0, 180)
+			new DriveCurve(0, -180)
 		));
 		addSequential(new AutonStopMotors());
 

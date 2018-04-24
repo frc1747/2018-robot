@@ -45,7 +45,7 @@ public class AutonRLL extends CommandGroup {
 		// Place cube in switch
 		addSequential(new SetElevatorPosition(ElevatorSubsystem.ElevatorPositions.SWITCH));
 		addSequential(new WristBottom());
-		addSequential(new DriveCurve(0.8, 15));
+		addSequential(new DriveCurve(0.8, -15));
 		addSequential(new AutonStopMotors());
 		addSequential(new AutonOutake());
 		
