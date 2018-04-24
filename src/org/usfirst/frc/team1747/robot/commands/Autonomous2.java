@@ -2,6 +2,9 @@ package org.usfirst.frc.team1747.robot.commands;
 
 import org.usfirst.frc.team1747.robot.Robot.AutonChoice;
 import org.usfirst.frc.team1747.robot.Robot.AutonRobotPosition;
+import org.usfirst.frc.team1747.robot.commands.auton.AutonCL;
+import org.usfirst.frc.team1747.robot.commands.auton.AutonCR;
+import org.usfirst.frc.team1747.robot.commands.auton.AutonLCL;
 import org.usfirst.frc.team1747.robot.commands.auton.AutonLL;
 import org.usfirst.frc.team1747.robot.commands.auton.AutonLL2;
 import org.usfirst.frc.team1747.robot.commands.auton.AutonLLL;
@@ -66,13 +69,19 @@ public class Autonomous2 extends CommandGroup {
     						addSequential(new AutonLRR());
     					}
     				}
+    			}else if(choice == AutonChoice.COMPLIANT_SCALE){
+					if(scoringPositions[1] == 'L'){
+    					addSequential(new AutonLCL());
+    				}else if(scoringPositions[1] == 'R'){
+    					//addSequential(new AutonLCR());
+    				}
     			}
     			break;
     		case CENTER:
     			if(scoringPositions[0] == 'L'){
-//    				addSequential(new AutonCL());
+    				addSequential(new AutonCL());
     			}else if(scoringPositions[0] == 'R'){
-//    				addSequential(new AutonCR());
+    				addSequential(new AutonCR());
     			}
     			break;
     		case RIGHT:

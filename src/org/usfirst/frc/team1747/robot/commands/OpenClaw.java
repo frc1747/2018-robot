@@ -15,6 +15,7 @@ public class OpenClaw extends Command {
 		claw = ClawSubsystem.getInstance();
 		requires(claw);
 		intake = IntakeSubsystem.getInstance();
+		setInterruptible(true);
 	}
 	
 	

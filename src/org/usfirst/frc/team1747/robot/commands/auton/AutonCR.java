@@ -1,10 +1,14 @@
 package org.usfirst.frc.team1747.robot.commands.auton;
 
+import org.usfirst.frc.team1747.robot.commands.AutonOpenClaw;
 import org.usfirst.frc.team1747.robot.commands.AutonOutake;
+import org.usfirst.frc.team1747.robot.commands.CloseClaw;
 import org.usfirst.frc.team1747.robot.commands.Delay;
 import org.usfirst.frc.team1747.robot.commands.Intake;
+import org.usfirst.frc.team1747.robot.commands.OpenClaw;
 import org.usfirst.frc.team1747.robot.commands.SetElevatorPosition;
 import org.usfirst.frc.team1747.robot.commands.WristAtElevatorPosition;
+import org.usfirst.frc.team1747.robot.commands.drive.DriveCurve;
 import org.usfirst.frc.team1747.robot.commands.drive.DriveProfile;
 import org.usfirst.frc.team1747.robot.commands.macro.TeleopSwitch;
 import org.usfirst.frc.team1747.robot.commands.reset.AutonStopMotors;
@@ -23,10 +27,9 @@ public class AutonCR extends CommandGroup {
 		// Drive and put cube in scale
 		addSequential(new MakeParallel(new MakeSequential(
 				new WristBottom(),
-				new WristAtElevatorPosition(ElevatorSubsystem.ElevatorPositions.BOTTOM, 9001, 0),
-				new Delay(2000),
-				new AutonOutake(-0.8, 750)
-				),
+				new WristAtElevatorPosition(ElevatorSubsystem.ElevatorPositions.SWITCH, 9001, 0),
+				new Delay(1000),
+				new AutonOutake(-0.8, 750)),
 			new DriveProfile("/home/lvuser/CR0.csv")
 		));
 		addSequential(new AutonStopMotors());
@@ -35,34 +38,67 @@ public class AutonCR extends CommandGroup {
 		
 //		addSequential(new WristBottom());
 		addSequential(new MakeParallel(
-				new MakeSequential(
-			new SetElevatorPosition(ElevatorSubsystem.ElevatorPositions.BOTTOM),
-			new Intake(),
-			new DriveProfile("/home/lvuser/LL1.csv")
-		)));
+			new MakeSequential(
+				new Delay(500),
+//				new WristVertical(),
+				new SetElevatorPosition(ElevatorSubsystem.ElevatorPositions.BOTTOM)),
+//				new WristBottom()),
+			new DriveProfile("/home/lvuser/CR1.csv")
+		));
 		addSequential(new AutonStopMotors());
 		
-		// Go back and place another cube in scale
 		addSequential(new MakeParallel(
-			new MakeSequential(
-				new AutonOutake(0.7, 250),
-				new WristVertical(),
-				//new Delay(500),
-				new SetElevatorPosition(ElevatorSubsystem.ElevatorPositions.TOP),
-				new WristOverTop(),
-				new AutonOutake(-0.50, 500)
-			),
-			new DriveProfile("/home/lvuser/LL2.csv")
+				new AutonOpenClaw(),
+				new Intake(),	
+				new DriveCurve(2.5, 0)));
+		addSequential(new AutonStopMotors());
+		
+		addSequential(new MakeParallel(
+				new MakeSequential(
+					new Delay(500),
+//					new WristVertical(),
+					new SetElevatorPosition(ElevatorSubsystem.ElevatorPositions.SWITCH)),
+				new DriveCurve(-2.5, 0)));
+		addSequential(new AutonStopMotors());
+		
+		addSequential(new MakeParallel(new MakeSequential(
+//				new WristBottom(),
+				new Delay(1550),
+				new AutonOutake(-0.8, 250)),
+			new DriveProfile("/home/lvuser/CR2.csv")
 		));
 		addSequential(new AutonStopMotors());
-
-		// Bring elevator to bottom then grab another cube
-		addSequential(new WristBottom());
+		
 		addSequential(new MakeParallel(
-				new SetElevatorPosition(ElevatorSubsystem.ElevatorPositions.BOTTOM),
-				new Intake(),
-				new DriveProfile("/home/lvuser/LL3.csv")
-		));
-		addSequential(new AutonStopMotors());
+				new MakeSequential(
+					new Delay(500),
+//					new WristVertical(),
+					new SetElevatorPosition(ElevatorSubsystem.ElevatorPositions.CUBE_PILE)),
+//					new WristBottom()),
+				new DriveProfile("/home/lvuser/CR1.csv")
+			));
+			addSequential(new AutonStopMotors());
+			
+			addSequential(new MakeParallel(
+					new AutonOpenClaw(),
+					new Intake(),	
+					new DriveCurve(3, 0)));
+			addSequential(new AutonStopMotors());
+			
+			addSequential(new MakeParallel(
+					new MakeSequential(
+//						new WristVertical(),
+						new SetElevatorPosition(ElevatorSubsystem.ElevatorPositions.SWITCH)),
+					new DriveCurve(-3, 0)));
+			addSequential(new AutonStopMotors());
+			
+			addSequential(new MakeParallel(new MakeSequential(
+//					new WristBottom(),
+					new Delay(1550),
+					new AutonOutake(-0.8, 250)),
+				new DriveProfile("/home/lvuser/CR2.csv")
+			));
+			addSequential(new AutonStopMotors());
+		
 	}
 }
