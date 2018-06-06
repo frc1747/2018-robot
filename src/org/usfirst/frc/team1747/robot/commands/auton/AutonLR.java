@@ -53,7 +53,7 @@ public class AutonLR extends CommandGroup {
 						new Delay(500),
 						new SetElevatorPosition(ElevatorSubsystem.ElevatorPositions.TOP),
 						new WristOverTop(),
-						new AutonOutake(-0.55, 500),
+						new AutonOutake(-0.6, 500),
 						new SetElevatorPosition(ElevatorSubsystem.ElevatorPositions.BOTTOM)
 					),
 					new DriveProfile("/home/lvuser/LR2.csv")

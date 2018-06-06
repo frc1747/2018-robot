@@ -14,6 +14,7 @@ import edu.wpi.first.wpilibj.PowerDistributionPanel;
 import edu.wpi.first.wpilibj.RobotController;
 import edu.wpi.first.wpilibj.SPI.Port;
 import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
@@ -67,6 +68,7 @@ public class Robot extends TimedRobot {
 	boolean xButtonState, yButtonState;
 	int index2;
 	AutonChoice [] states;
+	public static double matchStartFPGATime;
 	
 	public class Interval implements Runnable {
 		int counter2 = 0;
@@ -206,6 +208,8 @@ public class Robot extends TimedRobot {
 		Scheduler.getInstance().removeAll();
 		elevator.setMode(ElevatorSubsystem.Follower.ELEVATOR, HBRSubsystem.Mode.PID);
 		elevator.setSetpoint(ElevatorSubsystem.Follower.ELEVATOR, elevator.getElevatorPosition());
+		
+		matchStartFPGATime = Timer.getFPGATimestamp();
 	}
 	
 	/**
@@ -305,7 +309,7 @@ public class Robot extends TimedRobot {
 	}
 	
 	public enum AutonChoice{
-		SCALE_SCALE, SCALE_SWITCH, COMPLIANT_SCALE;
+		SCALE_SCALE, SCALE_SWITCH, COMPLIANT_SCALE, HALF_COMPLIANT;
 	}
 	// Auton Chooser handling
     public void nextAuton() {
@@ -336,5 +340,9 @@ public class Robot extends TimedRobot {
     	Scheduler.getInstance().removeAll();
     	System.out.println("FATAL ERROR: " + message);
     	GambeziDashboard.log_string("FATAL ERROR: " + message);
+    }
+    
+    public static double getTeleopMatchTime(){
+    	return Timer.getFPGATimestamp() - matchStartFPGATime;
     }
 }

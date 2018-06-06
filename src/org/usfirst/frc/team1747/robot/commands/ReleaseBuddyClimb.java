@@ -1,5 +1,6 @@
 package org.usfirst.frc.team1747.robot.commands;
 
+import org.usfirst.frc.team1747.robot.Robot;
 import org.usfirst.frc.team1747.robot.subsystems.ClimberSubsystem;
 
 import edu.wpi.first.wpilibj.command.Command;
@@ -18,7 +19,7 @@ public class ReleaseBuddyClimb extends Command {
 	
 	@Override
 	protected void initialize(){
-		if(ds.isOperatorControl() && ds.getMatchTime() < 32){
+		if(ds.isOperatorControl() && Robot.getTeleopMatchTime() >= 105){
 			climber.releaseBuddyClimb();
 			System.out.println("it is TIME TO CLIMB");
 		}

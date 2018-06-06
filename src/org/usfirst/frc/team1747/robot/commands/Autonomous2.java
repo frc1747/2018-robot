@@ -22,8 +22,10 @@ import org.usfirst.frc.team1747.robot.commands.auton.AutonRR2;
 import org.usfirst.frc.team1747.robot.commands.auton.AutonRRC;
 import org.usfirst.frc.team1747.robot.commands.auton.AutonRRL;
 import org.usfirst.frc.team1747.robot.commands.auton.AutonRRR;
+import org.usfirst.frc.team1747.robot.commands.drive.DriveCurve;
 import org.usfirst.frc.team1747.robot.commands.reset.ZeroElevatorEncoder;
 import org.usfirst.frc.team1747.robot.commands.reset.ZeroSensors;
+import org.usfirst.frc.team1747.robot.commands.wrist.WristVertical;
 import org.usfirst.frc.team1747.robot.subsystems.ElevatorSubsystem;
 
 import com.tigerhuang.gambezi.dashboard.GambeziDashboard;
@@ -54,6 +56,9 @@ public class Autonomous2 extends CommandGroup {
     					addSequential(new AutonLL2());
     				}else if(scoringPositions[1] == 'R'){
     					addSequential(new AutonLR());
+//    					addSequential(new WristVertical());
+//    					addSequential(new DriveCurve(-12, 0));
+    					
     				}
     			}else if(choice == AutonChoice.SCALE_SWITCH){
     				if(scoringPositions[1] == 'L'){
@@ -76,6 +81,12 @@ public class Autonomous2 extends CommandGroup {
     			}else if(choice == AutonChoice.COMPLIANT_SCALE){
 					if(scoringPositions[1] == 'L'){
     					addSequential(new AutonLLC());
+    				}else if(scoringPositions[1] == 'R'){
+    					addSequential(new AutonLRC());
+    				}
+    			}else if(choice == AutonChoice.HALF_COMPLIANT){
+    				if(scoringPositions[1] == 'L'){
+    					addSequential(new AutonLL2());
     				}else if(scoringPositions[1] == 'R'){
     					addSequential(new AutonLRC());
     				}
@@ -118,6 +129,12 @@ public class Autonomous2 extends CommandGroup {
     					addSequential(new AutonRLC());
     				}else if(scoringPositions[1] == 'R'){
     					addSequential(new AutonRRC());
+    				}
+    			}else if(choice == AutonChoice.HALF_COMPLIANT){
+    				if(scoringPositions[1] == 'R'){
+    					addSequential(new AutonRR2());
+    				}else if(scoringPositions[1] == 'L'){
+    					addSequential(new AutonRLC());
     				}
     			}
     			break;

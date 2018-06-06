@@ -54,7 +54,7 @@ public class RobotMap {
 	//wrist offset should be between 0 and 5
 	public static final double WRIST_OFFSET_PRACTICE  = 0.546 - 0.62 - 0.54;					//used to set wrist to "0"
 	public static final double WRIST_ENCODER_GEAR = 60. / 84;
-	public static final double WRIST_OFFSET_COMP  = -3.7 - 0.12 + 0.04;					//used to set wrist to "0"
+	public static final double WRIST_OFFSET_COMP  = -3.7 - 0.12 + 0.04 - 0.672;					//used to set wrist to "0"
 
 	
 	//Intake

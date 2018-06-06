@@ -24,7 +24,7 @@ public class AutonLRC extends CommandGroup {
 		addSequential(new DriveCurve(0, 90));
 		addSequential(new AutonStopMotors());
 		addSequential(new WristAtElevatorPosition(ElevatorSubsystem.ElevatorPositions.TOP, 24, 3));
-		addSequential(new AutonOutake());
+		addSequential(new AutonOutake(-1));
 		addSequential(new SetElevatorPosition(ElevatorSubsystem.ElevatorPositions.BOTTOM));
 		addSequential(new DriveCurve(0, 90));
 		addSequential(new AutonStopMotors());
