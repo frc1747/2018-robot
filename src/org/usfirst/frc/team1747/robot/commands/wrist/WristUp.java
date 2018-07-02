@@ -75,7 +75,7 @@ public class WristUp extends Command {
 			elevator.setWristStage(elevator.getWristStage() + 1);
 		}
 		elevator.setSetpoint(ElevatorSubsystem.Follower.WRIST, elevator.getWristStages()[elevator.getWristStage()]);
-		elevator.setSetpoint(ElevatorSubsystem.Follower.ELEVATOR, (elevator.getElevatorStages()[elevator.getElevatorStage()]));
+		elevator.setSetpoint(ElevatorSubsystem.Follower.ELEVATOR, elevator.getElevatorPosition());
 		
 		GambeziDashboard.set_double("Elevator/Index", elevator.getElevatorStage());
 		GambeziDashboard.set_double("Wrist/Index", elevator.getWristStage());

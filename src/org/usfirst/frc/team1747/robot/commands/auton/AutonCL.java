@@ -36,12 +36,10 @@ public class AutonCL extends CommandGroup {
 		
 		// Bring elevator to bottom then grab another cube
 		
-//		addSequential(new WristBottom());
 		addSequential(new MakeParallel(
 			new MakeSequential(
 				new Delay(500),
 				new SetElevatorPosition(ElevatorSubsystem.ElevatorPositions.BOTTOM)
-//				new WristBottom()),
 				),
 			new DriveProfile("/home/lvuser/CL1.csv")
 		));
@@ -61,7 +59,6 @@ public class AutonCL extends CommandGroup {
 		addSequential(new AutonStopMotors());
 		
 		addSequential(new MakeParallel(new MakeSequential(
-//				new WristBottom(),
 				new Delay(1550),
 				new AutonOutake(-0.8, 250)),
 			new DriveProfile("/home/lvuser/CL2.csv")
@@ -72,7 +69,7 @@ public class AutonCL extends CommandGroup {
 				new MakeSequential(
 					new Delay(500),
 					new SetElevatorPosition(ElevatorSubsystem.ElevatorPositions.CUBE_PILE)
-					/*new WristBottom()*/),
+					),
 				new DriveProfile("/home/lvuser/CL1.csv")
 			));
 			addSequential(new AutonStopMotors());
@@ -85,13 +82,11 @@ public class AutonCL extends CommandGroup {
 			
 			addSequential(new MakeParallel(
 					new MakeSequential(
-//						new WristVertical(),
 						new SetElevatorPosition(ElevatorSubsystem.ElevatorPositions.SWITCH)),
 					new DriveCurve(-3, 0)));
 			addSequential(new AutonStopMotors());
 			
 			addSequential(new MakeParallel(new MakeSequential(
-//					new WristBottom(),
 					new Delay(1550),
 					new AutonOutake(-0.8, 250)),
 				new DriveProfile("/home/lvuser/CL2.csv")

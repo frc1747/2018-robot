@@ -7,6 +7,7 @@ import com.tigerhuang.gambezi.dashboard.GambeziDashboard;
 
 import edu.wpi.first.wpilibj.command.Command;
 import lib.frc1747.controller.Logitech;
+import lib.frc1747.controller.Xbox;
 //import lib.frc1747.instrumentation.Instrumentation;
 //import lib.frc1747.instrumentation.Logger;
 
@@ -35,6 +36,8 @@ public class ArcadeDrive extends Command {
 	// Called repeatedly when this Command is scheduled to run
 	@Override
 	protected void execute() {
+		/*drivetrain.setLeftPower(driver.getAxis(Xbox.LEFT_VERTICAL) + driver.getAxis(Xbox.RIGHT_HORIZONTAL));
+		drivetrain.setRightPower(driver.getAxis(Xbox.LEFT_VERTICAL) - driver.getAxis(Xbox.RIGHT_HORIZONTAL));*/
 		drivetrain.setLeftPower(driver.getAxis(Logitech.LEFT_VERTICAL) + driver.getAxis(Logitech.RIGHT_HORIZONTAL));
 		drivetrain.setRightPower(driver.getAxis(Logitech.LEFT_VERTICAL) - driver.getAxis(Logitech.RIGHT_HORIZONTAL));
 //		System.out.println(drivetrain.getLeftPosition(0, 0));

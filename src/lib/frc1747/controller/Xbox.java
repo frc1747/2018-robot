@@ -1,5 +1,6 @@
 package lib.frc1747.controller;
 
+import edu.wpi.first.wpilibj.buttons.Button;
 import lib.frc1747.controller.button.JoystickButton;
 
 public class Xbox extends Controller{
@@ -24,9 +25,33 @@ public class Xbox extends Controller{
 		return getStick().getRawAxis(LT);
 	}
 	
+	public Button getLTButton() {
+		return new Button() {
+
+			@Override
+			public boolean get() {
+				// TODO Auto-generated method stub
+				return getStick().getRawAxis(LT) > 0.5;
+			}
+			
+		};
+	}
+	
 	public double getRTAngle(){
 		return getStick().getRawAxis(RT);
 	}
+	
+	public Button getRTButton() {
+		return new Button() {
+
+			@Override
+			public boolean get() {
+				// TODO Auto-generated method stub
+				return getStick().getRawAxis(RT) > 0.5;
+			}
+			
+		};
+	}	
 	
 	public double getAxis(int axisName) {
 		

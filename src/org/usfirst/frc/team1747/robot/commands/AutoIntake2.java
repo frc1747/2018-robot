@@ -11,13 +11,13 @@ import edu.wpi.first.wpilibj.command.Command;
 import lib.frc1747.controller.Logitech;
 import lib.frc1747.subsytems.HBRSubsystem;
 
-public class AutoIntake extends Command {
+public class AutoIntake2 extends Command {
 
 	private IntakeSubsystem intake;
 	private ElevatorSubsystem elevator;
 	private ClawSubsystem claw;
 	
-	public AutoIntake(){
+	public AutoIntake2(){
 		intake = IntakeSubsystem.getInstance();
 		elevator = ElevatorSubsystem.getInstance();
 		claw = ClawSubsystem.getInstance();
@@ -28,7 +28,7 @@ public class AutoIntake extends Command {
 	
 	@Override
 	protected void initialize(){
-		claw.setSolenoid(true);
+		claw.setSolenoid(false);
 		intake.setLED(false);
 
 		elevator.setWristStage(0);
@@ -67,18 +67,14 @@ public class AutoIntake extends Command {
 //		if(!intake.ifCubeCompletelyHeld() && Math.abs(elevator.getWristPosition() - elevator.getWristStages()[0]) < Math.PI/12){
 		if(!intake.ifCubeCompletelyHeld()){
 			if(intake.ifCubePartiallyHeld()){
-				claw.setSolenoid(false);
 				intake.setLED(true);
 			}else{
-				claw.setSolenoid(true);
 				intake.setLED(false);
 			}
-			//intake.setPower(/*GambeziDashboard.get_double("Intake/InPower")*/ 0.8);
 			intake.setLeftPower(0.5);
 			intake.setRightPower(0.6);			//TODO: Why are these different values?
 		}else{
 			intake.setPower(0.0);
-			claw.setSolenoid(false);
 			intake.setLED(true);
 		}
 	}
@@ -88,8 +84,6 @@ public class AutoIntake extends Command {
 		if(intake.ifCubePartiallyHeld()){
 			elevator.setWristStage(elevator.getWristStages().length - 2);
 		}else{
-
-			claw.setSolenoid(false);
 			elevator.setWristStage(elevator.getWristStages().length - 1);
 		}
 		
@@ -102,7 +96,7 @@ public class AutoIntake extends Command {
 	@Override
 	protected boolean isFinished() {
 		// TODO Auto-generated method stub
-		return !OI.getInstance().getDriver().getButton(Logitech.LT).get();
+		return !OI.getInstance().getDriver().getButton(Logitech.RT).get();
 	}
 
 }

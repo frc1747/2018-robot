@@ -24,7 +24,6 @@ import lib.frc1747.subsytems.HBRSubsystem;
 
 import java.util.logging.Level;
 
-import org.usfirst.frc.team1747.robot.commands.Autonomous;
 import org.usfirst.frc.team1747.robot.commands.Autonomous2;
 
 //import java.util.logging.Level;

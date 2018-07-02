@@ -9,6 +9,7 @@
 package org.usfirst.frc.team1747.robot;
 
 import org.usfirst.frc.team1747.robot.commands.AutoIntake;
+import org.usfirst.frc.team1747.robot.commands.AutoIntake2;
 import org.usfirst.frc.team1747.robot.commands.ElevateDown;
 import org.usfirst.frc.team1747.robot.commands.ElevateUp;
 import org.usfirst.frc.team1747.robot.commands.ElevatorReset;
@@ -37,6 +38,7 @@ import com.tigerhuang.gambezi.dashboard.GambeziDashboard;
 
 import edu.wpi.first.wpilibj.command.Scheduler;
 import lib.frc1747.controller.Logitech;
+import lib.frc1747.controller.Xbox;
 
 /**
  * This class is the glue that binds the controls on the physical operator
@@ -49,6 +51,7 @@ public class OI {
 	
 	private OI() {
 		driver = new Logitech(RobotMap.DRIVER);
+//		System.out.println(driver.get);
 		operator = new Logitech(RobotMap.OPERATOR);
 		
 		index = 0;
@@ -130,10 +133,11 @@ public class OI {
 	public void createDriver() {
 		driver.getButton(Logitech.LT).whenPressed(new AutoIntake());
 		driver.getButton(Logitech.LB).whileHeld(new OpenClaw());	
-		driver.getButton(Logitech.RT).whileHeld(new Outtake(0));
+		driver.getButton(Logitech.RT).whileHeld(new AutoIntake2());
 		driver.getButton(Logitech.RB).whileHeld(new Intake());
 		
 		driver.getDPad(Logitech.UP).whenPressed(new WristUp());
+		//driver.getDPad(Logitech.UP).whenPressed(new DriveProfile("/home/lvuser/SCLrT.csv"));
 		driver.getDPad(Logitech.DOWN).whenPressed(new WristDown());
 		
 		driver.getButton(Logitech.X).whenPressed(new ResetIndex(new ElevatorReset()));
@@ -147,23 +151,6 @@ public class OI {
 		//driver.getButton(Logitech.START).whenPressed(new Drive2Cube(.1, 0));
 		driver.getButton(Logitech.START).whenPressed(new TeleopScaleBackward());
 		driver.getButton(Logitech.BACK).whileHeld(new ScaleDrop2());
-		
-		//Old Controls
-//		driver.getButton(Logitech.A).whenPressed(new ResetIndex(new SetElevatorPosition(ElevatorSubsystem.ElevatorPositions.SWITCH)));
-		
-//		driver.getButton(Logitech.Y).whenPressed(new WristTop());
-//		driver.getButton(Logitech.A).whenPressed(new WristDown());
-//		driver.getButton(Logitech.UP).whileHeld(new ClimbUp());
-//		driver.getButton(Logitech.DOWN).whileHeld(new ClimbDown());
-		
-//		driver.getButton(Logitech.RT).whenPressed(new DriveProfile("/home/lvuser/curve_test_right.csv"));
-		//Test Commands for wrist and elevator without PID loops
-//		driver.getButton(Logitech.Y).whileHeld(new TestUp());
-//		driver.getButton(Logitech.A).whileHeld(new TestDown());
-//		driver.getButton(Logitech.RT).whenPressed(new ElevateDown());
-//		driver.getButton(Logitech.B).whileHeld(new ElevateUp());
-//		driver.getButton(Logitech.X).whileHeld(new TestUp());
-//		driver.getDpad(Logitech.DOWN).whileHeld(new TestDown());
 	}
 	
 	public void createOperator(){
@@ -176,12 +163,11 @@ public class OI {
 		operator.getButton(Logitech.LB).whenPressed(new WristUp());
 		operator.getButton(Logitech.LT).whenPressed(new WristDown());
 		operator.getButton(Logitech.START).whileHeld(new ElevateDown());
-//		operator.getButton(Logitech.BACK).whenPressed(new ResetElevatorEncoder());
 		operator.getDPad(Logitech.RIGHT).whenPressed(new TeleopSwitch());
 		operator.getDPad(Logitech.LEFT).whenPressed(new TeleopScaleForward());
-		operator.getDPad(Logitech.UP).whenPressed(new TeleopScaleBackward());
 		operator.getButton(Logitech.BACK).whileHeld(new ElevateUp());
 		operator.getDPad(Logitech.UP).whenPressed(new TeleopSwitchHigh());
+//		operator.getDPad(Logitech.UP).whenPressed(new DriveProfile("/home/lvuser/SCLrT.csv"));
 		operator.getDPad(Logitech.DOWN).whileHeld(new ReleaseBuddyClimb());
 	}
 	

@@ -42,7 +42,7 @@ public class Intake extends Command {
 	@Override
 	protected boolean isFinished() {
 		// TODO Auto-generated method stub
-		return intake.ifCubeCompletelyHeld();
+		return intake.ifCubePartiallyHeld();
 	}
 	// Called once after isFinished returns true
 		@Override

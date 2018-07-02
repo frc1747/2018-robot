@@ -25,8 +25,6 @@ public class AutonLL2 extends CommandGroup {
 				new WristVertical(),
 				new Delay(1650),
 				new AutonOutake(0.7),
-//				new SetElevatorPosition(ElevatorSubsystem.ElevatorPositions.TOP),
-//				new WristOverTop(),
 				new WristAtElevatorPosition(ElevatorSubsystem.ElevatorPositions.TOP, 24, 3),
 				new AutonOutake(-1, 200)
 			),
@@ -35,9 +33,7 @@ public class AutonLL2 extends CommandGroup {
 		addSequential(new AutonStopMotors());
 		
 		// Bring elevator to bottom then grab another cube
-//		addSequential(new WristBottom());
 		addSequential(new MakeParallel(
-//			new SetElevatorPosition(ElevatorSubsystem.ElevatorPositions.BOTTOM),
 			new WristAtElevatorPosition(ElevatorSubsystem.ElevatorPositions.BOTTOM, 9001, 0),
 			new Intake(),
 			new DriveProfile("/home/lvuser/LL1.csv")
@@ -49,9 +45,6 @@ public class AutonLL2 extends CommandGroup {
 			new MakeSequential(
 				new AutonOutake(0.7, 250),
 				new WristVertical(),
-				/*//new Delay(500),
-				new SetElevatorPosition(ElevatorSubsystem.ElevatorPositions.TOP),
-				new WristOverTop(),*/
 				new WristAtElevatorPosition(ElevatorSubsystem.ElevatorPositions.TOP, 24, 3),
 				new AutonOutake(-1, 200)
 			),
@@ -60,9 +53,7 @@ public class AutonLL2 extends CommandGroup {
 		addSequential(new AutonStopMotors());
 
 		// Bring elevator to bottom then grab another cube
-//		addSequential(new WristBottom());
 		addSequential(new MakeParallel(
-//				new SetElevatorPosition(ElevatorSubsystem.ElevatorPositions.BOTTOM),
 				new WristAtElevatorPosition(ElevatorSubsystem.ElevatorPositions.BOTTOM, 9001, 0),
 				new Intake(),
 				new DriveProfile("/home/lvuser/LL3.csv")
@@ -76,9 +67,6 @@ public class AutonLL2 extends CommandGroup {
 						new WristVertical(), 
 						new WristAtElevatorPosition(ElevatorSubsystem.ElevatorPositions.TOP, 24, 3), 
 						new AutonOutake(-1, 200)
-						/*//new Delay(500),
-						new SetElevatorPosition(ElevatorSubsystem.ElevatorPositions.TOP),
-						new WristOverTop(),*/
 						
 					),
 					new DriveProfile("/home/lvuser/LL4.csv")

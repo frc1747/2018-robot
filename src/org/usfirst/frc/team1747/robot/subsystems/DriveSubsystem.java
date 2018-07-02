@@ -19,6 +19,7 @@ import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.SPI;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class DriveSubsystem extends HBRSubsystem<DriveSubsystem.Follower> {
 
@@ -222,7 +223,14 @@ public class DriveSubsystem extends HBRSubsystem<DriveSubsystem.Follower> {
 		GambeziDashboard.set_double("Drive/Angle/Profile", output[2]);
 		GambeziDashboard.set_double("Drive/Angle/Actual", output[3]);
 		GambeziDashboard.set_double("Drive/counter", counter++);
-//		System.out.println(output[1]);
+		
+		
+		SmartDashboard.putNumber("Drive/Distance/Profile", output[0]);
+		SmartDashboard.putNumber("Drive/Distance/Actual", output[1]);
+		SmartDashboard.putNumber("Drive/Angle/Profile", output[2]);
+		SmartDashboard.putNumber("Drive/Angle/Actual", output[3]);
+		SmartDashboard.putNumber("Drive/counter", counter++);
+		SmartDashboard.updateValues();
 	}
 
 	@Override
