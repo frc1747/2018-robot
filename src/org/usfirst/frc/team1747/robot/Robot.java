@@ -103,7 +103,7 @@ public class Robot extends TimedRobot {
 		modes = AutonRobotPosition.class.getEnumConstants();
 		index = 1;
 		states = AutonChoice.class.getEnumConstants();
-		index2 = 1;
+		index2 = 0;
 		
 		DriveSubsystem.getInstance().getGyro2().calibrate();
 	}

@@ -25,7 +25,7 @@ public class AutonLR extends CommandGroup {
 		addSequential(new MakeParallel(
 				new MakeSequential(
 					new WristVertical(),
-					new Delay(4000),
+					new Delay(2800),
 					new AutonOutake(0.7),
 //					new SetElevatorPosition(ElevatorSubsystem.ElevatorPositions.TOP),
 //					new WristOverTop(),
@@ -65,7 +65,8 @@ public class AutonLR extends CommandGroup {
 			addSequential(new MakeParallel(
 					new MakeSequential(
 						new AutonOutake(0.7, 250),
-						new WristVertical(),
+						//new WristVertical(),
+						new WristAtElevatorPosition(ElevatorSubsystem.ElevatorPositions.SWITCH, 9001, 2),
 						/*//new Delay(500),
 						new SetElevatorPosition(ElevatorSubsystem.ElevatorPositions.TOP),
 						new WristOverTop(),*/
@@ -87,19 +88,20 @@ public class AutonLR extends CommandGroup {
 		addSequential(new AutonStopMotors());
 		
 		// Go back and place a third cube in scale
-				addSequential(new MakeParallel(
-					new MakeSequential(
-						new AutonOutake(0.7, 250),
-						new WristVertical(), 
-						new WristAtElevatorPosition(ElevatorSubsystem.ElevatorPositions.TOP, 24, 3), 
-						new AutonOutake(-1, 200)
-						/*//new Delay(500),
-						new SetElevatorPosition(ElevatorSubsystem.ElevatorPositions.TOP),
-						new WristOverTop(),*/
-						
-					),
-					new DriveProfile("/home/lvuser/LR4.csv")
-				));
-				addSequential(new AutonStopMotors());
+		addSequential(new MakeParallel(
+			new MakeSequential(
+				new AutonOutake(0.7, 250),
+				//new WristVertical(), 
+				new WristAtElevatorPosition(ElevatorSubsystem.ElevatorPositions.SWITCH, 9001, 2),
+				new WristAtElevatorPosition(ElevatorSubsystem.ElevatorPositions.TOP, 24, 3), 
+				new AutonOutake(-1, 200)
+				/*//new Delay(500),
+				new SetElevatorPosition(ElevatorSubsystem.ElevatorPositions.TOP),
+				new WristOverTop(),*/
+				
+			),
+			new DriveProfile("/home/lvuser/LR4.csv")
+		));
+		addSequential(new AutonStopMotors());
 	}
 }
