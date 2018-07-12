@@ -308,7 +308,7 @@ public class Robot extends TimedRobot {
 	}
 	
 	public enum AutonChoice{
-		SCALE_SCALE, SCALE_SWITCH, COMPLIANT_SCALE, HALF_COMPLIANT;
+		SCALE_SCALE, SCALE_SWITCH, COMPLIANT_SCALE, HALF_COMPLIANT, SCALE_SCALE_SAFE, STAY_CLOSE;
 	}
 	// Auton Chooser handling
     public void nextAuton() {

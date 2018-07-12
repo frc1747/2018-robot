@@ -19,6 +19,7 @@ import org.usfirst.frc.team1747.robot.commands.OpenClaw;
 import org.usfirst.frc.team1747.robot.commands.ReleaseBuddyClimb;
 import org.usfirst.frc.team1747.robot.commands.ScaleDrop2;
 import org.usfirst.frc.team1747.robot.commands.SetElevatorPosition;
+import org.usfirst.frc.team1747.robot.commands.drive.DriveCurve;
 import org.usfirst.frc.team1747.robot.commands.drive.DriveProfile;
 import org.usfirst.frc.team1747.robot.commands.macro.ScaleDrop;
 import org.usfirst.frc.team1747.robot.commands.macro.TeleopScaleBackward;
@@ -167,7 +168,8 @@ public class OI {
 		operator.getDPad(Logitech.LEFT).whenPressed(new TeleopScaleForward());
 		operator.getButton(Logitech.BACK).whileHeld(new ElevateUp());
 		operator.getDPad(Logitech.UP).whenPressed(new TeleopSwitchHigh());
-//		operator.getDPad(Logitech.UP).whenPressed(new DriveProfile("/home/lvuser/SCLrT.csv"));
+//		operator.getDPad(Logitech.UP).whenPressed(new DriveProfile("/home/lvuser/LLSW0.csv"));
+//		operator.getDPad(Logitech.DOWN).whenPressed(new DriveCurve(2.3, 0));
 		operator.getDPad(Logitech.DOWN).whileHeld(new ReleaseBuddyClimb());
 	}
 	

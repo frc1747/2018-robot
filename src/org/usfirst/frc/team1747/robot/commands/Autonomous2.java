@@ -4,6 +4,7 @@ import org.usfirst.frc.team1747.robot.Robot.AutonChoice;
 import org.usfirst.frc.team1747.robot.Robot.AutonRobotPosition;
 import org.usfirst.frc.team1747.robot.commands.auton.AutonCL;
 import org.usfirst.frc.team1747.robot.commands.auton.AutonCR;
+import org.usfirst.frc.team1747.robot.commands.auton.AutonGoLBump;
 import org.usfirst.frc.team1747.robot.commands.auton.AutonLLC;
 import org.usfirst.frc.team1747.robot.commands.auton.AutonLL;
 import org.usfirst.frc.team1747.robot.commands.auton.AutonLL2;
@@ -13,6 +14,8 @@ import org.usfirst.frc.team1747.robot.commands.auton.AutonLR;
 import org.usfirst.frc.team1747.robot.commands.auton.AutonLRC;
 import org.usfirst.frc.team1747.robot.commands.auton.AutonLRL;
 import org.usfirst.frc.team1747.robot.commands.auton.AutonLRR;
+import org.usfirst.frc.team1747.robot.commands.auton.AutonLRS;
+import org.usfirst.frc.team1747.robot.commands.auton.AutonLSwitchOnly;
 import org.usfirst.frc.team1747.robot.commands.auton.AutonRL;
 import org.usfirst.frc.team1747.robot.commands.auton.AutonRLC;
 import org.usfirst.frc.team1747.robot.commands.auton.AutonRLL;
@@ -90,6 +93,23 @@ public class Autonomous2 extends CommandGroup {
     				}else if(scoringPositions[1] == 'R'){
     					addSequential(new AutonLRC());
     				}
+    			} else if(choice == AutonChoice.SCALE_SCALE_SAFE){
+    				if(scoringPositions[1] == 'L'){
+    					addSequential(new AutonLL2());
+    				}else if(scoringPositions[1] == 'R'){
+    					addSequential(new AutonLRS());
+//    					addSequential(new WristVertical());
+//    					addSequential(new DriveCurve(-12, 0));
+    					
+    				}
+    			} else if(choice == AutonChoice.STAY_CLOSE){
+    				if(scoringPositions[1] == 'L'){
+    					addSequential(new AutonLL2());
+    				}else if(scoringPositions[0] == 'L'){
+    					addSequential(new AutonLSwitchOnly(true));
+    				}else{
+    					addSequential(new AutonGoLBump());
+    				}
     			}
     			break;
     		case CENTER:
@@ -100,6 +120,9 @@ public class Autonomous2 extends CommandGroup {
     			}
     			break;
     		case RIGHT:
+    			/*
+    **************NO STAY_CLOSE OR SCALE_SCALE_SAFE PATHS AT THIS TIME***************** 
+    			 */
     			if(choice == AutonChoice.SCALE_SCALE){
     				if(scoringPositions[1] == 'L'){
     					addSequential(new AutonRL());

@@ -40,7 +40,7 @@ public class ManualElevator extends Command {
     	}else if(Math.abs(input) >= 0.01){
     		PIDEnabled = false;
     		elevator.setEnabled(false);
-    		elevator.setElevatorPower(input * 0.2);
+    		elevator.setElevatorPower(input * 0.2 + 0.09);
     	}
     }
 
