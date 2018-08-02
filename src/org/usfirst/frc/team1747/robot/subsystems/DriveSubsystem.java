@@ -74,7 +74,7 @@ public class DriveSubsystem extends HBRSubsystem<DriveSubsystem.Follower> {
 	public AHRS getGyro(){
 		return gyro;
 	}
-	public ADXRS450_Gyro  getGyro2(){
+	public ADXRS450_Gyro getGyro2(){
 		return gyro2;
 	}
 	//in degrees C

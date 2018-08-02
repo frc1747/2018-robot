@@ -24,7 +24,7 @@ public class DriveWithJoysticks extends Command {
 	private ElevatorSubsystem elevator = ElevatorSubsystem.getInstance();
 	
 	private final double s_v_max = 18;
-	private final double a_v_max = 8.6;
+	private final double a_v_max = 8;
 	
 	private final double lowFilter = -0.005;			//TODO: Tune these values
 	private final double highFilter = -0.0075;
@@ -107,7 +107,8 @@ public class DriveWithJoysticks extends Command {
        	drivetrain.setFeedback(DriveSubsystem.Follower.ANGLE, a_kp, 0, 0);
        	
        	speedSetpoint *= (mult * (6. / 7)) + (1. / 7);
-        angleSetpoint *= (0.55 + 0.45 / 20 * Math.abs(drivetrain.getAverageSpeed())) * ((mult * (1. / 2)) + (1. / 2));
+        angleSetpoint *= ((mult * (1. / 2)) + (1. / 2));
+//      angleSetpoint *= (0.55 + 0.45 / 20 * Math.abs(drivetrain.getAverageSpeed())) * ((mult * (1. / 2)) + (1. / 2));
     	/*} else {
     		drivetrain.setFeedforward(DriveSubsystem.Follower.DISTANCE, 0, 1 / s_v_max, 0);
         	drivetrain.setFeedback(DriveSubsystem.Follower.DISTANCE, lowFilter, 0, 0);

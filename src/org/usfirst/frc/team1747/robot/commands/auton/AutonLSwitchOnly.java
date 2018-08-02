@@ -21,32 +21,8 @@ import lib.frc1747.commands.MakeParallel;
 import lib.frc1747.commands.MakeSequential;
 
 public class AutonLSwitchOnly extends CommandGroup {
-
-    public AutonLSwitchOnly() {
-    	// Drive to switch side position
-    	addSequential(new MakeParallel(
-			new MakeSequential(
-				new WristVertical(),
-				new Delay(750),
-				new WristBottom(),
-				new SetElevatorPosition(ElevatorSubsystem.ElevatorPositions.SWITCH)
-			),
-			new DriveProfile("/home/lvuser/LLR0.csv")
-		));
-		addSequential(new AutonStopMotors());
-
-		// Do a 180 and drop the cube
-		addSequential(new MakeParallel(
-			new MakeSequential(
-				new Delay(800),
-				new AutonOutake()
-			),
-			new DriveCurve(0, 180)
-		));
-		addSequential(new AutonStopMotors());
-    }
     
-    public AutonLSwitchOnly(boolean deletThis){
+    public AutonLSwitchOnly(){
     	//path backwards to line up for first cube
     	addSequential(new MakeParallel(
     			new WristVertical(),
@@ -70,8 +46,7 @@ public class AutonLSwitchOnly extends CommandGroup {
     					new Delay(300),
     					new SetElevatorPosition(ElevatorSubsystem.ElevatorPositions.BOTTOM)
     			),
-    			new DriveCurve(-2, 0),
-    			new AutonOpenClaw()
+    			new DriveCurve(-2, 0)
     	));
     	addSequential(new AutonStopMotors());
     	
@@ -86,11 +61,41 @@ public class AutonLSwitchOnly extends CommandGroup {
     			new MakeSequential(
     					new Delay(200),
     					new SetElevatorPosition(ElevatorSubsystem.ElevatorPositions.SWITCH)
-    			),
+    				),
     			new DriveCurve(-0.5, 0)
     		));
     	addSequential(new AutonStopMotors());
     	
+    	addSequential(new MakeParallel(
+    			new MakeSequential(
+    					new Delay(500),
+    					new AutonOutake(-0.5, 360)
+    				),
+    			new DriveCurve(1.5, 0)
+    		));
+    	addSequential(new AutonStopMotors());
     	
+    	addSequential(new MakeParallel(
+    			new MakeSequential(
+    					new Delay(400),
+    					new SetElevatorPosition(ElevatorSubsystem.ElevatorPositions.BOTTOM)),
+    			new DriveCurve(-3, 0)
+    			));
+    	addSequential(new AutonStopMotors());
+    	
+    	addSequential(new MakeParallel(
+    			new Intake(),
+    			new DriveCurve(3, 50)
+    			));
+    	addSequential(new AutonStopMotors());
+    	
+    	addSequential(new MakeParallel(
+    			new MakeSequential(
+    					new Delay(400),
+    					new AutonOutake(-0.5, 360)
+    				),
+    			new DriveCurve(1, -50)
+    		));
+    	addSequential(new AutonStopMotors());
     }
 }

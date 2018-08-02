@@ -18,7 +18,7 @@ public class RobotMap {
 	public static final double DRIVE_ANGULAR_MAX_ERROR_POWER = 0.7;
 	public static final double ELEVATOR_MAX_ERROR_POWER = 0.5;
 	
-	public static final boolean ENABLE_AUTON_ERROR_DETECTION = false;
+	public static final boolean ENABLE_AUTON_ERROR_DETECTION = true;
 	
 	// For example to map the left and right motors, you could define the
 	// following variables to use with your drivetrain subsystem.
@@ -36,8 +36,8 @@ public class RobotMap {
 	public static final int[] LEFT_MOTOR_PORTS = {01, 02, 03, 04};
 	public static final int[] RIGHT_MOTOR_PORTS = {11, 12, 13, 14};
 	
-	public static final double LEFT_PRACTICE_SCALING = 1266.5 * 10.38/10.25 * 9.87/10.25;
-	public static final double RIGHT_PRACTICE_SCALING = 1264.8 * 10.38/10.25  * 9.87/10.25;
+	public static final double LEFT_PRACTICE_SCALING = 1266.5 * 10.38/10.25 * 9.87/10.25 * 5.35/5.125;
+	public static final double RIGHT_PRACTICE_SCALING = 1264.8 * 10.38/10.25  * 9.87/10.25 * 5.44/5.125;
 	public static final double LEFT_SCALING = 1266.5 * 10.1/10.27 * 10.4/10.25 * 10.1/10.25 * 10.33/10.25 * 10.4/10.25 * 10.11/10.25 * 10.35/10.25 * 10.37/10.25 * 10.34/10.25 * 9.88/10.25;
 	public static final double RIGHT_SCALING = 1264.8 * 10.12/10.27 * 10.4/10.25 * 10.1/10.25 * 10.4/10.25 * 10.4/10.25 * 10.05/10.25 * 10.33/10.25 * 10.33/10.25 * 10.31/10.25 * 10.29/10.25 * 9.90/10.25;
 	

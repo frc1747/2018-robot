@@ -26,7 +26,7 @@ public class AutonLL2 extends CommandGroup {
 				new Delay(1650),
 				new AutonOutake(0.7),
 				new WristAtElevatorPosition(ElevatorSubsystem.ElevatorPositions.TOP, 24, 3),
-				new AutonOutake(-1, 200)
+				new AutonOutake(-1, 300)
 			),
 			new DriveProfile("/home/lvuser/LL0.csv")
 		));
@@ -46,7 +46,7 @@ public class AutonLL2 extends CommandGroup {
 				new AutonOutake(0.7, 250),
 				new WristVertical(),
 				new WristAtElevatorPosition(ElevatorSubsystem.ElevatorPositions.TOP, 24, 3),
-				new AutonOutake(-1, 200)
+				new AutonOutake(-1, 300)
 			),
 			new DriveProfile("/home/lvuser/LL2.csv")
 		));
@@ -66,7 +66,7 @@ public class AutonLL2 extends CommandGroup {
 						new AutonOutake(0.7, 250),
 						new WristVertical(), 
 						new WristAtElevatorPosition(ElevatorSubsystem.ElevatorPositions.TOP, 24, 3), 
-						new AutonOutake(-1, 200)
+						new AutonOutake(-1, 300)
 						
 					),
 					new DriveProfile("/home/lvuser/LL4.csv")

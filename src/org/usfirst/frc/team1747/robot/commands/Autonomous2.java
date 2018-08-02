@@ -5,6 +5,7 @@ import org.usfirst.frc.team1747.robot.Robot.AutonRobotPosition;
 import org.usfirst.frc.team1747.robot.commands.auton.AutonCL;
 import org.usfirst.frc.team1747.robot.commands.auton.AutonCR;
 import org.usfirst.frc.team1747.robot.commands.auton.AutonGoLBump;
+import org.usfirst.frc.team1747.robot.commands.auton.AutonGoRBump;
 import org.usfirst.frc.team1747.robot.commands.auton.AutonLLC;
 import org.usfirst.frc.team1747.robot.commands.auton.AutonLL;
 import org.usfirst.frc.team1747.robot.commands.auton.AutonLL2;
@@ -25,6 +26,7 @@ import org.usfirst.frc.team1747.robot.commands.auton.AutonRR2;
 import org.usfirst.frc.team1747.robot.commands.auton.AutonRRC;
 import org.usfirst.frc.team1747.robot.commands.auton.AutonRRL;
 import org.usfirst.frc.team1747.robot.commands.auton.AutonRRR;
+import org.usfirst.frc.team1747.robot.commands.auton.AutonRSwitchOnly;
 import org.usfirst.frc.team1747.robot.commands.drive.DriveCurve;
 import org.usfirst.frc.team1747.robot.commands.reset.ZeroElevatorEncoder;
 import org.usfirst.frc.team1747.robot.commands.reset.ZeroSensors;
@@ -84,8 +86,13 @@ public class Autonomous2 extends CommandGroup {
     			}else if(choice == AutonChoice.COMPLIANT_SCALE){
 					if(scoringPositions[1] == 'L'){
     					addSequential(new AutonLLC());
-    				}else if(scoringPositions[1] == 'R'){
+    				/*}else if(scoringPositions[1] == 'R'){
     					addSequential(new AutonLRC());
+    				}*/
+					}else if(scoringPositions[0] == 'L'){
+    					addSequential(new AutonLSwitchOnly());
+    				}else{
+    					addSequential(new AutonGoLBump());
     				}
     			}else if(choice == AutonChoice.HALF_COMPLIANT){
     				if(scoringPositions[1] == 'L'){
@@ -106,7 +113,7 @@ public class Autonomous2 extends CommandGroup {
     				if(scoringPositions[1] == 'L'){
     					addSequential(new AutonLL2());
     				}else if(scoringPositions[0] == 'L'){
-    					addSequential(new AutonLSwitchOnly(true));
+    					addSequential(new AutonLSwitchOnly());
     				}else{
     					addSequential(new AutonGoLBump());
     				}
@@ -121,7 +128,7 @@ public class Autonomous2 extends CommandGroup {
     			break;
     		case RIGHT:
     			/*
-    **************NO STAY_CLOSE OR SCALE_SCALE_SAFE PATHS AT THIS TIME***************** 
+    **************NO SCALE_SCALE_SAFE PATHS AT THIS TIME***************** 
     			 */
     			if(choice == AutonChoice.SCALE_SCALE){
     				if(scoringPositions[1] == 'L'){
@@ -159,6 +166,16 @@ public class Autonomous2 extends CommandGroup {
     				}else if(scoringPositions[1] == 'L'){
     					addSequential(new AutonRLC());
     				}
+    			}else if(choice == AutonChoice.STAY_CLOSE){
+    				if(scoringPositions[1] == 'R'){
+    					addSequential(new AutonRR2());
+    				}else if(scoringPositions[0] == 'R'){
+    					addSequential(new AutonRSwitchOnly());
+    				}else{
+    					addSequential(new AutonGoRBump());
+    				}
+    			}else if(choice == AutonChoice.SCALE_SCALE_SAFE){
+    				System.out.println("why tho");
     			}
     			break;
     	}
