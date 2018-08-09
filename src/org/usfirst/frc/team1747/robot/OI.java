@@ -167,8 +167,8 @@ public class OI {
 		operator.getDPad(Logitech.RIGHT).whenPressed(new TeleopSwitch());
 		operator.getDPad(Logitech.LEFT).whenPressed(new TeleopScaleForward());
 		operator.getButton(Logitech.BACK).whileHeld(new ElevateUp());
-		operator.getDPad(Logitech.UP).whenPressed(new TeleopSwitchHigh());
-//		operator.getDPad(Logitech.UP).whenPressed(new DriveProfile("/home/lvuser/LLSW0.csv"));
+//		operator.getDPad(Logitech.UP).whenPressed(new TeleopSwitchHigh());
+		operator.getDPad(Logitech.UP).whenPressed(new DriveProfile("/home/lvuser/S-Curve-Left.csv"));
 //		operator.getDPad(Logitech.DOWN).whenPressed(new DriveCurve(2.3, 0));
 		operator.getDPad(Logitech.DOWN).whileHeld(new ReleaseBuddyClimb());
 	}

@@ -29,7 +29,7 @@ public class DriveWithJoysticks extends Command {
 	private final double lowFilter = -0.005;			//TODO: Tune these values
 	private final double highFilter = -0.0075;
 
-	private final double a_kp = -0.02;
+	private final double a_kp = 0.04;
 	
 	double speedSetpoint;
 	double angleSetpoint;
@@ -62,8 +62,8 @@ public class DriveWithJoysticks extends Command {
     	drivetrain.setMode(DriveSubsystem.Follower.ANGLE, HBRSubsystem.Mode.PID);
     	drivetrain.setPIDMode(DriveSubsystem.Follower.ANGLE, HBRSubsystem.PIDMode.VELOCITY);
     	drivetrain.setILimit(DriveSubsystem.Follower.ANGLE, 0);
-    	drivetrain.setFeedforward(DriveSubsystem.Follower.ANGLE, 0, 1 / a_v_max, 0);
-    	drivetrain.setFeedback(DriveSubsystem.Follower.ANGLE, a_kp, 0, 0);
+    	drivetrain.setFeedforward(DriveSubsystem.Follower.ANGLE, 0, 0.07, 0);
+    	drivetrain.setFeedback(DriveSubsystem.Follower.ANGLE, a_kp, 0, 0.02);
 		drivetrain.resetIntegrator(DriveSubsystem.Follower.ANGLE);
 		
 		drivetrain.setEnabled(true);
@@ -103,8 +103,8 @@ public class DriveWithJoysticks extends Command {
    		drivetrain.setFeedforward(DriveSubsystem.Follower.DISTANCE, 0, 1 / s_v_max, 0);
        	drivetrain.setFeedback(DriveSubsystem.Follower.DISTANCE, lowFilter, 0, 0);
        	
-       	drivetrain.setFeedforward(DriveSubsystem.Follower.ANGLE, 0, 1 / a_v_max, 0);
-       	drivetrain.setFeedback(DriveSubsystem.Follower.ANGLE, a_kp, 0, 0);
+       	//drivetrain.setFeedforward(DriveSubsystem.Follower.ANGLE, 0, 1 / a_v_max, 0);
+       	//drivetrain.setFeedback(DriveSubsystem.Follower.ANGLE, a_kp, 0, 0);
        	
        	speedSetpoint *= (mult * (6. / 7)) + (1. / 7);
         angleSetpoint *= ((mult * (1. / 2)) + (1. / 2));

@@ -29,7 +29,7 @@ public class DriveProfile extends Command {
     		profiles[1][i][0] += angularOffset;
     	}
     	
-    	// Setup left side
+    	//Setup Distance
     	drive.setMode(DriveSubsystem.Follower.DISTANCE, HBRSubsystem.Mode.FOLLOWER);
     	drive.setPIDMode(DriveSubsystem.Follower.DISTANCE, HBRSubsystem.PIDMode.POSITION);
     	drive.setILimit(DriveSubsystem.Follower.DISTANCE, 0);
@@ -40,14 +40,16 @@ public class DriveProfile extends Command {
     	drive.resetIntegrator(DriveSubsystem.Follower.DISTANCE);
     	drive.setProfile(DriveSubsystem.Follower.DISTANCE, profiles[0]);
     	
-    	// Setup right side
+    	//Setup Angle
     	drive.setMode(DriveSubsystem.Follower.ANGLE, HBRSubsystem.Mode.FOLLOWER);
     	drive.setPIDMode(DriveSubsystem.Follower.ANGLE, HBRSubsystem.PIDMode.POSITION);
     	drive.setILimit(DriveSubsystem.Follower.ANGLE, 0);
 //    	drive.setFeedforward(DriveSubsystem.Follower.ANGLE, 0, GambeziDashboard.get_double("Drive/Angle/kV"), GambeziDashboard.get_double("Drive/Angle/kA"));
-    	drive.setFeedforward(DriveSubsystem.Follower.ANGLE, 0, .18, .02);
+    	//old values: drive.setFeedforward(DriveSubsystem.Follower.ANGLE, 0, .18, .02);
+    	drive.setFeedforward(DriveSubsystem.Follower.ANGLE, 0, .09, .02);
 //    	drive.setFeedback(DriveSubsystem.Follower.ANGLE, GambeziDashboard.get_double("Drive/Angle/kP"), GambeziDashboard.get_double("Drive/Angle/kI"), GambeziDashboard.get_double("Drive/Angle/kD"));
-    	drive.setFeedback(DriveSubsystem.Follower.ANGLE, 1.7, 0, 0.07);
+    	//old values: drive.setFeedback(DriveSubsystem.Follower.ANGLE, 1.7, 0, 0.07);
+    	drive.setFeedback(DriveSubsystem.Follower.ANGLE, 1.7, 0, 0.10);
     	drive.resetIntegrator(DriveSubsystem.Follower.ANGLE);
     	drive.setProfile(DriveSubsystem.Follower.ANGLE, profiles[1]);
     	    	
