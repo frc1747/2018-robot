@@ -1,5 +1,6 @@
 package org.usfirst.frc.team1747.robot.commands.drive;
 
+import org.usfirst.frc.team1747.robot.RobotType;
 import org.usfirst.frc.team1747.robot.subsystems.DriveSubsystem;
 import lib.frc1747.subsytems.HBRSubsystem;
 import com.tigerhuang.gambezi.dashboard.*;
@@ -45,11 +46,17 @@ public class DriveProfile extends Command {
     	drive.setPIDMode(DriveSubsystem.Follower.ANGLE, HBRSubsystem.PIDMode.POSITION);
     	drive.setILimit(DriveSubsystem.Follower.ANGLE, 0);
 //    	drive.setFeedforward(DriveSubsystem.Follower.ANGLE, 0, GambeziDashboard.get_double("Drive/Angle/kV"), GambeziDashboard.get_double("Drive/Angle/kA"));
-    	//old values: drive.setFeedforward(DriveSubsystem.Follower.ANGLE, 0, .18, .02);
-    	drive.setFeedforward(DriveSubsystem.Follower.ANGLE, 0, .09, .02);
+    	if(RobotType.getInstance().getJumper().get()){
+        	drive.setFeedforward(DriveSubsystem.Follower.ANGLE, 0, .18, .02);
+    	}else{
+        	drive.setFeedforward(DriveSubsystem.Follower.ANGLE, 0, .09, .02);
+    	}
 //    	drive.setFeedback(DriveSubsystem.Follower.ANGLE, GambeziDashboard.get_double("Drive/Angle/kP"), GambeziDashboard.get_double("Drive/Angle/kI"), GambeziDashboard.get_double("Drive/Angle/kD"));
-    	//old values: drive.setFeedback(DriveSubsystem.Follower.ANGLE, 1.7, 0, 0.07);
-    	drive.setFeedback(DriveSubsystem.Follower.ANGLE, 1.7, 0, 0.10);
+    	if(RobotType.getInstance().getJumper().get()){
+        	drive.setFeedback(DriveSubsystem.Follower.ANGLE, 1.7, 0, 0.07);
+    	}else{
+        	drive.setFeedback(DriveSubsystem.Follower.ANGLE, 1.7, 0, 0.10);
+    	}
     	drive.resetIntegrator(DriveSubsystem.Follower.ANGLE);
     	drive.setProfile(DriveSubsystem.Follower.ANGLE, profiles[1]);
     	    	

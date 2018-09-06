@@ -166,7 +166,7 @@ public class DriveSubsystem extends HBRSubsystem<DriveSubsystem.Follower> {
 			talon.set(ControlMode.PercentOutput, power);
 			for(int i = 0; i < 3; i++) {
 				motors[i].set(ControlMode.PercentOutput, power);
-				//victor 4 might go bad soon
+//				victor 4 might go bad soon
 			}
 			
 		}

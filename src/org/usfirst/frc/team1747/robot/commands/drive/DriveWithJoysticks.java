@@ -2,6 +2,7 @@ package org.usfirst.frc.team1747.robot.commands.drive;
 
 import org.usfirst.frc.team1747.robot.OI;
 import org.usfirst.frc.team1747.robot.RobotMap;
+import org.usfirst.frc.team1747.robot.RobotType;
 import org.usfirst.frc.team1747.robot.subsystems.DriveSubsystem;
 import org.usfirst.frc.team1747.robot.subsystems.ElevatorSubsystem;
 
@@ -26,10 +27,12 @@ public class DriveWithJoysticks extends Command {
 	private final double s_v_max = 18;
 	private final double a_v_max = 8;
 	
-	private final double lowFilter = -0.005;			//TODO: Tune these values
+	private final double lowFilter = -0.011;			//TODO: Tune these values
 	private final double highFilter = -0.0075;
+	private double a_kp = 0;
+	
 
-	private final double a_kp = 0.04;
+	
 	
 	double speedSetpoint;
 	double angleSetpoint;
@@ -38,18 +41,16 @@ public class DriveWithJoysticks extends Command {
     public DriveWithJoysticks() {
     	requires(drivetrain = DriveSubsystem.getInstance());
     	setInterruptible(true);
-//    	this.operator = operator;
-    	/*logger.registerDouble("Left Speed", true, true);
-		logger.registerDouble("Right Speed", true, true);
-	  	logger.registerDouble("Left Position", true, true);
-		logger.registerDouble("Right Position", true, true);
-	 	logger.registerDouble("Left Acceleration", true, true);
-		logger.registerDouble("Right Acceleration", true, true);
-		logger.registerDouble("Drive Angle", true, true);*/
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
+    	
+    	if(RobotType.getInstance().getJumper().get()){
+    		a_kp = -0.02;
+    	}else{
+    		a_kp = 0.04;
+    	}
     	//setup velocity PID
     	drivetrain.setMode(DriveSubsystem.Follower.DISTANCE, HBRSubsystem.Mode.PID);
     	drivetrain.setPIDMode(DriveSubsystem.Follower.DISTANCE, HBRSubsystem.PIDMode.VELOCITY);
@@ -62,8 +63,12 @@ public class DriveWithJoysticks extends Command {
     	drivetrain.setMode(DriveSubsystem.Follower.ANGLE, HBRSubsystem.Mode.PID);
     	drivetrain.setPIDMode(DriveSubsystem.Follower.ANGLE, HBRSubsystem.PIDMode.VELOCITY);
     	drivetrain.setILimit(DriveSubsystem.Follower.ANGLE, 0);
-    	drivetrain.setFeedforward(DriveSubsystem.Follower.ANGLE, 0, 0.07, 0);
-    	drivetrain.setFeedback(DriveSubsystem.Follower.ANGLE, a_kp, 0, 0.02);
+    	if(RobotType.getInstance().getJumper().get()){
+        	drivetrain.setFeedforward(DriveSubsystem.Follower.ANGLE, 0, 1/a_v_max, 0); //should be 0.07
+    	}else{
+        	drivetrain.setFeedforward(DriveSubsystem.Follower.ANGLE, 0, 0.06, 0); //should be 0.07
+    	}
+    	drivetrain.setFeedback(DriveSubsystem.Follower.ANGLE, a_kp, 0, 0);
 		drivetrain.resetIntegrator(DriveSubsystem.Follower.ANGLE);
 		
 		drivetrain.setEnabled(true);
