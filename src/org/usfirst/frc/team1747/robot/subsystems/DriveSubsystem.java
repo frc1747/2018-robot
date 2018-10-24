@@ -167,8 +167,7 @@ public class DriveSubsystem extends HBRSubsystem<DriveSubsystem.Follower> {
 			for(int i = 0; i < 3; i++) {
 				motors[i].set(ControlMode.PercentOutput, power);
 //				victor 4 might go bad soon
-			}
-			
+			}			
 		}
 		
 		public void resetEncoder() {

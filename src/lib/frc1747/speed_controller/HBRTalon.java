@@ -5,7 +5,6 @@ import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
 public class HBRTalon extends TalonSRX {
 	private static final double READ_TIME = 0.1; // Seconds
-	
 	private double scaling = 1;
 	private boolean sensorPhase = false;
 
